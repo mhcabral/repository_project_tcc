@@ -1,0 +1,35 @@
+PBI_45 Período de Inscrição em Estágio
+Ator: Coordenador de Curso
+
+
+%Este PBI é uma adição ao PBI_40 - Cadastro de Período Letivos
+%Serão adicionados campos nesta funcionalidade que contemplem o período de inscrição em estágio
+%Segue a nova configuração do mesmo
+
+Tela #1 Listagem
+
+Campos a serem exibidos: Código(Ex: 2012/2), Início, Fim, Início Matrícula, Fim Matrícula, Início Estágio, Fim Estágio
+
+Funções: Incluir, Excluir e Editar
+
+
+Tela #2 Inclusão/Edição
+
+Campos a serem exibidos:
+
+-Código (Texto; Tamanho 7; Obrigatório)
+-Início (Data; Formato dd/mm/yyyy; Obrigatório)
+-Fim (Data; Formato dd/mm/yyyy; Obrigatório)
+-Início Matrícula (Data; Formato dd/mm/yyyy; Obrigatório)
+-Fim Matrícula (Data; Formato dd/mm/yyyy; Obrigatório)
+-Início Estágio (Data; Formato dd/mm/yyyy; Obrigatório)
+-Fim Estágio (Data; Formato dd/mm/yyyy; Obrigatório)
+
+
+Funções:  Salvar, Voltar
+
+Regras de Negócio
+-Fim >= Início (Para todos os campos de data)
+-Fim Matrícula >= Início Matrícula
+-Intervalo do Períodos nao devem se sobrepor
+-Intervalo de Matrícula(Início/Fim Matrícula) deve estar dentro do Intervalo do Período(Início/Fim)

@@ -1,0 +1,20 @@
+PBI_36	Gerenciamento de Disciplinas
+Ator: Administrador
+
+Tela #1 Listagem
+
+Campos a serem exibidos: Código, Descrição
+
+Funções: Incluir, Editar, Excluir
+
+
+Tela #2 Inclusão/Edição
+
+Campos a serem exibidos:
+
+-Código (Inteiro Positivo, Obrigatório)
+-Descrição (Texto, Tamanho: 200, Obrigatório)
+
+Funções:  Salvar, Voltar
+
+

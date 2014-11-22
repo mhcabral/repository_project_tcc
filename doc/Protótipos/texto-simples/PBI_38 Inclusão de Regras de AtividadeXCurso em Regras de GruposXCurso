@@ -1,0 +1,31 @@
+PBI_38	Gerenciamento de Regras de "AtividadeXCurso" como detalhamento, dentro do Gerenciamento de Regras de "GruposXCurso";
+Dependência: PBI_37
+Ator:Coordenador de Curso
+
+Tela #1 Listagem de Regras
+
+Adicionar ao PBI_37 - Tela #1 a função "Atividades"
+
+*Esta função atividades Chamará a Tela #2
+
+
+Tela #2 Listagem de Regras AtividadesxCurso
+
+*Linkar o Gerenciamento de Regras AtividadesxCurso ao botão da Tela #1.
+
+*Exibir no cabeçalho código e nome do Grupo selecionado na Tela#1
+
+Campos exibidos na listagem:
+
+Atividade, Max de horas.
+
+
+Tela #3 Inclusão/Edição de Regras AtividadesxCurso
+
+Campos exibidos:
+
+Atividade (Combobox em Atividades; Formato "Cód. Atividade - Atividade"; Obrigatório)
+
+Max. de horas (Inteiro Positivo; Obrigatório)
+
+

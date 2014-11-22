@@ -1,0 +1,22 @@
+PBI_37 - Para o Coordenador de Curso: Gerenciamento de Regras "GrupoXCurso";
+Ator:Coordenador de Curso
+
+Tela #1 Listagem de Regras
+
+Campos a serem exibidos: Grupo, Max. horas
+
+Funções: Incluir, Excluir e Editar
+
+
+Tela #2 Inclusão/Edição de Regras
+
+Campos a serem exibidos:
+
+-Grupo (Combobox em Grupos; formato "Código - Nome do Grupo"; Obrigatório)
+-Max. Horas (Inteiro Positivo; Obrigatório)
+
+Funções:  Salvar, Voltar
+
+Regras de Negócio
+-Campo Max. de Horas não deve ultrapassar o máximo de horas do curso
+

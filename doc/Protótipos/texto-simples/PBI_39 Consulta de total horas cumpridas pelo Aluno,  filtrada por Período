@@ -1,0 +1,18 @@
+PBI_39	Consulta de total horas cumpridas pelo Aluno,  filtrada por Período;
+Ator:Coordenador de Curso
+
+
+Tela #1 Listagem de horas cumpridas
+
+Filtros:
+
+*Nome do Aluno (AutoComplete em Alunos)
+*Período (AutoComplete em Alunos, Obrigatório, Setar com o Período Atual) ;
+
+Campos no Cabeçalho: Período
+  
+Campos a serem exibidos: Matrícula, Nome do Aluno, Categorias {Ensino, Pesquisa, Extensão}
+
+Campos no Rodapé: Total por Categorias (Sumarização de {Ensino, Pesquisa, Extensão})
+
+Funções: Voltar

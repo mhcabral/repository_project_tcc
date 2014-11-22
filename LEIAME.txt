@@ -1,0 +1,29 @@
+O projeto está dividido em subdiretórios.
+
+1- A documentação de projeto está em "doc"
+
+Em Requisitos, Diagramas e Protótipos temos a documentação das funcionalidades.
+
+Na pasta Gerenciamento temos os dados relativos à gestão de projeto. A partir do sprint #4, trocamos a forma de controlar as atividades, que saíram da planilha de requisitos e vieram para a planilha de Product BackLog.
+
+A pasta testes e a planilha de requisitos na pasta "Requisitos" contém o planejamento e execução de testes.
+
+
+2- O código fonte está em "src" e as bibliotecas necessárias para desenvolvimento estão em "lib" e o 
+
+O sistema foi desenvolvido em uma arquitetura MVC, usando o Hibernate/JPA 2.0 para acesso aos dados e o VRaptor framework para criação dos controllers e inteconexão entre as camadas.
+
+As tecnologias e padrões de projeto envolvidos, de forma resumida, incluem:
+
+No model:
+JPA, Hibernate, JPQL, Annotations, Criteria, PostgresQSQL, DAO
+
+No Controller:
+Vraptor, Spring, Injeção de Dependências, acesso a methodos via REST, Sessions, Interceptors
+
+Na View:
+
+JSP, CSS, JQuery, Decorators, JSON, Ajax
+
+3- Para a primeira utilizaçao será necessário executar o script postgreSQL de preenchimento de dados presente em dat/scriptInicial.sql
+

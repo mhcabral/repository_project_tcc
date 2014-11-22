@@ -1,0 +1,25 @@
+PBI_50 Análise Final de Estágio
+Ator: Coordenador de Curso
+
+
+Tela #1 listagem de Estágios
+
+Filtros:
+
+*Período (Combobox, Obrigatório, Setar com o Período Atual) ;
+*Aluno (Combobox, Obrigatório, Setar com o Período Atual) ;
+
+Campos a serem exibidos: Período, Aluno, Empresa
+
+Funções: Analisar
+
+Tela #2 Análise de Estágios
+
+Campos a serem exibidos: Período, Aluno, Empresa, Termo de Compromisso, Frequências, Relatório Final
+
+Funções: Aprovar, Reprovar
+
+
+
+Regras de Negócio
+ Ao aprovar um estágio, o mesmo deverá ter sua situação mudada para "Realizado"

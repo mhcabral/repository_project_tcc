@@ -1,0 +1,27 @@
+PBI_46	Inscrição em Estágio
+Ator: Aluno
+
+Tela #1 Listagem
+
+Campos a serem exibidos: Período, Empresa, Situação
+
+Funções: Incluir, Excluir e Editar
+
+
+Tela #2 Inclusão/Edição
+
+Campos a serem exibidos:
+
+-Termo de Compromisso (Upload, Obrigatório)
+-Empresa (Texto, Tamanho 255, Obrigatório)
+-Convênio (Booleano, Obrigatório)
+-Ficha de Cadastro de Empresa (Upload, Opcional)
+
+Funções:  Salvar, Voltar
+
+Regras de Negócio
+ Período de inscrição em estágio deve estar aberto
+ Upload de Ficha de Cadastro de Empresa só será habilitado se Convênio=false
+ Termo de Compromisso e Ficha de Cadastro de Empresa devem estar em formato pdf
+de tamanho máximo 5Mb
+ Ao cadastrar um estágio, o mesmo deverá ter sua situação mudada para "Pendente"

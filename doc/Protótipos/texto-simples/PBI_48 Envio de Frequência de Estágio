@@ -1,0 +1,30 @@
+PBI_48 Envio de Frequência de Estágio
+Ator: Aluno
+
+Tela #1 Listagem
+
+Campos a serem exibidos: Período, Empresa
+
+Funções: Incluir, Excluir e Editar
+
+
+Tela #2 Calendário - Exibe calendário mensal com datas disponíveis para preenchimento de frequência
+
+ Funções:  Adicionar, Remover
+
+ Adicionar ->Abre Tela #3 para adição de nova frequência no dia selecionado
+ Remover ->Remove frequência previamente cadastrada no dia selecionado
+
+
+Tela #3 Inclusão/Edição
+
+ Campos a serem exibidos:
+
+-Total de Horas (Inteiro positivo; Obrigatório)
+-Atividades Realiadas (Texto de tamanho 255; Obrigatório)
+
+ Funções:  OK, Cancelar
+
+
+Regras de Negócio
+ Prazo de envio deve estar aberto (dia 25 ao último dia do mês)

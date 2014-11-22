@@ -1,0 +1,17 @@
+PBI_42	Gráfico de Atividades mais realizadas, filtrado por período
+Ator:Coordenador de Curso
+
+
+Tela #1 Gráfico AtividadeXPeríodo
+
+Filtros:
+
+*Período (Combobox, Obrigatório, Setar com o Período Atual) ;
+
+Campos no Cabeçalho: Período (No caso de impressão)
+  
+Gráfico de Pizza sumarizando número de Solicitações realizadas por Atividade
+
+Campos no Rodapé: Total de Solicitações
+
+Funções: Voltar

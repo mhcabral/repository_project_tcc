@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9688425d-02d4-4b68-8db0-244a784ed812">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="imgUfam" class="java.lang.Object"/>
+	<parameter name="imgBrasao" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="curso" class="java.lang.String">
+		<fieldDescription><![CDATA[monitoria.curso.curso]]></fieldDescription>
+	</field>
+	<field name="nome_1" class="java.lang.String">
+		<fieldDescription><![CDATA[monitoria.professor.usuario.nome]]></fieldDescription>
+	</field>
+	<field name="nome_2" class="java.lang.String">
+		<fieldDescription><![CDATA[monitoria.disciplina.nome]]></fieldDescription>
+	</field>
+	<field name="turma" class="java.lang.Integer">
+		<fieldDescription><![CDATA[monitoria.turma]]></fieldDescription>
+	</field>
+	<field name="vagas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[monitoria.vagas]]></fieldDescription>
+	</field>
+	<field name="nomeAluno" class="java.lang.String">
+		<fieldDescription><![CDATA[inscrito.nomeAluno]]></fieldDescription>
+	</field>
+	<field name="codigo_1" class="java.lang.String">
+		<fieldDescription><![CDATA[monitoria.curso.codigo]]></fieldDescription>
+	</field>
+	<field name="codigo_2" class="java.lang.String">
+		<fieldDescription><![CDATA[monitoria.disciplina.codigo]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ff3e2b66-a6c2-4029-aee8-d84fa2c431b8" x="134" y="50" width="286" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO AMAZONAS]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="07a8bcb4-594a-4125-a269-b26287cee2a4" x="24" y="107" width="509" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="59e8c18c-1e69-4c1b-a95a-79b71d11e2cd" x="207" y="10" width="142" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Poder Executivo]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="07a8bcb4-594a-4125-a269-b26287cee2a4" x="10" y="107" width="535" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="6f1d798f-b29f-4517-9ea3-fb720c01192f" x="169" y="30" width="212" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO DA EDUCAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f69af31e-403f-440e-8870-43b709c07fd1" x="134" y="70" width="286" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO DE COMPUTAÇÃO]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="5c2a0d66-125c-4398-a6fb-0e879809de8d" x="462" y="10" width="83" height="90"/>
+				<imageExpression><![CDATA[$P{imgUfam}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="30fb65b2-9fe4-432b-b330-785c1aec6c7b" x="10" y="10" width="88" height="80"/>
+				<imageExpression><![CDATA[$P{imgBrasao}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<line>
+				<reportElement uuid="07a8bcb4-594a-4125-a269-b26287cee2a4" x="24" y="40" width="509" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="07a8bcb4-594a-4125-a269-b26287cee2a4" x="10" y="40" width="535" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="9d4abc0a-7de0-4a68-85fc-3f5a35fd2b23" x="65" y="0" width="397" height="40"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lista de Monitorias]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5955f7d3-e8b1-4f7c-9771-4bb921cfcf11" x="3" y="0" width="166" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="779a3ca3-eee9-4690-b5e5-77fecafd3478" x="169" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Professor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6dce3fba-e9a5-42dc-825a-fed5c23a88cf" x="269" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disciplina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2b615e79-394d-4abe-9ce5-e2c5358be16b" x="369" y="0" width="38" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="05aa8081-7f9e-456b-b287-5b605589465f" x="407" y="0" width="42" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vagas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="815dda0c-3e01-4244-8b5b-0912b9768bca" x="449" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aluno]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement uuid="6ed2a192-48c7-4ec9-914b-053fceb68112" x="3" y="0" width="166" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{codigo_1} + " " + $F{curso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c6268172-85a8-4f4a-b9be-fd7f6bd74b46" x="169" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nome_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0e332f66-4a21-456e-8ea8-a1aa14bf4473" x="368" y="0" width="39" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{turma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4c74651c-03f5-450a-bf49-bfbd4ec6e443" x="407" y="0" width="42" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{vagas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d7767753-fc86-431f-8ecb-15015523c0fc" x="269" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{codigo_2} + " " + $F{nome_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5e57e960-0feb-47ce-9a7b-943f0c839a59" x="449" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nomeAluno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="40" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

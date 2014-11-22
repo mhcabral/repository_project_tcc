@@ -1,0 +1,17 @@
+PBI_51 Consulta de Estágios
+Ator: Coordenador de Curso
+
+
+Tela #1 Filtragem de Estágios
+
+Filtros:
+
+Período (Combobox, Obrigatório, Setar com o Período Atual) 
+Aluno (Combobox, Opcional)
+Situaçao (Combobox, Opcional)  
+
+Campos no Cabeçalho: Período e Curso (No caso de impressão)
+
+Campos de Detalhe: Período, Aluno, Empresa, Situação 
+
+Funções: Voltar

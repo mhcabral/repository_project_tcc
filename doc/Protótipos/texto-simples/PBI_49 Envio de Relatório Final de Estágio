@@ -1,0 +1,24 @@
+PBI_49 Envio de Relatório Final de Estágio
+Ator:Aluno
+
+
+Tela #1 Listagem
+
+Campos a serem exibidos: Período, Empresa
+
+Funções: Enviar Relatório Final
+
+
+Tela #2 Inclusão/Edição
+
+Campos a serem exibidos:
+
+-Relatório Final (Upload, Obrigatório)
+
+Funções:  Concluir, Voltar
+
+Regras de Negócio
+
+ Mostrar apenas estágios em Andamento na listagem da Tela #1
+ Relatório final deve estar em formato pdf de tamanho máximo 5Mb
+ Ao enviar o Relatório Final, o estágio deverá ter sua situação mudada para "Em análise"

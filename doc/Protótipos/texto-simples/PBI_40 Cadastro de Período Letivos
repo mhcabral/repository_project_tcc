@@ -1,0 +1,28 @@
+PBI_40	Cadastro de Período Letivos
+Ator:Administrador
+
+Tela #1 Listagem
+
+Campos a serem exibidos: Código(Ex: 2012/2), Início, Fim, Início Matrícula, Fim Matrícula
+
+Funções: Incluir, Excluir e Editar
+
+
+Tela #2 Inclusão/Edição
+
+Campos a serem exibidos:
+
+-Código (Texto; Tamanho 7; Obrigatório)
+-Início (Data; Formato dd/mm/yyyy; Obrigatório)
+-Fim (Data; Formato dd/mm/yyyy; Obrigatório)
+-Início Matrícula (Data; Formato dd/mm/yyyy; Obrigatório)
+-Fim Matrícula (Data; Formato dd/mm/yyyy; Obrigatório)
+
+Funções:  Salvar, Voltar
+
+Regras de Negócio
+-Fim >= Início
+-Fim Matrícula >= Início Matrícula
+-Intervalo do Períodos nao devem se sobrepor
+-Intervalo de Matrícula(Início/Fim Matrícula) deve estar dentro do Intervalo do Período(Início/Fim)
+
