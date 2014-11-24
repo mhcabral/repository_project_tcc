@@ -1,25 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufam.icomp.tcc.controllers;
 
 import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
-import br.edu.ufam.icomp.projeto4.SessionData;
-import br.edu.ufam.icomp.projeto4.dao.PeriodoLetivoDAO;
+import br.edu.ufam.icomp.projeto4.dao.CursoDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
-import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
-import br.edu.ufam.icomp.tcc.dao.TccAtividadeDAO;
-import br.edu.ufam.icomp.tcc.model.TccAtividade;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import br.edu.ufam.icomp.projeto4.model.Curso;
+import br.edu.ufam.icomp.tcc.dao.TccTemaDAO;
+import br.edu.ufam.icomp.tcc.model.TccTema;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -28,52 +22,95 @@ import java.util.List;
 
 @Resource
 @Permission({Perfil.ALUNO, Perfil.COORDENADOR, Perfil.COORDENADORACAD, Perfil.PROFESSOR, Perfil.ROOT, Perfil.SECRETARIA})
-public class TccAtividadeController {
+public class TccTemaController {
     private final Result result;
-    private final TccAtividadeDAO tccAtividadeDAO;
+    private final HttpServletRequest request;
     private final Validator validator;
-    private SessionData sessionData;
-    private PeriodoLetivoDAO periodoLetivoDAO;
+    private final TccTemaDAO tccTemaDAO;
+    private final CursoDAO cursoDAO;
     
-    public TccAtividadeController (Result result,TccAtividadeDAO tccAtividadeDAO, Validator validator,
-    PeriodoLetivoDAO periodoLetivoDAO, SessionData sessionData){
+    public TccTemaController (Result result,TccTemaDAO tccTemaDAO, Validator validator, CursoDAO cursoDAO, HttpServletRequest request){
         this.result = result;
-        this.tccAtividadeDAO = tccAtividadeDAO;
         this.validator = validator;
-        this.periodoLetivoDAO = periodoLetivoDAO;
-        this.sessionData = sessionData;
+        this.tccTemaDAO = tccTemaDAO;
+        this.cursoDAO = cursoDAO;
+        this.request = request;
     }
 
 
-    @Get("/tccAtividade/{idperiodo}/index")
-    public void index(Long idperiodo) {
-        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
-        System.out.println("Periodo: "+idperiodo);
-        if (idperiodo > 0)
-            periodoAtual = periodoLetivoDAO.findById(idperiodo);
+    @Get("/tccTema/index")
+    public void index() {
+             
+        List<TccTema> tccTema = this.tccTemaDAO.findAll();
         
-        List<TccAtividade> tccAtividade = this.tccAtividadeDAO.findByPeriodo(periodoAtual.getId());
-        List<PeriodoLetivo> periodosLetivos = periodoLetivoDAO.listLetivoAnterior();
-        periodosLetivos.add(0, sessionData.getLetivoAtual());
-        
-        this.result.include("tccAtividadeList", tccAtividade);
-        this.result.include("periodoLetivoList", periodosLetivos);
-        this.result.include("idPeriodo", idperiodo);
+        this.result.include("tccTemaList", tccTema);
     }
     
-    @Get("tccAtividade/{id}/edit")
-    public TccAtividade edit(Long id) {
-        TccAtividade tccAtividade = tccAtividadeDAO.findById(id);
+    @Get("tccTema/{id}/edit")
+    public TccTema edit(Long id) {
+        TccTema tccTema = tccTemaDAO.findById(id);
 
-        if (tccAtividade == null) {
-            this.validator.add(new ValidationMessage("Desculpe! A Atividade não foi encontrada.", "tccAtividade.id"));
+        if (tccTema == null) {
+            this.validator.add(new ValidationMessage("Desculpe!O Tema não foi encontrado.", "tccTema.id"));
         }
-        //Tem que mudar isso porque passei uma constante e o certo seria o periodo corrente
-        this.validator.onErrorRedirectTo(TccAtividadeController.class).index(1L);
+        
+        this.validator.onErrorRedirectTo(TccTemaController.class).index();
 
         result.include("operacao", "Edição");
 
-        return tccAtividade;
+        return tccTema;
+    }
+    
+    @Get("/tccTema/create")
+    public void create() {
+        result.include("operacao", "Cadastro");
+        List<Curso> cursos = cursoDAO.listAll();
+        
+        this.result.include("cursosList", cursos);
+    }
+    
+    @Get("/tccTema/{id}/show")
+    public TccTema show(Long id) {
+        TccTema tccTema = this.tccTemaDAO.findById(id);
+
+        if (tccTema == null) {
+            this.validator.add(new ValidationMessage("Desculpe! O Tema não foi encontrado.", "tccTema.id"));
+        }
+
+        this.validator.onErrorRedirectTo(TccTemaController.class).index();
+        
+        return tccTema;
+    }
+    
+    @Get("/tccTema/{id}/remove")
+    public void remove(Long id) {
+        TccTema tccTema = this.tccTemaDAO.findById(id);
+
+        if (tccTema == null) {
+            this.validator.add(new ValidationMessage("Desculpe! O Tema não foi encontrado.", "tccTema.id"));
+        }
+
+        this.validator.onErrorRedirectTo(TccTemaController.class).index();
+
+        this.tccTemaDAO.delete(tccTema);
+
+        this.result.include("success", "removida");
+
+        this.result.redirectTo(this).index();
+    }
+    
+    @Post("/tccTema/salvar")
+    public void cadastrar(final TccTema tccTema) {
+        String[] cursos;
+        cursos = this.request.getParameterValues("tema-area");
+        
+        System.out.println(cursos[0]);
+
+        //this.tccTemaDAO.create(tccTema);
+
+        //this.result.include("success", "cadastrada");
+
+        this.result.redirectTo(TccTemaController.class).index();
     }
     
 }
