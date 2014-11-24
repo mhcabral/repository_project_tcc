@@ -1,12 +1,11 @@
-<%-- 
-    Document   : edit
-    Created on : 24/03/2013, 21:06:19
-    Author     : Thiago Santos
---%>
+/**
+ *
+ * @author marcelo
+ */
 
 <head>
-    <title>Regra de Grupo [edit]</title>
+    <title>Atividade [edit]</title>
 </head>
 <body>
-    <%@include file="form.jsp"%>
+    <%@include file="formAtividade.jsp"%>
 </body>

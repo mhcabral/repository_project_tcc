@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/atividades">
+                                        <a href="${pageContext.request.contextPath}/tccTema/index">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Temas</span>
                                         </a>

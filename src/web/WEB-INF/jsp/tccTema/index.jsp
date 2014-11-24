@@ -1,14 +1,14 @@
-<%-- 
-    Document   : /tccAtividade/index
-    Created on : 18/11/2014, 08:00:00
-    Author     : André Bemfica 21003782
---%>
+/**
+ *
+ * @author andre
+ */
+ 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Listando Atividades</title>            
+        <title>Listando Temas</title>            
 
         <style type="text/css" title="currentStyle">
             @import "${pageContext.request.contextPath}/css/demo_page.css";
@@ -51,25 +51,25 @@
         <script language="JavaScript" type="text/javascript">
             function radioHab(variavel) {
                     
-                var table = document.getElementById("formTccAtividade");
+                var table = document.getElementById("formTccTema");
                 var Radio=null;
 
                 Radio = table.RadioGroup1;
                 if(Radio.checked){
                     switch (variavel){
                         case 'edit':
-                            document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio.value + "/edit";
+                            document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio.value + "/edit";
                             return;
                         case 'remove':
                             decisao = confirm("Deseja realmente remover a atividade?");
                             if (decisao){
-                                document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio.value + "/remove";
+                                document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio.value + "/remove";
                             } else {
                                 alert ("Nenhuma atividade foi removida");
                             }
                             return;
                         case "show":
-                            document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio.value + "/show";                          
+                            document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio.value + "/show";                          
                             return;
                         }
                     } else {
@@ -79,31 +79,31 @@
                             {
                                 switch (variavel){
                                     case 'edit':
-                                        document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio[i].value + "/edit";                          
+                                        document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio[i].value + "/edit";                          
                                         return;
                                     case 'remove':    
                                         decisao = confirm("Deseja realmente remover a atividade?");
                                         if (decisao){
-                                            document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio[i].value + "/remove";
+                                            document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio[i].value + "/remove";
                                         } else {
                                             alert ("Nenhuma atividade foi removida");
                                         }                            
                                         return;
                                     case "show":
-                                        document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio[i].value + "/show";
+                                        document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio[i].value + "/show";
                                         return;
                                     }
                                 }
                             }
 
-                            alert('Você precisa selecionar uma atividade');
+                            alert('Você precisa selecionar um tema');
                         }
                     }
                 
                     function adjustVagas() {
                         var idPeriodo =$('#campo-periodo').val();
                     
-                        window.location = "${pageContext.request.contextPath}/tccAtividade/"+idPeriodo+"/index";
+                        window.location = "${pageContext.request.contextPath}/tccTema/"+idPeriodo+"/index";
                         
                     }
         </script>    
@@ -267,7 +267,7 @@
                                 <div class="icon">
                                     <ul>                                    
                                         <li class="button" id="toolbar-apply">
-                                            <a href="${pageContext.request.contextPath}/tccAtividade/create" id="new">
+                                            <a href="${pageContext.request.contextPath}/tccTema/create" id="new">
                                                 <span width="32" height="32" border="0" class="icon-32-new"></span>Novo
                                             </a>
                                         </li>
@@ -297,55 +297,46 @@
                         </div>
                         <div class="clr"></div>
                     </div>
-                    <div class="pagetitle icon-48-article"><h2>Atividades de TCC</h2></div>
+                    <div class="pagetitle icon-48-article"><h2>Temas</h2></div>
                 </div>
             </div>
             <br/>
             <p>
-            <h4>Filtrar por:</h4><br/>
-            <div class="ui-widget">
-
-                <label style="padding-left:80px" for="campo-periodo">Periodo:</label>
-                <select id="campo-periodo" name="campo-periodo">
-                    <c:forEach var="periodo" items="${periodoLetivoList}">
-                        <option value="${periodo.id}" <c:if test = "${periodo.id == idPeriodo}"> selected="true"</c:if>>${periodo}</option>
-                    </c:forEach>
-                </select>
-            </div>
+            
         </p>
 
         <div id="demo">
-            <form id="formTccAtividade">
+            <form id="formTccTema">
                 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
                     <thead>
                         <tr>   
                             <th></th>
-                            <th>Data Limite</th>
-                            <th>Responsável</th>
-                            <th>Descrição</th>
-                            <th>Prorrogação</th>
+                            <th>Professor</th>
+                            <th>Área</th>
+                            <th>Título</th>
+                            <th>Sigla</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${tccAtividadeList}" var="tccAtividade">
+                        <c:forEach items="${tccTemaList}" var="tccTema">
                             <tr>
-                                <td><input type="radio" name="RadioGroup1" value="${tccAtividade.id}"/></td>
-                                <td class="center">${tccAtividade.datalimite}</td>
-                                <td class="center">${tccAtividade.responsavel}</td>
-                                <td class="center" style="width: 30%">${tccAtividade.descricao}</td>
-                                <td class="center">${tccAtividade.dataprorrogacao}</td>
-                                <td class="center">${tccAtividade.estado}</td>
+                                <td><input type="radio" name="RadioGroup1" value="${tccTema.id}"/></td>
+                                <td class="center">${tccTema.professor.usuario.nome}</td>
+                                <td class="center">${tccTema.area}</td>
+                                <td class="center" style="width: 30%">${tccTema.titulo}</td>
+                                <td class="center">${tccTema.sigla}</td>
+                                <td class="center">${tccTema.estado}</td>
                             </tr>
                         </c:forEach>                    
                     </tbody>
                     <tfoot>
                         <tr>
                             <th></th>
-                            <th>Data Limite</th>
-                            <th>Responsável</th>
-                            <th>Descrição</th>
-                            <th>Prorrogação</th>
+                            <th>Professor</th>
+                            <th>Área</th>
+                            <th>Título</th>
+                            <th>Sigla</th>
                             <th>Estado</th>
                         </tr>
                     </tfoot>
