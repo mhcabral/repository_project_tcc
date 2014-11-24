@@ -294,23 +294,6 @@
 
                 </SELECT>
             </p>
-            <p>
-                <label id="label-info" for="info-grupo">Máximo de horas do curso '${curso}' :</label>
-                <input type="text" class="number" id="info-grupo" name="info-grupo" value="${curso.qntd_horas}" disabled="true" size="4"/>
-            </p>
-            <p>
-                <label for="campo-grupo">Grupo*:</label><br/>
-                <select  id="campo-grupo" name="regraGrupo.grupo.id" value="${regraGrupo.grupo.id}">
-                    <option value="">Selecione um grupo</option>
-                    <c:forEach var="grupo" items="${grupoList}">
-                        <option  value="${grupo.id}" <c:if test = "${grupo.id == regraGrupo.grupo.id}"> selected="true" </c:if>>${grupo}</option>
-                    </c:forEach>
-                </select><br/>
-            </p>
-            <p>
-                <label for="campo-maximoHoras">Máximo de Horas*:</label><br/>
-                <input size="10" onKeyUp="javascript:somente_numero(this);" type="text" id="campo-maximoHoras" name="regraGrupo.maximoHoras" value="${regraGrupo.maximoHoras}"/><br/>
-            </p>
         </h:form>
     </body>
 </html>

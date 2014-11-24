@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @author andre
  */
+
 package br.edu.ufam.icomp.tcc.model;
 
 import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
@@ -26,10 +26,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author andre
- */
 @Entity
 @Table(name = "tccatividade")
 @XmlRootElement
@@ -83,11 +79,14 @@ public class TccAtividade implements Serializable {
         this.id = id;
     }
 
-    public TccAtividade(Long id, String descricao, String estado, String responsavel) {
+    public TccAtividade(Long id, Date datalimite, Date dataprorrogacao, String descricao, String estado, String responsavel, PeriodoLetivo periodo) {
         this.id = id;
+        this.datalimite = datalimite;
+        this.dataprorrogacao = dataprorrogacao;
         this.descricao = descricao;
         this.estado = estado;
         this.responsavel = responsavel;
+        this.periodo = periodo;
     }
 
     public Long getId() {

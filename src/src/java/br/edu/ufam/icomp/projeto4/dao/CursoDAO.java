@@ -42,5 +42,14 @@ public class CursoDAO extends DAOImpl<Curso> {
         query.setParameter("cursoList", cursos);
 
         return query.getResultList();
-    }        
+    }
+    
+    
+    public List<Curso> listAll() {
+        EntityManager entityManager = this.getEntityManager();
+
+        Query query = entityManager.createNamedQuery("Curso.listAll");
+
+        return query.getResultList();
+    }
 }

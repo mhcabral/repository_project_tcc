@@ -31,6 +31,7 @@
     <class>br.edu.ufam.icomp.projeto4.model.RelatorioFinal</class>
     <class>br.edu.ufam.icomp.projeto4.model.HorarioTurma</class>
     <class>br.edu.ufam.icomp.tcc.model.TccAtividade</class>
+    <class>br.edu.ufam.icomp.tcc.model.TccTema</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/extra_curricular"/>

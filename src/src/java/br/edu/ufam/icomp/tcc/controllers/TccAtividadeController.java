@@ -17,6 +17,7 @@ import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
 import br.edu.ufam.icomp.tcc.dao.TccAtividadeDAO;
 import br.edu.ufam.icomp.tcc.model.TccAtividade;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -61,19 +62,71 @@ public class TccAtividadeController {
         this.result.include("idPeriodo", idperiodo);
     }
     
+    @Get("tccAtividade/create")
+    public void create() {
+        ArrayList<String> listopt = new ArrayList<String>();
+        listopt.add("Aluno");
+        listopt.add("Orientador");
+        listopt.add("Coordenador");
+        listopt.add("Aluno e Orientador");
+        listopt.add("Todos");
+        
+        result.include("optList", listopt);
+
+        result.include("operacao", "Cadastro");
+    }
+    
     @Get("tccAtividade/{id}/edit")
     public TccAtividade edit(Long id) {
         TccAtividade tccAtividade = tccAtividadeDAO.findById(id);
+        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
 
         if (tccAtividade == null) {
             this.validator.add(new ValidationMessage("Desculpe! A Atividade não foi encontrada.", "tccAtividade.id"));
         }
-        //Tem que mudar isso porque passei uma constante e o certo seria o periodo corrente
-        this.validator.onErrorRedirectTo(TccAtividadeController.class).index(1L);
-
+        this.validator.onErrorRedirectTo(TccAtividadeController.class).index(periodoAtual.getId());
+        
+        List<String> listopt = new ArrayList<>();
+        listopt.add("Aluno");
+        listopt.add("Orientador");
+        listopt.add("Coordenador");
+        listopt.add("Aluno e Orientador");
+        listopt.add("Todos");
+        
         result.include("operacao", "Edição");
+        result.include("optList", listopt);
 
         return tccAtividade;
+    }
+    
+    @Get("/tccAtividade/{id}/show")
+    public TccAtividade show(Long id) {
+        TccAtividade tccAtividade = this.tccAtividadeDAO.findById(id);
+
+        if (tccAtividade == null) {
+            this.validator.add(new ValidationMessage("Desculpe! A atividade não foi encontrada.", "tccAtividade.id"));
+        }
+
+        this.validator.onErrorRedirectTo(TccAtividadeController.class).index(0L);
+
+        return tccAtividade;
+    }
+    
+    @Get("/tccAtividade/{id}/remove")
+    public void remove(Long id) {
+        TccAtividade tccAtividade = this.tccAtividadeDAO.findById(id);
+
+        if (tccAtividade == null) {
+            this.validator.add(new ValidationMessage("Desculpe! A atividade não foi encontrada.", "tccAtividade.id"));
+        }
+
+        this.validator.onErrorRedirectTo(TccAtividadeController.class).index(0L);
+
+        this.tccAtividadeDAO.delete(tccAtividade);
+
+        this.result.include("success", "removida");
+
+        this.result.redirectTo(this).index(0L);
     }
     
 }
