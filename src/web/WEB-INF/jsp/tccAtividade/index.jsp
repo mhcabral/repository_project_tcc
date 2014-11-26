@@ -4,6 +4,7 @@
     Author     : André Bemfica 21003782
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -331,10 +332,10 @@
                         <c:forEach items="${tccAtividadeList}" var="tccAtividade">
                             <tr>
                                 <td><input type="radio" name="RadioGroup1" value="${tccAtividade.id}"/></td>
-                                <td class="center">${tccAtividade.datalimite}</td>
+                                <td class="center"><fmt:formatDate value="${tccAtividade.datalimite}" pattern="dd/MM/yyyy"/></td>
                                 <td class="center">${tccAtividade.responsavel}</td>
                                 <td class="center" style="width: 30%">${tccAtividade.descricao}</td>
-                                <td class="center">${tccAtividade.dataprorrogacao}</td>
+                                <td class="center"><fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/></td>
                                 <td class="center">${tccAtividade.estado}</td>
                             </tr>
                         </c:forEach>                    

@@ -10,6 +10,7 @@ import br.edu.ufam.icomp.projeto4.dao.DAOImpl;
 import br.edu.ufam.icomp.tcc.model.TccAtividade;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 @Component
@@ -27,5 +28,20 @@ public class TccAtividadeDAO extends DAOImpl<TccAtividade> {
         query.setParameter("idPeriodo", idPeriodo);        
         
         return query.getResultList();
+    }
+    
+    @Override
+    public TccAtividade findById(Long idPeriodo) {
+        EntityManager entityManager = this.getEntityManager();
+        
+        Query query = entityManager.createNamedQuery("TccAtividade.findById");
+        
+        query.setParameter("id", idPeriodo);        
+        
+        try {
+            return (TccAtividade) query.getSingleResult();
+        } catch (NoResultException n) {
+            return null;
+        }
     }
 }

@@ -9,7 +9,7 @@
         function remove(){
             decisao = confirm("Deseja realmente remover o tema?");
             if (decisao){
-                document.location.href="${pageContext.request.contextPath}/tccTema${tccAtividade.id}/remove";                                                              
+                document.location.href="${pageContext.request.contextPath}/tcctema${tccTema.id}/remove";                                                              
             } else {
                 alert ("Nenhum tema foi removido.");
             }                            
@@ -26,7 +26,7 @@
                         <div class="icon">
                             <ul>
                                 <li class="button" id="toolbar-apply">
-                                    <a href="${pageContext.request.contextPath}/tccTema/${tccAtividade.id}/edit" id="edit" class="toolbar">
+                                    <a href="${pageContext.request.contextPath}/tcctema/${tccTema.id}/edit" id="edit" class="toolbar">
                                         <span width="32" height="32" border="0" class="icon-32-edit"></span>Editar
                                     </a>
                                 </li>
@@ -36,7 +36,7 @@
                                     </a>
                                 </li>
                                 <li class="button" id="toolbar-cancel">
-                                    <a href="${pageContext.request.contextPath}/tccTema/index" id="back">
+                                    <a href="${pageContext.request.contextPath}/tcctemas" id="back">
                                         <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
                                     </a>
                                 </li>
@@ -71,6 +71,7 @@
             <b>Sigla:</b>
             ${tccTema.sigla}
         </p>
+        <%--
         <p>
             <b>Cursos:</b><p/>
             <c:forEach items="${tccTema.curso}" var="tccTemaCurso">
@@ -79,6 +80,7 @@
                 </tr>
             </c:forEach>
         </p>
+        --%>
         <p>
             <b>Título:</b>
             ${tccTema.titulo}

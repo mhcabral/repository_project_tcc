@@ -140,9 +140,9 @@ public class ProfessorController {
     @Put("/professores")
     public void altera(Professor professor) {
         Professor professorEncontrado = this.professorDAO.findById(professor.getId());
-
+        
         if (professorEncontrado == null) {
-            validator.add(new ValidationMessage("Desculpe! Professor não encontrado.", "professor.id"));
+            validator.add(new ValidationMessage("Desculpe! Professor não encontrado.", "professor1.id"));
         }
 
         this.validator.onErrorRedirectTo(ProfessorController.class).edit(professor.getId());

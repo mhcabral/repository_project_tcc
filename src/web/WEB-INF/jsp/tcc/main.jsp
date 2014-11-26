@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tccTema/index">
+                                        <a href="${pageContext.request.contextPath}/tcctemas">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Temas</span>
                                         </a>
@@ -81,7 +81,7 @@
                             <c:if test="${sessionData.usuario.perfil == 0}">
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/edit">
+                                        <a href="${pageContext.request.contextPath}/tcctcc">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-tcc-edit.png" alt>
                                             <span>Definir TCC</span>
                                         </a>

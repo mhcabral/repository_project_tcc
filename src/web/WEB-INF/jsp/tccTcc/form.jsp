@@ -16,12 +16,46 @@
             label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
         </style>
         <script laguage="Javascript" type="text/javascript">
+            window.onload = function() {
+                var btn = document.getElementById("aproveitar");
+                
+                btn.onclick = function () {
+                    var tit, desc, orie, tema, temai, descricao, titulo, tam;
+                    
+                    tema = document.getElementById("temas").options;
+                    temai = document.getElementById("temas").selectedIndex;
+                    tam = document.getElementById("temas").length;
+                    tit = document.getElementById("titulo");
+                    desc = document.getElementById("descricao");
+                    orie = document.getElementById("orientador");
+                    
+                    var meuArray = new Array;
+                    
+                    for(i=0;i<tam;i++){
+                        meuArray[i] = document.getElementById("temas").options[i];
+                    }
+                    
+                    alert(meuArray[0]);
+                    titulo = "${temaList[0].titulo}";
+                    descricao = "${temaList[0].descricao}";
+                    tit.setAttribute("value",titulo);
+                    desc.setAttribute("value",descricao);
+                    //alert("Index: " + tema[temai].index + " is " + tema[temai].text);
+               
+                }
+                
+                
+            };
+        </script>
+        <script laguage="Javascript" type="text/javascript">
+            
             $(function () { 
                 $('#save').click(function(e) {
+                                        
                     e.preventDefault();
-                    $("#formTccTema").submit(); 
-                }); 
-                $("#formTccTema").validate({
+                    $("#formTccTcc").submit(); 
+                });
+                $("#formTccTcc").validate({
                     rules:{
                         "tccTema.area":{
                             required:true
@@ -98,7 +132,7 @@
                                         </a>
                                     </li>
                                     <li class="button" id="toolbar-cancel">
-                                        <a href="${pageContext.request.contextPath}/tcctemas">
+                                        <a href="${pageContext.request.contextPath}/tcc/index">
                                             <span width="32" height="32" border="0" class="icon-32-cancel"></span>Cancelar
                                         </a>
                                     </li>
@@ -109,10 +143,10 @@
                     <div class="clr"></div>
                 </div>
                 <c:if test="${operacao == 'Cadastro'}">
-                    <div class="pagetitle icon-48-article-add"><h2>${operacao} de Tema</h2></div>
+                    <div class="pagetitle icon-48-article-add"><h2>${operacao} de TCC</h2></div>
                 </c:if>
                 <c:if test="${operacao == 'Edição'}">
-                    <div class="pagetitle icon-48-article-edit"><h2>${operacao} de Tema</h2></div>
+                    <div class="pagetitle icon-48-article-edit"><h2>${operacao} de TCC</h2></div>
                 </c:if>
             </div>
         </div>
@@ -132,45 +166,41 @@
             </div>   
         </c:if>
 
-        <form id="formTccTema" name="formTccTema" method="POST" action="<c:url value="/tcctemas"/>"> 
+        <form id="formTccTcc" name="formTccTcc" method="POST" action="<c:url value="/tcctcc"/>"> 
             <p>
                 <c:if test="${not empty tccTema.id}">
-                    <input type="hidden" name="tccTema.id" value="${tccTema.id}"/>
+                    <input type="hidden" name="tccTcc.id" value="${tccTcc.id}"/>
                     <input type="hidden" name="_method" value="put"/>
                 </c:if>
-                <input type="hidden" name="tccTema.estado" value="${tccTema.estado}"/>
+                <input type="hidden" name="tccTcc.aluno.id" value="${aluno.id}"/>
+                <input type="hidden" name="tccTcc.periodo.id" value="${idPeriodo}"/>
+                <input type="hidden" name="tccTcc.estado" value="${tccTcc.estado}"/>
             </p> 
             <p>
-                <label for="area">Área*:</label><br/>
-                <select id="area" name="tccTema.area" value="${tccTema.area}">
-                    <option value="">Selecione uma área</option>
-                    <c:forEach var="string" items="${areaList}">
-                        <option  value="${string}" <c:if test = "${string == tccTema.area}"> selected="true" </c:if>>${string}</option>
+                <label for="temas">Temas:</label><br/>
+                <select id="temas" name="tccTcc.tema" value="">
+                    <option onclick="selTema();" value="">Outro não listado</option>
+                    <c:forEach var="temasl" items="${temaList}">
+                        <option  value="${temasl.id}" >${temasl}</option>
                     </c:forEach>
-                </select><br/>
-            </p>
-            <p>
-                <label for="sigla">Sigla*:</label>
-                <input type="text" id="sigla" name="tccTema.sigla" value="${tccTema.sigla}" size="4"/>
+                </select>
+                <input type="button" id="aproveitar" value="Aproveitar">
+                <br/>
             </p>
             <p>
                 <label for="titulo" >Título*:</label>
-                <input type="text" id="titulo" name="tccTema.titulo" value="${tccTema.titulo}" size="100" />
+                <input type="text" id="titulo" name="tccTcc.titulo" value="${tccTcc.titulo}" size="100" />
             </p>
             <p>
                 <label for="descricao">Descrição*:</label>
-                <input type="text" id="descricao" name="tccTema.descricao" value="${tccTema.descricao}" size="100" />
+                <input type="text" id="descricao" name="tccTcc.descricao" value="${tccTcc.descricao}" size="100" />
             </p>
             <p>
-                <label for="Perfil">Perfil*:</label>
-                <input type="text" id="perfil" name="tccTema.perfil" value="${tccTema.perfil}" size="100" />
-            </p>
-            <p>
-                <label for="professor">Professor*:</label>
-                <select id="professor" name="tccTema.professor.id" value="${tccTema.professor}">
-                    <option value="">Selecione um professor</option>
+                <label for="orientador">Orientador*:</label>
+                <select id="orientador" name="tccTcc.professor.id" value="${tccTcc.professor}">
+                    <option value="">Selecione um orientador</option>
                     <c:forEach var="professor" items="${professorList}">
-                        <option  value="${professor.id}" <c:if test = "${professor.id == tccTema.professor.id}"> selected="true" </c:if>>${professor}</option>
+                        <option  value="${professor.id}" <c:if test = "${professor.id == tccTcc.professor.id}"> selected="true" </c:if>>${professor}</option>
                     </c:forEach>
                 </select><br/>
             </p>
@@ -186,7 +216,7 @@
             --%>
             <p>
                 <label for="estado1">Estado*:</label>
-                <input id="estado1" type="text" name="campo-estado" value="${tccTema.estado}" size="30" disabled="true"/>
+                <input id="estado1" type="text" name="campo-estado" value="${tccTcc.estado}" size="30" disabled="true"/>
             </p>
         </form>
     </body>

@@ -7,5 +7,5 @@
     <title>Atividade [edit]</title>
 </head>
 <body>
-    <%@include file="formAtividade.jsp"%>
+    <%@include file="form.jsp"%>
 </body>

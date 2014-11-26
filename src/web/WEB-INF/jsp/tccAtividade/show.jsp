@@ -10,7 +10,7 @@
         function remove(){
             decisao = confirm("Deseja realmente remover a atividade?");
             if (decisao){
-                document.location.href="${pageContext.request.contextPath}/tccAtividade${tccAtividade.id}/remove";                                                              
+                document.location.href="${pageContext.request.contextPath}/tccAtividade/${tccAtividade.id}/remove";                                                              
             } else {
                 alert ("Nenhuma atividade foi removida.");
             }                            

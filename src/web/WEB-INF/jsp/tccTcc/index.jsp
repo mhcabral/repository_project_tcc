@@ -5,8 +5,8 @@
 --%>
 
 <head>
-    <title>Tema [edit]</title>
+    <title>TCC [Seleção]</title>
 </head>
 <body>
-    <%@include file="form.jsp"%>
+    
 </body>

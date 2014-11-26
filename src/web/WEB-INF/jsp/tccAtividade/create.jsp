@@ -8,5 +8,5 @@
     <title>Atividade [Adicionando]</title>
 </head>
 <body>
-    <%@include file="formAtividade.jsp"%>
+    <%@include file="form.jsp"%>
 </body>

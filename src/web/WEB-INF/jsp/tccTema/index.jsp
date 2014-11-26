@@ -58,18 +58,18 @@
                 if(Radio.checked){
                     switch (variavel){
                         case 'edit':
-                            document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio.value + "/edit";
+                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/edit";
                             return;
                         case 'remove':
                             decisao = confirm("Deseja realmente remover a atividade?");
                             if (decisao){
-                                document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio.value + "/remove";
+                                document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/remove";
                             } else {
                                 alert ("Nenhuma atividade foi removida");
                             }
                             return;
                         case "show":
-                            document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio.value + "/show";                          
+                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/show";                          
                             return;
                         }
                     } else {
@@ -79,18 +79,18 @@
                             {
                                 switch (variavel){
                                     case 'edit':
-                                        document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio[i].value + "/edit";                          
+                                        document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/edit";                          
                                         return;
                                     case 'remove':    
                                         decisao = confirm("Deseja realmente remover a atividade?");
                                         if (decisao){
-                                            document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio[i].value + "/remove";
+                                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/remove";
                                         } else {
                                             alert ("Nenhuma atividade foi removida");
                                         }                            
                                         return;
                                     case "show":
-                                        document.location.href="${pageContext.request.contextPath}/tccTema/"+Radio[i].value + "/show";
+                                        document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/show";
                                         return;
                                     }
                                 }
@@ -98,13 +98,6 @@
 
                             alert('Você precisa selecionar um tema');
                         }
-                    }
-                
-                    function adjustVagas() {
-                        var idPeriodo =$('#campo-periodo').val();
-                    
-                        window.location = "${pageContext.request.contextPath}/tccTema/"+idPeriodo+"/index";
-                        
                     }
         </script>    
         <style>
@@ -197,11 +190,11 @@
                                             item: ui.item.option
                                         });
                                         
-                                        adjustVagas();
+                                       
                                     },                            
                             
                                     change: function( event, ui ) {     
-                                        adjustVagas();
+                                       
                                     }                          
                                 })
                                 .addClass( "ui-widget ui-widget-content ui-corner-left" );
@@ -267,7 +260,7 @@
                                 <div class="icon">
                                     <ul>                                    
                                         <li class="button" id="toolbar-apply">
-                                            <a href="${pageContext.request.contextPath}/tccTema/create" id="new">
+                                            <a href="${pageContext.request.contextPath}/tcctemas/create" id="new">
                                                 <span width="32" height="32" border="0" class="icon-32-new"></span>Novo
                                             </a>
                                         </li>
