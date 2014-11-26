@@ -16,7 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tcctcc")
 @XmlRootElement
-
+@NamedQueries({
+    @NamedQuery(name = "TccTcc.findbyAluno", query = "SELECT t FROM TccTcc t WHERE t.aluno.id = :idAluno")
+})
 public class TccTcc implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,9 +52,6 @@ public class TccTcc implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_periodo")
     private PeriodoLetivo periodo;
-    @ManyToOne
-    @JoinColumn(name = "id_tcctema")
-    private TccTema tcctema;
 
     public Long getId() {
         return id;
@@ -108,14 +107,6 @@ public class TccTcc implements Serializable {
 
     public void setPeriodo(PeriodoLetivo periodo) {
         this.periodo = periodo;
-    }
-
-    public TccTema getTcctema() {
-        return tcctema;
-    }
-
-    public void setTcctema(TccTema tcctema) {
-        this.tcctema = tcctema;
     }
 
     @Override

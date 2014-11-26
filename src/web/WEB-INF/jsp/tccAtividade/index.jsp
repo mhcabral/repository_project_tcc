@@ -329,6 +329,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                         <c:forEach items="${tccAtividadeList}" var="tccAtividade">
                             <tr>
                                 <td><input type="radio" name="RadioGroup1" value="${tccAtividade.id}"/></td>
@@ -338,7 +339,8 @@
                                 <td class="center"><fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/></td>
                                 <td class="center">${tccAtividade.estado}</td>
                             </tr>
-                        </c:forEach>                    
+                        </c:forEach>  
+                        
                     </tbody>
                     <tfoot>
                         <tr>

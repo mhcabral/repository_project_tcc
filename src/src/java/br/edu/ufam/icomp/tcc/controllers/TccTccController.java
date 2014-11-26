@@ -71,6 +71,8 @@ public class TccTccController {
         perfisEncontrar.add(Perfil.PROFESSOR);
         List<Professor> listProfessor = professorDAO.findByPerfisAndAtivo(perfisEncontrar, true);
         List<TccTema> listTema = tccTemaDAO.findAll();
+        Aluno aluno = tccTcc.getAluno();
+        Long idPeriodo = tccTcc.getPeriodo().getId();
 
         if (tccTcc == null) {
             this.validator.add(new ValidationMessage("Desculpe!O Tcc não foi encontrado.", "tccTcc.id"));
@@ -80,7 +82,9 @@ public class TccTccController {
 
         this.result.include("operacao", "Edição");
         this.result.include("professorList", listProfessor);
+        this.result.include("aluno", aluno);
         this.result.include("temaList", listTema);
+        this.result.include("idPeriodo", idPeriodo);
 
         return tccTcc;
     }
@@ -148,6 +152,9 @@ public class TccTccController {
     
     @Put("/tcctcc")
     public void altera(TccTcc tccTcc) {
+        if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
+            validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
+        }
         this.tccTccDAO.update(tccTcc);
 
         this.result.include("success", "alterada");

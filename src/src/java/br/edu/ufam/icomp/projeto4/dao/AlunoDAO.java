@@ -26,9 +26,7 @@ public class AlunoDAO extends DAOImpl<Aluno> {
 
         Query query = entityManager.createNamedQuery("Aluno.findByIdUsuario");
         query.setParameter("id", idUsuario);
-        System.out.println(idUsuario);
         Aluno aluno = (Aluno) query.getSingleResult();
-        System.out.println(idUsuario);
         return aluno;
     }
 

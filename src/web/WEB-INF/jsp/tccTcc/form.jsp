@@ -20,31 +20,18 @@
                 var btn = document.getElementById("aproveitar");
                 
                 btn.onclick = function () {
-                    var tit, desc, orie, tema, temai, descricao, titulo, tam;
+                    var temai, tit, desc, orie, temat;
                     
-                    tema = document.getElementById("temas").options;
                     temai = document.getElementById("temas").selectedIndex;
-                    tam = document.getElementById("temas").length;
+                    temat = document.getElementById("temat").rows[temai];
                     tit = document.getElementById("titulo");
                     desc = document.getElementById("descricao");
                     orie = document.getElementById("orientador");
                     
-                    var meuArray = new Array;
-                    
-                    for(i=0;i<tam;i++){
-                        meuArray[i] = document.getElementById("temas").options[i];
-                    }
-                    
-                    alert(meuArray[0]);
-                    titulo = "${temaList[0].titulo}";
-                    descricao = "${temaList[0].descricao}";
-                    tit.setAttribute("value",titulo);
-                    desc.setAttribute("value",descricao);
-                    //alert("Index: " + tema[temai].index + " is " + tema[temai].text);
-               
-                }
-                
-                
+                    tit.setAttribute("value",temat.cells[2].innerHTML);
+                    desc.setAttribute("value",temat.cells[1].innerHTML);
+                    orie.setAttribute("value",temat.cells[3].innerHTML);
+                };
             };
         </script>
         <script laguage="Javascript" type="text/javascript">
@@ -168,7 +155,7 @@
 
         <form id="formTccTcc" name="formTccTcc" method="POST" action="<c:url value="/tcctcc"/>"> 
             <p>
-                <c:if test="${not empty tccTema.id}">
+                <c:if test="${not empty tccTcc.id}">
                     <input type="hidden" name="tccTcc.id" value="${tccTcc.id}"/>
                     <input type="hidden" name="_method" value="put"/>
                 </c:if>
@@ -178,8 +165,8 @@
             </p> 
             <p>
                 <label for="temas">Temas:</label><br/>
-                <select id="temas" name="tccTcc.tema" value="">
-                    <option onclick="selTema();" value="">Outro não listado</option>
+                <select id="temas">
+                    <option value="">Outro não listado</option>
                     <c:forEach var="temasl" items="${temaList}">
                         <option  value="${temasl.id}" >${temasl}</option>
                     </c:forEach>
@@ -204,20 +191,26 @@
                     </c:forEach>
                 </select><br/>
             </p>
-            <%--
-            <p>
-                <label for="selTemaCurso">Cursos:</label>
-                <select name="tcctema.cursos" size=5 id="campo-cursos" value="tccTema.cursos" multiple >
-                    <c:forEach items="${cursosList}" var="tccTemaCurso">
-                        <option value="" >${tccTemaCurso.curso}</option>
-                    </c:forEach>
-                </select>
-            </p>
-            --%>
             <p>
                 <label for="estado1">Estado*:</label>
                 <input id="estado1" type="text" name="campo-estado" value="${tccTcc.estado}" size="30" disabled="true"/>
             </p>
+            <table id="temat" hidden>
+                <tr>
+                    <td> 0 </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <c:forEach items="${temaList}" var="temaTab">
+                    <tr>
+                        <td> ${temaTab.id} </td>
+                        <td> ${temaTab.descricao} </td>
+                        <td> ${temaTab.titulo} </td>
+                        <td> ${temaTab.professor.usuario.nome} </td>
+                    </tr>
+                </c:forEach>
+            </table>
         </form>
     </body>
 </html>
