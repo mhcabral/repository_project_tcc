@@ -1,4 +1,4 @@
-repository_project_tcc
+Controle de TCC
 ======================
 
 Repositorio do projeto TCC realizado pelos discentes de bacharelado em Sistema de Informação cursando a materia de PAPS em 2014/02
