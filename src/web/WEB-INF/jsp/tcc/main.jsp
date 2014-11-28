@@ -31,7 +31,7 @@
                             <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 2}">
                                 <div class="icon-wrapper" <c:if test="${sessionData.periodoInsMon == null}">title="Opção indisponível! Período de inscrição em monitoria fechado"</c:if>>
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/locais" <c:if test="${sessionData.periodoInsMon == null}">class="desativa"</c:if> >
+                                        <a href="${pageContext.request.contextPath}/tcclocais">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Locais de<br/>Apresentação</span>
                                         </a>
