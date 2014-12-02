@@ -11,15 +11,10 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
-import br.edu.ufam.icomp.projeto4.dao.CursoDAO;
-import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
-import br.edu.ufam.icomp.projeto4.model.Curso;
-import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.tcc.dao.TccLocaisDAO;
 import br.edu.ufam.icomp.tcc.model.TccLocais;
-import java.util.ArrayList;
 import java.util.List;
 
 @Resource
@@ -50,7 +45,7 @@ public class TccLocaisController {
         TccLocais tccLocais = tccLocaisDAO.findById(id);
         
         if (tccLocais == null) {
-            this.validator.add(new ValidationMessage("Desculpe!O Local não foi encontrado.", "tccTema.id"));
+            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccLocais.id"));
         }
         
         this.validator.onErrorRedirectTo(TccLocaisController.class).index();
@@ -69,7 +64,7 @@ public class TccLocaisController {
         TccLocais tccLocais = this.tccLocaisDAO.findById(id);
 
         if (tccLocais == null) {
-            this.validator.add(new ValidationMessage("Desculpe! O Tema não foi encontrado.", "tccTema.id"));
+            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccLocais.id"));
         }
 
         this.validator.onErrorRedirectTo(TccLocaisController.class).index();
@@ -82,7 +77,7 @@ public class TccLocaisController {
         TccLocais tccLocais = this.tccLocaisDAO.findById(id);
 
         if (tccLocais == null) {
-            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccTema.id"));
+            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccLocais.id"));
         }
 
         this.validator.onErrorRedirectTo(TccLocaisController.class).index();
@@ -106,8 +101,8 @@ public class TccLocaisController {
     }
     
     @Put("/tcclocais")
-    public void altera(TccLocais tccTema) {
-        this.tccLocaisDAO.update(tccTema);
+    public void altera(TccLocais tccLocais) {
+        this.tccLocaisDAO.update(tccLocais);
 
         this.result.include("success", "alterada");
 
