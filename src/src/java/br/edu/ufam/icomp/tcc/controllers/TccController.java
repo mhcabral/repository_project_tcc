@@ -26,8 +26,4 @@ public class TccController {
     public void main() {
     }
 
-    @Permission(Perfil.ALUNO)
-    @Get("/tcc/edit")
-    public void edit(Long id) {
-    }
 }

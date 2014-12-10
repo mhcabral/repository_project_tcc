@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tcctcc")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TccTcc.findbyAluno", query = "SELECT t FROM TccTcc t WHERE t.aluno.id = :idAluno")
+    @NamedQuery(name = "TccTcc.findByAluno", query = "SELECT t FROM TccTcc t WHERE t.aluno.id = :idAluno"),
+    @NamedQuery(name = "TccTcc.findByProfessor", query = "SELECT t.aluno FROM TccTcc t WHERE t.professor.id = :idProfessor ORDER BY t.aluno.usuario.nome")
 })
 public class TccTcc implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Aluno.findByCurso", query = "SELECT a FROM Aluno a WHERE a.curso IN (:cursoList)"),
     @NamedQuery(name = "Aluno.findByCursoId", query = "SELECT a FROM Aluno a WHERE a.curso.id = :id"),
     @NamedQuery(name = "Aluno.findByMatricula", query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
-    @NamedQuery(name = "Aluno.findByPerfilAndAtivo", query = "SELECT a FROM Aluno a WHERE a.usuario.ativo = :ativo AND a.usuario.role = :role ORDER BY a.dataIngresso, a.curso.codigo, a.matricula DESC")    
+    @NamedQuery(name = "Aluno.findByPerfilAndAtivo", query = "SELECT a FROM Aluno a WHERE a.usuario.ativo = :ativo AND a.usuario.role = :role ORDER BY a.dataIngresso, a.curso.codigo, a.matricula DESC")
 })
 public class Aluno implements Serializable {
 

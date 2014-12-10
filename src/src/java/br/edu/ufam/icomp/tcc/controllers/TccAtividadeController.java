@@ -67,6 +67,15 @@ public class TccAtividadeController {
     
     @Get("/tccAtividade/create")
     public void create() {
+        List<String> listResponsavel = new ArrayList();        
+        
+        listResponsavel.add("Aluno");
+        listResponsavel.add("Orientador");
+        listResponsavel.add("Coordenado");
+        listResponsavel.add("Aluno e Orientador");
+        listResponsavel.add("Todos");
+            
+        this.result.include("responsavelList", listResponsavel);
         
         this.result.include("operacao", "Cadastro");
     }
@@ -144,11 +153,11 @@ public class TccAtividadeController {
     public void altera(final TccAtividade tccAtividade) {
         TccAtividade tccAtividadeEncontrado = this.tccAtividadeDAO.findById(tccAtividade.getId());
         
-        if (tccAtividadeEncontrado == null) {
-            //validator.add(new ValidationMessage("Desculpe! Atividade não encontrada.", "tccAtividade.id"));
-        }
-        System.out.println(tccAtividade.getId());
+        System.out.println(tccAtividade.getDatalimite());
         
+        if (tccAtividadeEncontrado == null) {
+            validator.add(new ValidationMessage("Desculpe! Atividade não encontrada.", "tccAtividade.id"));
+        }        
         
         this.validator.onErrorRedirectTo(TccAtividadeController.class).edit(tccAtividade.getId());
         

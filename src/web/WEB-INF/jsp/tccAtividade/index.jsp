@@ -300,61 +300,59 @@
                     </div>
                     <div class="pagetitle icon-48-article"><h2>Atividades de TCC</h2></div>
                 </div>
-            </div>
-            <br/>
+            </div> <br>
             <p>
-            <h4>Filtrar por:</h4><br/>
-            <div class="ui-widget">
+                <h4>Filtrar por:</h4> <br>
+                <div class="ui-widget">
+                    <label style="padding-left:80px" for="campo-periodo">Periodo:</label>
+                    <select id="campo-periodo" name="campo-periodo">
+                        <c:forEach var="periodo" items="${periodoLetivoList}">
+                            <option value="${periodo.id}" <c:if test = "${periodo.id == idPeriodo}"> selected="true" </c:if>>${periodo}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </p>
 
-                <label style="padding-left:80px" for="campo-periodo">Periodo:</label>
-                <select id="campo-periodo" name="campo-periodo">
-                    <c:forEach var="periodo" items="${periodoLetivoList}">
-                        <option value="${periodo.id}" <c:if test = "${periodo.id == idPeriodo}"> selected="true"</c:if>>${periodo}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </p>
-
-        <div id="demo">
-            <form id="formTccAtividade">
-                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
-                    <thead>
-                        <tr>   
-                            <th></th>
-                            <th>Data Limite</th>
-                            <th>Responsável</th>
-                            <th>Descrição</th>
-                            <th>Prorrogação</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        <c:forEach items="${tccAtividadeList}" var="tccAtividade">
-                            <tr>
-                                <td><input type="radio" name="RadioGroup1" value="${tccAtividade.id}"/></td>
-                                <td class="center"><fmt:formatDate value="${tccAtividade.datalimite}" pattern="dd/MM/yyyy"/></td>
-                                <td class="center">${tccAtividade.responsavel}</td>
-                                <td class="center" style="width: 30%">${tccAtividade.descricao}</td>
-                                <td class="center"><fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/></td>
-                                <td class="center">${tccAtividade.estado}</td>
+            <div id="demo">
+                <form id="formTccAtividade">
+                    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+                        <thead>
+                            <tr>   
+                                <th></th>
+                                <th>Data Limite</th>
+                                <th>Responsável</th>
+                                <th>Descrição</th>
+                                <th>Prorrogação</th>
+                                <th>Estado</th>
                             </tr>
-                        </c:forEach>  
-                        
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Data Limite</th>
-                            <th>Responsável</th>
-                            <th>Descrição</th>
-                            <th>Prorrogação</th>
-                            <th>Estado</th>
-                        </tr>
-                    </tfoot>
-                </table>                        
-            </form>           
-        </div>                             
-    </div>
-</body>
+                        </thead>
+                        <tbody>
+
+                            <c:forEach items="${tccAtividadeList}" var="tccAtividade">
+                                <tr>
+                                    <td><input type="radio" name="RadioGroup1" value="${tccAtividade.id}"/></td>
+                                    <td class="center"><fmt:formatDate value="${tccAtividade.datalimite}" pattern="dd/MM/yyyy"/></td>
+                                    <td class="center">${tccAtividade.responsavel}</td>
+                                    <td class="center" style="width: 30%">${tccAtividade.descricao}</td>
+                                    <td class="center"><fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/></td>
+                                    <td class="center">${tccAtividade.estado}</td>
+                                </tr>
+                            </c:forEach>  
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Data Limite</th>
+                                <th>Responsável</th>
+                                <th>Descrição</th>
+                                <th>Prorrogação</th>
+                                <th>Estado</th>
+                            </tr>
+                        </tfoot>
+                    </table>                        
+                </form>           
+            </div>                             
+        </div>
+    </body>
 </html>
