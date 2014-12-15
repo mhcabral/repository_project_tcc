@@ -20,9 +20,6 @@ import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.interceptor.Public;
 import br.edu.ufam.icomp.projeto4.model.Usuario;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +38,8 @@ public class UsuariosController {
     private Notificador notificador;
 
     public UsuariosController(UsuariosDao dao, SessionData sessaoDoUsuario, Result result, Validator validator,
-            Notificador notificador, PeriodoLetivoDAO periodoLetivoDAO, PeriodoCadMonDAO periodoCadMonDAO, PeriodoInsMonDAO periodoInsMonDAO) {
+            Notificador notificador, PeriodoLetivoDAO periodoLetivoDAO, PeriodoCadMonDAO periodoCadMonDAO, 
+            PeriodoInsMonDAO periodoInsMonDAO) {
         this.usuarioDAO = dao;
         this.sessaoDoUsuario = sessaoDoUsuario;
         this.validator = validator;

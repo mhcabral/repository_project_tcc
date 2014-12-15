@@ -3,6 +3,7 @@ package br.edu.ufam.icomp.projeto4;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
 import br.edu.ufam.icomp.projeto4.model.HorarioTurma;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Component
 @SessionScoped
-public class ListaHorarios {
+public class ListaHorarios implements Serializable {
 
     List<HorarioTurma> horarios;
 

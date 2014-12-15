@@ -119,14 +119,16 @@
                         <div class="icon-wrapper">
                             <div class="icon">
                                 <ul>
-                                    <li class="button" id="toolbar-apply">
-                                        <a href="javascript:void(0);" id="save" class="toolbar">
-                                            <span width="32" height="32" border="0" class="icon-32-save"></span>Salvar
-                                        </a>
-                                    </li>
+                                    <c:if test = "${podeSalvarTema}">
+                                        <li class="button" id="toolbar-apply" >
+                                            <a href="javascript:void(0);" id="save" class="toolbar">
+                                                <span width="32" height="32" border="0" class="icon-32-save"></span>Salvar
+                                            </a>
+                                        </li>
+                                    </c:if>
                                     <li class="button" id="toolbar-cancel">
                                         <a href="${pageContext.request.contextPath}/tcc/index">
-                                            <span width="32" height="32" border="0" class="icon-32-cancel"></span>Cancelar
+                                            <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
                                         </a>
                                     </li>
                                 </ul>
@@ -171,26 +173,26 @@
             </p> 
             <p>
                 <label for="temas">Temas:</label><br/>
-                <select id="temas">
-                    <option value="">Outro não listado</option>
+                <select id="temas" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>>
+                    <option value="" >Outro não listado</option>
                     <c:forEach var="temasl" items="${temaList}">
                         <option  value="${temasl.id}" >${temasl}</option>
                     </c:forEach>
                 </select>
-                <input type="button" id="aproveitar" value="Aproveitar">
+                <input type="button" id="aproveitar" value="Aproveitar" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>>
                 <br/>
             </p>
             <p>
                 <label for="titulo" >Título*:</label>
-                <input type="text" id="titulo" name="tccTcc.titulo" value="${tccTcc.titulo}" size="100" />
+                <input type="text" id="titulo" name="tccTcc.titulo" value="${tccTcc.titulo}" size="100" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>/>
             </p>
             <p>
                 <label for="descricao">Descrição*:</label>
-                <input type="text" id="descricao" name="tccTcc.descricao" value="${tccTcc.descricao}" size="100" />
+                <input type="text" id="descricao" name="tccTcc.descricao" value="${tccTcc.descricao}" size="100" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>/>
             </p>
             <p>
                 <label for="orientador">Orientador*:</label>
-                <select id="orientador" name="tccTcc.professor.id" value="${tccTcc.professor}">
+                <select id="orientador" name="tccTcc.professor.id" value="${tccTcc.professor}" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>>
                     <option value="">Selecione um orientador</option>
                     <c:forEach var="professor" items="${professorList}">
                         <option  value="${professor.id}" <c:if test = "${professor.id == tccTcc.professor.id}"> selected="true" </c:if>>${professor}</option>

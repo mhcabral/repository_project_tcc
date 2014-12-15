@@ -3,6 +3,7 @@ package br.edu.ufam.icomp.tcc.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,20 +42,15 @@ public class TccSolicitacao implements Serializable{
     private Long id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 1024)
-    @Column(name = "descricao")
-    private String descricao;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "estado")
     private String estado;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "tipo") //{Aproveitamento, Definir TCC}
+    @Column(name = "tipo") //{Aproveitamento, Definir Tema}
     private String tipo;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.REMOVE)
     @JoinColumn(name = "id_tcc")
     private TccTcc tcc;
     @Size(min = 1, max = 1024)
@@ -67,14 +63,6 @@ public class TccSolicitacao implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public String getEstado() {
@@ -92,7 +80,7 @@ public class TccSolicitacao implements Serializable{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
+    
     public TccTcc getTcc() {
         return tcc;
     }
@@ -100,7 +88,7 @@ public class TccSolicitacao implements Serializable{
     public void setTcc(TccTcc tcc) {
         this.tcc = tcc;
     }
-
+    
     public String getObservacao() {
         return observacao;
     }
@@ -111,7 +99,7 @@ public class TccSolicitacao implements Serializable{
     
     @Override
     public String toString() {
-        return descricao;
+        return tipo;
     }
     
     

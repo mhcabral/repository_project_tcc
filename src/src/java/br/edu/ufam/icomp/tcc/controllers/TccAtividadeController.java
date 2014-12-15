@@ -21,9 +21,11 @@ import br.edu.ufam.icomp.tcc.dao.TccAtividadeDAO;
 import br.edu.ufam.icomp.tcc.model.TccAtividade;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -67,6 +69,17 @@ public class TccAtividadeController {
     
     @Get("/tccAtividade/create")
     public void create() {
+        Calendar limite = Calendar.getInstance(Locale.US);
+        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
+        limite.setTime(periodoAtual.getDtInicio());
+        System.out.println("Data1: "+limite.getTime());
+        tccAtividadeDAO.insertInPeriodo(periodoAtual);
+        
+        
+        
+        this.result.redirectTo(TccAtividadeController.class).index(periodoAtual.getId());
+        
+        /*
         List<String> listResponsavel = new ArrayList();        
         
         listResponsavel.add("Aluno");
@@ -78,6 +91,7 @@ public class TccAtividadeController {
         this.result.include("responsavelList", listResponsavel);
         
         this.result.include("operacao", "Cadastro");
+        */
     }
     
     @Get("/tccAtividade/{id}/edit")

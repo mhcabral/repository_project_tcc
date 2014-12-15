@@ -84,7 +84,6 @@
     <c:if test="${not empty tccSolicitacao.id}">
         <h4><p>Estado: ${tccSolicitacao.estado}</p></h4>
         <h4><p>Tipo: ${tccSolicitacao.tipo}</p></h4>
-        <h4><p>Solicitação: ${tccSolicitacao.descricao}</p></h4>
         <br/>
         <h4><p>Informações do Aluno</p></h4>
         <p>
@@ -123,7 +122,6 @@
                 <label for="campo-observacao">Observação:</label><img src="${pageContext.request.contextPath}/img/edit_lapis.png" width="16" height="16"><br/>
                 <textarea rows="5" cols="51" id="campo-observacao" name="tccSolicitacao.observacao">${tccSolicitacao.observacao}</textarea>
                 <input type="hidden" id="campo-id" name="tccSolicitacao.id" value="${tccSolicitacao.id}">
-                <input type="hidden" id="campo-descricao" name="tccSolicitacao.descricao" value="${tccSolicitacao.descricao}">
                 <input type="hidden" id="campo-estado" name="tccSolicitacao.estado" value="${tccSolicitacao.estado}">
                 <input type="hidden" id="campo-tcc" name="tccSolicitacao.tcc.id" value="${tccSolicitacao.tcc.id}">
                 <input type="hidden" id="campo-tipo" name="tccSolicitacao.tipo" value="${tccSolicitacao.tipo}">

@@ -39,10 +39,7 @@ public class TccTcc implements Serializable {
     @Size(min = 1, max = 1024)
     @Column(name = "descricao")
     private String descricao;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "estado")
+    @Transient
     private String estado;
     @ManyToOne
     @JoinColumn(name = "id_aluno")
@@ -53,6 +50,9 @@ public class TccTcc implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_periodo")
     private PeriodoLetivo periodo;
+    @OneToOne(cascade = CascadeType.REMOVE, optional = true, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "id_sol_tema", nullable = true)
+    private TccSolicitacao solicitacaoTema;
 
     public Long getId() {
         return id;
@@ -79,11 +79,16 @@ public class TccTcc implements Serializable {
     }
 
     public String getEstado() {
+        if (this.solicitacaoTema == null) {
+            estado = "Aberto";
+        } else if (this.solicitacaoTema.getEstado().equals("Solicitado")) {
+            estado = "Solicitando Tema";
+        } else if (this.solicitacaoTema.getEstado().equals("Deferido")) {
+            estado = "Tema Deferido";
+        } else if (this.solicitacaoTema.getEstado().equals("Indeferido")) {
+            estado = "Tema Indeferido";
+        }
         return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public Aluno getAluno() {
@@ -110,6 +115,14 @@ public class TccTcc implements Serializable {
         this.periodo = periodo;
     }
 
+    public TccSolicitacao getSolicitacaoTema() {
+        return solicitacaoTema;
+    }
+
+    public void setSolicitacaoTema(TccSolicitacao solicitacaoTema) {
+        this.solicitacaoTema = solicitacaoTema;
+    }
+    
     @Override
     public String toString() {
         return titulo;

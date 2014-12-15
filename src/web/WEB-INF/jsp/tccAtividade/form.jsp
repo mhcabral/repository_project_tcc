@@ -122,6 +122,9 @@
                 </c:if>
                 <input type="hidden" name="tccAtividade.estado" value="${tccAtividade.estado}"/>
                 <input type="hidden" name="tccAtividade.periodo.id" value="${tccAtividade.periodo.id}"/>
+                <input type="hidden" name="tccAtividade.ordem" value="${tccAtividade.ordem}"/>
+                <input type="hidden" name="tccAtividade.responsavel" value="${tccAtividade.responsavel}"/>
+                <input type="hidden" name="tccAtividade.descricao" value="${tccAtividade.descricao}"/>
             </p> 
             <p>
                 <label for="datalimite">Data Limite:</label>
@@ -129,21 +132,16 @@
                 
             </p>
             <p>
-                <label for="responsavel">Responsável*:</label><br/>
-                <select id="responsavel" name="tccAtividade.responsavel" value="${tccAtividade.responsavel}">
-                    <option value="">Selecione um responsável</option>
-                    <c:forEach var="string" items="${responsavelList}">
-                        <option  value="${string}" <c:if test = "${string == tccAtividade.responsavel}"> selected="true" </c:if>>${string}</option>
-                    </c:forEach>
-                </select><br/>
-            </p>
-            <p>
-                <label for="descricao">Descricao*:</label>
-                <input type="text" name="tccAtividade.descricao" size="100" id="descricao" value="${tccAtividade.descricao}" > <br/>
-            </p>
-            <p>
                 <label for="dataprorrogacao">Data da Prorrogacao:</label>
                 <input type="text" name="tccAtividade.dataprorrogacao" id="dataprorrogacao" value="<fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/>" class="data"> <br/>
+            </p>
+            <p>
+                <label >Responsável:</label><br/>
+                <input type="text" value="${tccAtividade.responsavel}" disabled="true">
+            </p>
+            <p>
+                <label>Descricao:</label><br/>
+                <textarea disabled="true" cols="50" rows="4">${tccAtividade.descricao}</textarea><br/>
             </p>
             <p>
                 <label for="estado1">Estado*:</label>

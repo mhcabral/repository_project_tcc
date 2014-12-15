@@ -14,13 +14,16 @@ import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
-import br.edu.ufam.icomp.projeto4.model.Curso;
 import br.edu.ufam.icomp.projeto4.model.Professor;
+import br.edu.ufam.icomp.tcc.dao.TccAtividadeDAO;
+import br.edu.ufam.icomp.tcc.dao.TccSolicitacaoDAO;
 import br.edu.ufam.icomp.tcc.dao.TccTccDAO;
 import br.edu.ufam.icomp.tcc.dao.TccTemaDAO;
+import br.edu.ufam.icomp.tcc.model.TccSolicitacao;
 import br.edu.ufam.icomp.tcc.model.TccTcc;
 import br.edu.ufam.icomp.tcc.model.TccTema;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,9 +42,12 @@ public class TccTccController {
     private SessionData sessionData;
     private final AlunoDAO alunoDAO;
     private final TccTemaDAO tccTemaDAO;
+    private final TccAtividadeDAO tccAtividadeDAO;
+    private final TccSolicitacaoDAO tccSolicitacaoDAO;
     
     public TccTccController (Result result,TccTccDAO tccTccDAO, Validator validator, CursoDAO cursoDAO,
-            ProfessorDAO professorDAO, SessionData sessionData, AlunoDAO alunoDAO, TccTemaDAO tccTemaDAO){
+            ProfessorDAO professorDAO, SessionData sessionData, AlunoDAO alunoDAO, TccTemaDAO tccTemaDAO,
+            TccAtividadeDAO tccAtividadeDAO, TccSolicitacaoDAO tccSolicitacaoDAO){
         this.result = result;
         this.validator = validator;
         this.tccTccDAO = tccTccDAO;
@@ -50,6 +56,8 @@ public class TccTccController {
         this.sessionData = sessionData;
         this.alunoDAO = alunoDAO;
         this.tccTemaDAO = tccTemaDAO;
+        this.tccAtividadeDAO = tccAtividadeDAO;
+        this.tccSolicitacaoDAO = tccSolicitacaoDAO;
     }
 
 
@@ -65,7 +73,7 @@ public class TccTccController {
     
     @Get("/tcctcc/{id}/edit")
     public TccTcc edit(Long id) {
-        
+        Date dataTema = tccAtividadeDAO.findDataTema(sessionData.getLetivoAtual().getId());
         TccTcc tccTcc = tccTccDAO.findById(id);
         List<Perfil> perfisEncontrar = new ArrayList<Perfil>();
         perfisEncontrar.add(Perfil.PROFESSOR);
@@ -73,6 +81,8 @@ public class TccTccController {
         List<TccTema> listTema = tccTemaDAO.findAll();
         Aluno aluno = tccTcc.getAluno();
         Long idPeriodo = tccTcc.getPeriodo().getId();
+        
+        Boolean podeSalvarTema = (!(dataTema == null || !(tccTcc.getSolicitacaoTema().getEstado().equals("Solicitado"))));
 
         if (tccTcc == null) {
             this.validator.add(new ValidationMessage("Desculpe!O Tcc não foi encontrado.", "tccTcc.id"));
@@ -85,12 +95,14 @@ public class TccTccController {
         this.result.include("aluno", aluno);
         this.result.include("temaList", listTema);
         this.result.include("idPeriodo", idPeriodo);
+        this.result.include("podeSalvarTema", podeSalvarTema);
 
         return tccTcc;
     }
     
     @Get("/tcctcc/create")
     public void create() {
+        Date dataTema = tccAtividadeDAO.findDataTema(sessionData.getLetivoAtual().getId());
         Aluno aluno = alunoDAO.findByIdUsuario(sessionData.getUsuario().getId());
         List<Perfil> perfisEncontrar = new ArrayList<Perfil>();
         perfisEncontrar.add(Perfil.PROFESSOR);
@@ -98,11 +110,14 @@ public class TccTccController {
         List<TccTema> listTema = tccTemaDAO.findAll();
         Long idPeriodo = sessionData.getLetivoAtual().getId();
         
+        Boolean podeSalvarTema = !(dataTema == null);
+        
         this.result.include("operacao", "Cadastro");
         this.result.include("professorList", listProfessor);
         this.result.include("aluno", aluno);
         this.result.include("temaList", listTema);
         this.result.include("idPeriodo", idPeriodo);
+        this.result.include("podeSalvarTema", podeSalvarTema);
     }
     
     @Get("/tcctcc/{id}/show")
@@ -137,8 +152,7 @@ public class TccTccController {
     
     @Post("/tcctcc")
     public void cadastrar(TccTcc tccTcc) {
-        tccTcc.setEstado("Ativo");
-        
+        TccSolicitacao tccSolicitacao = new TccSolicitacao();
         if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
         }
@@ -146,7 +160,15 @@ public class TccTccController {
         this.tccTccDAO.create(tccTcc);
 
         this.result.include("success", "cadastrada");
-
+        
+        tccSolicitacao.setTcc(tccTcc);
+        tccSolicitacao.setEstado("Solicitado");
+        tccSolicitacao.setTipo("Definição de Tema");
+        this.tccSolicitacaoDAO.create(tccSolicitacao);
+        
+        tccTcc.setSolicitacaoTema(tccSolicitacao);
+        this.tccTccDAO.update(tccTcc);
+        
         this.result.redirectTo(TccTccController.class).index();
     }
     
