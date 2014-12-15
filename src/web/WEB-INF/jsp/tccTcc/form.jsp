@@ -20,23 +20,17 @@
                 var btn = document.getElementById("aproveitar");
                 
                 btn.onclick = function () {
-                    var temai, tit, desc, orie, temat, tam, orie_imp;
+                    var temai, tit, desc, orie, temat;
                     
                     temai = document.getElementById("temas").selectedIndex;
                     temat = document.getElementById("temat").rows[temai];
                     tit = document.getElementById("titulo");
                     desc = document.getElementById("descricao");
                     orie = document.getElementById("orientador");
-                    orie_imp = temat.cells[3].innerHTML;
-                    tam =  orie.length;
                     
                     tit.setAttribute("value",temat.cells[2].innerHTML);
                     desc.setAttribute("value",temat.cells[1].innerHTML);
-                    for(i=0;i<tam;i++) {
-                        if (orie.options[i].innerHTML == orie_imp) {
-                            orie.selectedIndex = i;
-                        }
-                    }
+                    orie.setAttribute("value",temat.cells[3].innerHTML);
                 };
             };
         </script>
@@ -210,10 +204,10 @@
                 </tr>
                 <c:forEach items="${temaList}" var="temaTab">
                     <tr>
-                        <td>${temaTab.id}</td>
-                        <td>${temaTab.descricao}</td>
-                        <td>${temaTab.titulo}</td>
-                        <td>${temaTab.professor.usuario.nome}</td>
+                        <td> ${temaTab.id} </td>
+                        <td> ${temaTab.descricao} </td>
+                        <td> ${temaTab.titulo} </td>
+                        <td> ${temaTab.professor.usuario.nome} </td>
                     </tr>
                 </c:forEach>
             </table>
