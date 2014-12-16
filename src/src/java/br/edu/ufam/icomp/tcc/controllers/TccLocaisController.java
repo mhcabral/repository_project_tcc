@@ -45,7 +45,7 @@ public class TccLocaisController {
         TccLocais tccLocais = tccLocaisDAO.findById(id);
         
         if (tccLocais == null) {
-            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccLocais.id"));
+            this.validator.add(new ValidationMessage("Desculpe!O Local não foi encontrado.", "tccLocais.id"));
         }
         
         this.validator.onErrorRedirectTo(TccLocaisController.class).index();
