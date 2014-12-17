@@ -156,20 +156,18 @@ public class TccTccController {
         if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
         }
-                
+               
+        tccTcc.setSolicitacaoTema(null);
         this.tccTccDAO.create(tccTcc);
+        
+        tccSolicitacao.setEstado("Solicitado");
+        tccSolicitacao.setTipo("Definição de Tema");
+        tccSolicitacao.setTccTcc(tccTcc);
+        this.tccSolicitacaoDAO.create(tccSolicitacao);
 
         this.result.include("success", "cadastrada");
         
-        tccSolicitacao.setTcc(tccTcc);
-        tccSolicitacao.setEstado("Solicitado");
-        tccSolicitacao.setTipo("Definição de Tema");
-        this.tccSolicitacaoDAO.create(tccSolicitacao);
-        
-        tccTcc.setSolicitacaoTema(tccSolicitacao);
-        this.tccTccDAO.update(tccTcc);
-        
-        this.result.redirectTo(TccTccController.class).index();
+        this.result.redirectTo(TccController.class).main();
     }
     
     @Put("/tcctcc")
@@ -181,7 +179,7 @@ public class TccTccController {
 
         this.result.include("success", "alterada");
 
-        this.result.redirectTo(TccTccController.class).index();
+        this.result.redirectTo(TccController.class).main();
     }
     
 }

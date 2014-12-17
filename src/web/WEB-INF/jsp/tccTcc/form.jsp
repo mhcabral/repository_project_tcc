@@ -170,6 +170,7 @@
                 <input type="hidden" name="tccTcc.aluno.id" value="${aluno.id}"/>
                 <input type="hidden" name="tccTcc.periodo.id" value="${idPeriodo}"/>
                 <input type="hidden" name="tccTcc.estado" value="${tccTcc.estado}"/>
+                
             </p> 
             <p>
                 <label for="temas">Temas:</label><br/>

@@ -56,7 +56,7 @@ public class TccSolicitacaoDAO extends DAOImpl<TccSolicitacao> {
         //Adding predicates in case of parameter not being null
         if (idProfessor > 0) {
             
-            predicates.add(cb.equal(root.get("tcc").get("professor").get("id"), idProfessor));            
+            predicates.add(cb.equal(root.get("tccTcc").get("professor").get("id"), idProfessor));            
         }
         if (!estado.isEmpty()) {
             
@@ -64,7 +64,7 @@ public class TccSolicitacaoDAO extends DAOImpl<TccSolicitacao> {
         }    
         if (idAluno > 0) {
             predicates.add(
-                    cb.equal(root.get("tcc").get("aluno").get("id"), idAluno));
+                    cb.equal(root.get("tccTcc").get("aluno").get("id"), idAluno));
         }
 
         c.select(root)

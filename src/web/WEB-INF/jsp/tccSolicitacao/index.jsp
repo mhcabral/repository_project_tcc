@@ -318,9 +318,9 @@
                     <c:forEach items="${tccSolicitacaoList}" var="tccSolicitacao">
                         <tr>
                             <td><input type="radio" name="RadioGroup1" value="${tccSolicitacao.id}"/></td>
-                            <td class="center">${tccSolicitacao.tcc.aluno.usuario.nome}</td>
+                            <td class="center">${tccSolicitacao.tccTcc.aluno.usuario.nome}</td>
                             <td class="center">${tccSolicitacao.tipo}</td>
-                            <td class="center" style="width: 30%">${tccSolicitacao.tcc.titulo}</td>
+                            <td class="center" style="width: 30%">${tccSolicitacao.tccTcc.titulo}</td>
                             <td class="center">${tccSolicitacao.estado}</td>
                         </tr>
                     </c:forEach>    

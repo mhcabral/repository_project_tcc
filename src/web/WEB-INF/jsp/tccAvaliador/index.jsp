@@ -1,7 +1,7 @@
 <%-- 
-    Document   : /tccAtividade/index
-    Created on : 18/11/2014, 08:00:00
-    Author     : André Bemfica 21003782
+    Document   : index
+    Created on : 12/12/2014, 22:45:17
+    Author     : TAMMY
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,15 +10,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Listando Atividades</title>            
+        <title>Listando Avaliadores</title>            
 
         <style type="text/css" title="currentStyle">
             @import "${pageContext.request.contextPath}/css/demo_page.css";
             @import "${pageContext.request.contextPath}/css/demo_table.css";
         </style>        
 
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_1.css">
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_css.css">
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_1.css" >
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_css.css" >
 
         <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
         <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
@@ -53,61 +53,51 @@
         <script language="JavaScript" type="text/javascript">
             function radioHab(variavel) {
                     
-                var table = document.getElementById("formTccAtividade");
+                var table = document.getElementById("formTccAvaliador");
                 var Radio=null;
 
                 Radio = table.RadioGroup1;
                 if(Radio.checked){
                     switch (variavel){
                         case 'edit':
-                            document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio.value + "/edit";
+                            document.location.href="${pageContext.request.contextPath}/tccavaliador/"+Radio.value + "/edit";
                             return;
                         case 'remove':
-                            decisao = confirm("Deseja realmente remover a atividade?");
+                            decisao = confirm("Deseja realmente remover este avaliador?");
                             if (decisao){
-                                document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio.value + "/remove";
+                                document.location.href="${pageContext.request.contextPath}/tccavaliador/"+Radio.value + "/remove";
                             } else {
-                                alert ("Nenhuma atividade foi removida");
+                                alert ("Não houve remoção de avaliador.");
                             }
                             return;
                         case "show":
-                            document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio.value + "/show";                          
+                            document.location.href="${pageContext.request.contextPath}/tccavaliador/"+Radio.value + "/show";                          
                             return;
-                        }
-                    } else {
-                        for(var i=0;i<Radio.length;i++) 
-                        {
-                            if(Radio[i].checked) 
-                            {
-                                switch (variavel){
-                                    case 'edit':
-                                        document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio[i].value + "/edit";                          
-                                        return;
-                                    case 'remove':    
-                                        decisao = confirm("Deseja realmente remover a atividade?");
-                                        if (decisao){
-                                            document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio[i].value + "/remove";
-                                        } else {
-                                            alert ("Nenhuma atividade foi removida");
-                                        }                            
-                                        return;
-                                    case "show":
-                                        document.location.href="${pageContext.request.contextPath}/tccAtividade/"+Radio[i].value + "/show";
-                                        return;
-                                    }
-                                }
+                    }
+                } else {
+                    for(var i=0;i<Radio.length;i++) {
+                        if(Radio[i].checked) {
+                            switch (variavel){
+                                case 'edit':
+                                    document.location.href="${pageContext.request.contextPath}/tccavaliador/"+Radio[i].value + "/edit";                          
+                                    return;
+                                case 'remove':    
+                                    decisao = confirm("Deseja realmente remover este avaliador?");
+                                    if (decisao){
+                                        document.location.href="${pageContext.request.contextPath}/tccavaliador/"+Radio[i].value + "/remove";
+                                    } else {
+                                        alert ("Não houve a remoção de avaliador.");
+                                    }                            
+                                    return;
+                                case "show":
+                                    document.location.href="${pageContext.request.contextPath}/tccavaliador/"+Radio[i].value + "/show";
+                                    return;
                             }
-
-                            alert('Você precisa selecionar uma atividade');
                         }
                     }
-                
-                    function adjustVagas() {
-                        var idPeriodo =$('#campo-periodo').val();
-                    
-                        window.location = "${pageContext.request.contextPath}/tccAtividade/"+idPeriodo+"/index";
-                        
-                    }
+                    alert("Você precisa selecionar um avaliador");
+                }
+            }
         </script>    
         <style>
             .ui-combobox {
@@ -255,7 +245,9 @@
             })( jQuery );                                     
 
             $(function() {
+                <%--
                 $("#campo-periodo").combobox();
+                --%>
             });
         </script>
     </head>
@@ -269,7 +261,7 @@
                                 <div class="icon">
                                     <ul>                                    
                                         <li class="button" id="toolbar-apply">
-                                            <a href="${pageContext.request.contextPath}/tccAtividade/create" id="new">
+                                            <a href="${pageContext.request.contextPath}/tccavaliador/create" id="new">
                                                 <span width="32" height="32" border="0" class="icon-32-new"></span>Novo
                                             </a>
                                         </li>
@@ -299,61 +291,43 @@
                         </div>
                         <div class="clr"></div>
                     </div>
-                    <div class="pagetitle icon-48-article"><h2>Atividades de TCC</h2></div>
+                    <div class="pagetitle icon-48-article"><h2>Avaliadores</h2></div>
                 </div>
-            </div> <br>
+            </div>
+            <br/>
             <p>
-                <h4>Filtrar por:</h4> <br>
-                <div class="ui-widget">
-                    <label style="padding-left:80px" for="campo-periodo">Periodo:</label>
-                    <select id="campo-periodo" name="campo-periodo">
-                        <c:forEach var="periodo" items="${periodoLetivoList}">
-                            <option value="${periodo.id}" <c:if test = "${periodo.id == idPeriodo}"> selected="true" </c:if>>${periodo}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </p>
+            
+        </p>
 
-            <div id="demo">
-                <form id="formTccAtividade">
-                    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
-                        <thead>
-                            <tr>   
-                                <th></th>
-                                <th>Data Limite</th>
-                                <th>Responsável</th>
-                                <th>Descrição</th>
-                                <th>Prorrogação</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <c:forEach items="${tccAtividadeList}" var="tccAtividade">
-                                <tr>
-                                    <td><input type="radio" name="RadioGroup1" value="${tccAtividade.id}"/></td>
-                                    <td class="center"><fmt:formatDate value="${tccAtividade.datalimite}" pattern="dd/MM/yyyy"/></td>
-                                    <td class="center">${tccAtividade.responsavel}</td>
-                                    <td class="center" style="width: 30%">${tccAtividade.descricao}</td>
-                                    <td class="center"><fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/></td>
-                                    <td class="center">${tccAtividade.estado}</td>
-                                </tr>
-                            </c:forEach>  
-
-                        </tbody>
-                        <tfoot>
+        <div id="demo">
+            <form id="formTccAvaliador">
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+                    <thead>
+                        <tr>   
+                            <th></th>
+                            <th>Avaliador</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${tccAvaliadorList}" var="tccAvaliador">
                             <tr>
-                                <th></th>
-                                <th>Data Limite</th>
-                                <th>Responsável</th>
-                                <th>Descrição</th>
-                                <th>Prorrogação</th>
-                                <th>Estado</th>
+                                <td><input type="radio" name="RadioGroup1" value="${tccAvaliador.id}"/></td>
+                                <td class="center">${tccAvaliador.nome}</td>
+                                <td class="center">${tccAvaliador.email}</td>
                             </tr>
-                        </tfoot>
-                    </table>                        
-                </form>           
-            </div>                             
-        </div>
-    </body>
+                        </c:forEach>                    
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Avaliador</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </tfoot>
+                </table>                        
+            </form>           
+        </div>                             
+    </div>
+</body>
 </html>

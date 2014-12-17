@@ -88,26 +88,26 @@
         <h4><p>Informações do Aluno</p></h4>
         <p>
             <b>Matrícula:</b>
-            ${tccSolicitacao.tcc.aluno.matricula}
+            ${tccSolicitacao.tccTcc.aluno.matricula}
         </p>
         <p>
             <b>Aluno:</b>
-            ${tccSolicitacao.tcc.aluno.usuario.nome}
+            ${tccSolicitacao.tccTcc.aluno.usuario.nome}
         </p>
         <p>
             <b>Curso:</b>
-            ${tccSolicitacao.tcc.aluno.curso}
+            ${tccSolicitacao.tccTcc.aluno.curso}
         </p>
         <br>
 
         <h4><p>Informações do TCC</p></h4>
         <p>
             <b>Título:</b>
-            ${tccSolicitacao.tcc.titulo}
+            ${tccSolicitacao.tccTcc.titulo}
         </p>
         <p>
             <b>Descrição:</b>
-            ${tccSolicitacao.tcc.descricao}
+            ${tccSolicitacao.tccTcc.descricao}
         </p>
         <p>
             <b>Anexos:</b>
@@ -123,7 +123,7 @@
                 <textarea rows="5" cols="51" id="campo-observacao" name="tccSolicitacao.observacao">${tccSolicitacao.observacao}</textarea>
                 <input type="hidden" id="campo-id" name="tccSolicitacao.id" value="${tccSolicitacao.id}">
                 <input type="hidden" id="campo-estado" name="tccSolicitacao.estado" value="${tccSolicitacao.estado}">
-                <input type="hidden" id="campo-tcc" name="tccSolicitacao.tcc.id" value="${tccSolicitacao.tcc.id}">
+                <input type="hidden" id="campo-tcc" name="tccSolicitacao.tccTcc.id" value="${tccSolicitacao.tccTcc.id}">
                 <input type="hidden" id="campo-tipo" name="tccSolicitacao.tipo" value="${tccSolicitacao.tipo}">
             </p> 
         </form>

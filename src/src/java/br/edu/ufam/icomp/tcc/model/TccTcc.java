@@ -41,17 +41,16 @@ public class TccTcc implements Serializable {
     private String descricao;
     @Transient
     private String estado;
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_aluno")
     private Aluno aluno;
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_professor")
     private Professor professor;
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_periodo")
     private PeriodoLetivo periodo;
-    @OneToOne(cascade = CascadeType.REMOVE, optional = true, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "id_sol_tema", nullable = true)
+    @OneToOne(mappedBy="tccTcc")
     private TccSolicitacao solicitacaoTema;
 
     public Long getId() {

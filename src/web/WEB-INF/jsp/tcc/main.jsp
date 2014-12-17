@@ -39,9 +39,9 @@
                                 </div>                                
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/area">
+                                        <a href="${pageContext.request.contextPath}/tccavaliador">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
-                                            <span>Área de Pesquisa</span>
+                                            <span>Avaliadores</span>
                                         </a>
                                     </div>
                                 </div>
