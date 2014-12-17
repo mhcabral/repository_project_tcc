@@ -1,23 +1,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-/**
- *
- * @author andre
- */
+<%--
+ 
+  @author andre
+--%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/js/ui/jquery-ui.css">
+        <script src="${pageContext.request.contextPath}/js/ui/jquery-ui.js"></script>
+                       
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_1.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_css.css">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.maskedinput.js"></script>
+        
         <style type="text/css">
             label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
         </style>
         <script laguage="Javascript" type="text/javascript">
+            $(document).ready(function(){
+                $(".data").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+                    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior'
+                });
+            });
+        </script>
+        <script laguage="Javascript" type="text/javascript">
+            
             $(function () { 
+               
                 $('#save').click(function(e) {
                     e.preventDefault();
                     $("#formTccAtividade").submit(); 
@@ -86,7 +106,7 @@
                         <strong>Situações não permitidas:</strong>
                     <ul>
                         <c:forEach items="${errors}" var="error">
-                            <li style="color: #cd0a0a">${error.message}</li>
+                            <li style="color:#cd0a0a">${error.message}</li>
                         </c:forEach>        
                     </ul>
                     </p>
@@ -102,27 +122,26 @@
                 </c:if>
                 <input type="hidden" name="tccAtividade.estado" value="${tccAtividade.estado}"/>
                 <input type="hidden" name="tccAtividade.periodo.id" value="${tccAtividade.periodo.id}"/>
+                <input type="hidden" name="tccAtividade.ordem" value="${tccAtividade.ordem}"/>
+                <input type="hidden" name="tccAtividade.responsavel" value="${tccAtividade.responsavel}"/>
+                <input type="hidden" name="tccAtividade.descricao" value="${tccAtividade.descricao}"/>
             </p> 
             <p>
                 <label for="datalimite">Data Limite:</label>
-                <input name="tccAtividade.datalimite" type="text" id="datalimite" value="<fmt:formatDate value="${tccAtividade.datalimite}" pattern="dd/MM/yyyy"/>" > <br/>
-            </p>
-            <p>
-                <label for="responsavel">Responsável*:</label><br/>
-                <select id="responsavel" name="tccAtividade.responsavel" value="${tccAtividade.responsavel}">
-                    <option value="">Selecione um responsável</option>
-                    <c:forEach var="string" items="${responsavelList}">
-                        <option  value="${string}" <c:if test = "${string == tccAtividade.responsavel}"> selected="true" </c:if>>${string}</option>
-                    </c:forEach>
-                </select><br/>
-            </p>
-            <p>
-                <label for="descricao">Descricao*:</label>
-                <input type="text" name="tccAtividade.descricao" size="100" id="descricao" value="${tccAtividade.descricao}" > <br/>
+                <input name="tccAtividade.datalimite" type="text" id="datalimite" value="<fmt:formatDate value="${tccAtividade.datalimite}" pattern="dd/MM/yyyy"/>"  class="data"> <br/>
+                
             </p>
             <p>
                 <label for="dataprorrogacao">Data da Prorrogacao:</label>
-                <input type="text" name="tccAtividade.dataprorrogacao" id="dataprorrogacao" value="<fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/>" > <br/>
+                <input type="text" name="tccAtividade.dataprorrogacao" id="dataprorrogacao" value="<fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/>" class="data"> <br/>
+            </p>
+            <p>
+                <label >Responsável:</label><br/>
+                <input type="text" value="${tccAtividade.responsavel}" disabled="true">
+            </p>
+            <p>
+                <label>Descricao:</label><br/>
+                <textarea disabled="true" cols="50" rows="4">${tccAtividade.descricao}</textarea><br/>
             </p>
             <p>
                 <label for="estado1">Estado*:</label>

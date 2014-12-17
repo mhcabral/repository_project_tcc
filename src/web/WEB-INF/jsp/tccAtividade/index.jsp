@@ -3,6 +3,7 @@
     Created on : 18/11/2014, 08:00:00
     Author     : André Bemfica 21003782
 --%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -128,134 +129,134 @@
             }
         </style>
         <script>
-                    (function( $ ) {
-                        $.widget( "ui.combobox", {
-                            _create: function() {
-                                var input,
-                                that = this,
-                                wasOpen = false,
-                                select = this.element.hide(),
-                                selected = select.children( ":selected" ),
-                                value = selected.val() ? selected.text() : "",
-                                wrapper = this.wrapper = $( "<span>" )
-                                .addClass( "ui-combobox" )
-                                .insertAfter( select );                        
- 
-                                function removeIfInvalid( element ) {
-                                    var value = $( element ).val(),
-                                    matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( value ) + "$", "i" ),
-                                    valid = false;
-                                    select.children( "option" ).each(function() {
-                                        if ( $( this ).text().match( matcher ) ) {
-                                            this.selected = valid = true;
-                                            return false;
-                                        }
-                                    });
- 
-                                    if ( !valid ) {
-                                        // remove invalid value, as it didn't match anything
-                                        $( element )
-                                        .val( "" )
-                                        .attr( "title", value + " não encontrado" )
-                                        .tooltip( "open" );
-                                        select.val( "" );
-                                        setTimeout(function() {
-                                            input.tooltip( "close" ).attr( "title", "" );
-                                        }, 2500 );
-                                        input.data( "ui-autocomplete" ).term = "";
-                                    }
+            (function( $ ) {
+                $.widget( "ui.combobox", {
+                    _create: function() {
+                        var input,
+                        that = this,
+                        wasOpen = false,
+                        select = this.element.hide(),
+                        selected = select.children( ":selected" ),
+                        value = selected.val() ? selected.text() : "",
+                        wrapper = this.wrapper = $( "<span>" )
+                        .addClass( "ui-combobox" )
+                        .insertAfter( select );                        
+
+                        function removeIfInvalid( element ) {
+                            var value = $( element ).val(),
+                            matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( value ) + "$", "i" ),
+                            valid = false;
+                            select.children( "option" ).each(function() {
+                                if ( $( this ).text().match( matcher ) ) {
+                                    this.selected = valid = true;
+                                    return false;
                                 }
- 
-                                input = $( "<input>" )
-                                .appendTo( wrapper )
-                                .val( value )
-                                .attr( "title", "" )
-                                .addClass( "ui-state-default ui-combobox-input" )
-                                .autocomplete({
-                                    delay: 0,
-                                    minLength: 0,
-                                    source: function( request, response ) {
-                                        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-                                        response( select.children( "option" ).map(function() {
-                                            var text = $( this ).text();
-                                            if ( this.value && ( !request.term || matcher.test(text) ) )
-                                                return {
-                                                    label: text.replace(
-                                                    new RegExp(
-                                                    "(?![^&;]+;)(?!<[^<>]*)(" +
-                                                        $.ui.autocomplete.escapeRegex(request.term) +
-                                                        ")(?![^<>]*>)(?![^&;]+;)", "gi"
-                                                ), "<strong>$1</strong>" ),
-                                                    value: text,
-                                                    option: this
-                                                };
-                                        }) );
-                                    },                            
-                            
-                                    select: function( event, ui ) {
-                                        ui.item.option.selected = true;
-                                        that._trigger( "selected", event, {
-                                            item: ui.item.option
-                                        });
-                                        
-                                        adjustVagas();
-                                    },                            
-                            
-                                    change: function( event, ui ) {     
-                                        adjustVagas();
-                                    }                          
-                                })
-                                .addClass( "ui-widget ui-widget-content ui-corner-left" );
- 
-                                input.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-                                    return $( "<li>" )
-                                    .append( "<a>" + item.label + "</a>" )
-                                    .appendTo( ul );
-                                };
- 
-                                $( "<a>" )
-                                .attr( "tabIndex", -1 )
-                                .attr( "title", "Todos os registros" )
-                                .tooltip()
-                                .appendTo( wrapper )
-                                .button({
-                                    icons: {
-                                        primary: "ui-icon-triangle-1-s"
-                                    },
-                                    text: false
-                                })
-                                .removeClass( "ui-corner-all" )
-                                .addClass( "ui-corner-right ui-combobox-toggle" )
-                                .mousedown(function() {
-                                    wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-                                })
-                                .click(function() {
-                                    input.focus();
- 
-                                    // close if already visible
-                                    if ( wasOpen ) {
-                                        return;
-                                    }
- 
-                                    // pass empty string as value to search for, displaying all results
-                                    input.autocomplete( "search", "" );
-                                });
- 
-                                input.tooltip({
-                                    tooltipClass: "ui-state-highlight"
-                                });
-                            },
- 
-                            _destroy: function() {
-                                this.wrapper.remove();
-                                this.element.show();
+                            });
+
+                            if ( !valid ) {
+                                // remove invalid value, as it didn't match anything
+                                $( element )
+                                .val( "" )
+                                .attr( "title", value + " não encontrado" )
+                                .tooltip( "open" );
+                                select.val( "" );
+                                setTimeout(function() {
+                                    input.tooltip( "close" ).attr( "title", "" );
+                                }, 2500 );
+                                input.data( "ui-autocomplete" ).term = "";
                             }
+                        }
+
+                        input = $( "<input>" )
+                        .appendTo( wrapper )
+                        .val( value )
+                        .attr( "title", "" )
+                        .addClass( "ui-state-default ui-combobox-input" )
+                        .autocomplete({
+                            delay: 0,
+                            minLength: 0,
+                            source: function( request, response ) {
+                                var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+                                response( select.children( "option" ).map(function() {
+                                    var text = $( this ).text();
+                                    if ( this.value && ( !request.term || matcher.test(text) ) )
+                                        return {
+                                            label: text.replace(
+                                            new RegExp(
+                                            "(?![^&;]+;)(?!<[^<>]*)(" +
+                                                $.ui.autocomplete.escapeRegex(request.term) +
+                                                ")(?![^<>]*>)(?![^&;]+;)", "gi"
+                                        ), "<strong>$1</strong>" ),
+                                            value: text,
+                                            option: this
+                                        };
+                                }) );
+                            },                            
+
+                            select: function( event, ui ) {
+                                ui.item.option.selected = true;
+                                that._trigger( "selected", event, {
+                                    item: ui.item.option
+                                });
+
+                                adjustVagas();
+                            },                            
+
+                            change: function( event, ui ) {     
+                                adjustVagas();
+                            }                          
+                        })
+                        .addClass( "ui-widget ui-widget-content ui-corner-left" );
+
+                        input.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                            return $( "<li>" )
+                            .append( "<a>" + item.label + "</a>" )
+                            .appendTo( ul );
+                        };
+
+                        $( "<a>" )
+                        .attr( "tabIndex", -1 )
+                        .attr( "title", "Todos os registros" )
+                        .tooltip()
+                        .appendTo( wrapper )
+                        .button({
+                            icons: {
+                                primary: "ui-icon-triangle-1-s"
+                            },
+                            text: false
+                        })
+                        .removeClass( "ui-corner-all" )
+                        .addClass( "ui-corner-right ui-combobox-toggle" )
+                        .mousedown(function() {
+                            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+                        })
+                        .click(function() {
+                            input.focus();
+
+                            // close if already visible
+                            if ( wasOpen ) {
+                                return;
+                            }
+
+                            // pass empty string as value to search for, displaying all results
+                            input.autocomplete( "search", "" );
                         });
-                    })( jQuery );                                     
-                        
-                    $(function() {
-                        $("#campo-periodo").combobox();
-                    });
+
+                        input.tooltip({
+                            tooltipClass: "ui-state-highlight"
+                        });
+                    },
+
+                    _destroy: function() {
+                        this.wrapper.remove();
+                        this.element.show();
+                    }
+                });
+            })( jQuery );                                     
+
+            $(function() {
+                $("#campo-periodo").combobox();
+            });
         </script>
     </head>
     <body id="dt_example">
@@ -300,59 +301,59 @@
                     </div>
                     <div class="pagetitle icon-48-article"><h2>Atividades de TCC</h2></div>
                 </div>
-            </div>
-            <br/>
+            </div> <br>
             <p>
-            <h4>Filtrar por:</h4><br/>
-            <div class="ui-widget">
+                <h4>Filtrar por:</h4> <br>
+                <div class="ui-widget">
+                    <label style="padding-left:80px" for="campo-periodo">Periodo:</label>
+                    <select id="campo-periodo" name="campo-periodo">
+                        <c:forEach var="periodo" items="${periodoLetivoList}">
+                            <option value="${periodo.id}" <c:if test = "${periodo.id == idPeriodo}"> selected="true" </c:if>>${periodo}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </p>
 
-                <label style="padding-left:80px" for="campo-periodo">Periodo:</label>
-                <select id="campo-periodo" name="campo-periodo">
-                    <c:forEach var="periodo" items="${periodoLetivoList}">
-                        <option value="${periodo.id}" <c:if test = "${periodo.id == idPeriodo}"> selected="true"</c:if>>${periodo}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </p>
-
-        <div id="demo">
-            <form id="formTccAtividade">
-                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
-                    <thead>
-                        <tr>   
-                            <th></th>
-                            <th>Data Limite</th>
-                            <th>Responsável</th>
-                            <th>Descrição</th>
-                            <th>Prorrogação</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${tccAtividadeList}" var="tccAtividade">
-                            <tr>
-                                <td><input type="radio" name="RadioGroup1" value="${tccAtividade.id}"/></td>
-                                <td class="center"><fmt:formatDate value="${tccAtividade.datalimite}" pattern="dd/MM/yyyy"/></td>
-                                <td class="center">${tccAtividade.responsavel}</td>
-                                <td class="center" style="width: 30%">${tccAtividade.descricao}</td>
-                                <td class="center"><fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/></td>
-                                <td class="center">${tccAtividade.estado}</td>
+            <div id="demo">
+                <form id="formTccAtividade">
+                    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+                        <thead>
+                            <tr>   
+                                <th></th>
+                                <th>Data Limite</th>
+                                <th>Responsável</th>
+                                <th>Descrição</th>
+                                <th>Prorrogação</th>
+                                <th>Estado</th>
                             </tr>
-                        </c:forEach>                    
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Data Limite</th>
-                            <th>Responsável</th>
-                            <th>Descrição</th>
-                            <th>Prorrogação</th>
-                            <th>Estado</th>
-                        </tr>
-                    </tfoot>
-                </table>                        
-            </form>           
-        </div>                             
-    </div>
-</body>
+                        </thead>
+                        <tbody>
+
+                            <c:forEach items="${tccAtividadeList}" var="tccAtividade">
+                                <tr>
+                                    <td><input type="radio" name="RadioGroup1" value="${tccAtividade.id}"/></td>
+                                    <td class="center"><fmt:formatDate value="${tccAtividade.datalimite}" pattern="dd/MM/yyyy"/></td>
+                                    <td class="center">${tccAtividade.responsavel}</td>
+                                    <td class="center" style="width: 30%">${tccAtividade.descricao}</td>
+                                    <td class="center"><fmt:formatDate value="${tccAtividade.dataprorrogacao}" pattern="dd/MM/yyyy"/></td>
+                                    <td class="center">${tccAtividade.estado}</td>
+                                </tr>
+                            </c:forEach>  
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Data Limite</th>
+                                <th>Responsável</th>
+                                <th>Descrição</th>
+                                <th>Prorrogação</th>
+                                <th>Estado</th>
+                            </tr>
+                        </tfoot>
+                    </table>                        
+                </form>           
+            </div>                             
+        </div>
+    </body>
 </html>

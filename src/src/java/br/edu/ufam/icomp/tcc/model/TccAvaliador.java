@@ -23,8 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tccavaliador")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TccAvaliador.findAll", query = "SELECT t FROM TccAvaliador t"),
-    @NamedQuery(name = "TccAvaliador.findById", query = "SELECT t FROM  TccAvaliador t WHERE t.id = :id")
+    @NamedQuery(name = "TccAvaliador.findAll", query = "SELECT a FROM TccAvaliador a"),
+    @NamedQuery(name = "TccAvaliador.findById", query = "SELECT a FROM  TccAvaliador a WHERE a.id = :idAvaliador")
 })
 public class TccAvaliador implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -37,32 +37,16 @@ public class TccAvaliador implements Serializable {
     private Long id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 20)   
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255)     
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "tipo")
-    private String tipo;
 
     public TccAvaliador() {
-    }
-
-   public TccAvaliador(Long id) {
-        this.id = id;
-    }
-
-    public TccAvaliador(Long id, String nome, String email, String tipo) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.tipo = tipo;
     }
 
     public Long getId() {
@@ -87,14 +71,6 @@ public class TccAvaliador implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     @Override

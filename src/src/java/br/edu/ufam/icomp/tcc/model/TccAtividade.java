@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,13 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TccAtividade.findAll", query = "SELECT t FROM TccAtividade t"),
-    @NamedQuery(name = "TccAtividade.findByPeriodo", query = "SELECT t FROM TccAtividade t WHERE t.periodo.id = :idPeriodo"),
+    @NamedQuery(name = "TccAtividade.findByPeriodo", query = "SELECT t FROM TccAtividade t WHERE t.periodo.id = :idPeriodo ORDER BY t.datalimite, t.ordem"),
     @NamedQuery(name = "TccAtividade.findById", query = "SELECT t FROM TccAtividade t WHERE t.id = :id"),
     @NamedQuery(name = "TccAtividade.findByDatalimite", query = "SELECT t FROM TccAtividade t WHERE t.datalimite = :datalimite"),
     @NamedQuery(name = "TccAtividade.findByDataprorrogacao", query = "SELECT t FROM TccAtividade t WHERE t.dataprorrogacao = :dataprorrogacao"),
     @NamedQuery(name = "TccAtividade.findByDescricao", query = "SELECT t FROM TccAtividade t WHERE t.descricao = :descricao"),
-    @NamedQuery(name = "TccAtividade.findByEstado", query = "SELECT t FROM TccAtividade t WHERE t.estado = :estado"),
-    @NamedQuery(name = "TccAtividade.findByResponsavel", query = "SELECT t FROM TccAtividade t WHERE t.responsavel = :responsavel")})
+    @NamedQuery(name = "TccAtividade.findByResponsavel", query = "SELECT t FROM TccAtividade t WHERE t.responsavel = :responsavel"),
+    @NamedQuery(name = "TccAtividade.findDataTema", query = "SELECT t.datalimite FROM TccAtividade t WHERE t.periodo.id = :idPeriodo AND t.ordem = 1 AND (t.datalimite >= CURRENT_DATE OR (t.dataprorrogacao is not null and t.dataprorrogacao >= CURRENT_DATE))")
+})
 public class TccAtividade implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,16 +51,14 @@ public class TccAtividade implements Serializable {
     @Column(name = "datalimite", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datalimite;
-    @Column(name = "dataprorrogacao", nullable = false)
+    @Column(name = "dataprorrogacao")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataprorrogacao;
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "descricao")
     private String descricao;
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "estado", nullable = false)
+    @Transient
     private String estado;
     @NotNull
     @Size(min = 1, max = 255)
@@ -67,6 +67,9 @@ public class TccAtividade implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_periodo")
     private PeriodoLetivo periodo;
+    @NotNull
+    @Column(name = "ordem")
+    private Integer ordem;
 
     public TccAtividade() {
     }
@@ -118,11 +121,19 @@ public class TccAtividade implements Serializable {
     }
 
     public String getEstado() {
+        Date atual = new Date();
+        if (datalimite.before(atual) && (dataprorrogacao == null)) {
+            estado = "Fechado";
+        } else if (!(dataprorrogacao == null)) {
+            if (dataprorrogacao.before(atual)) {
+                estado = "Fechado";
+            } else {
+                estado = "Aberto";
+            }
+        } else {
+            estado = "Aberto";
+        }
         return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public String getResponsavel() {
@@ -141,6 +152,14 @@ public class TccAtividade implements Serializable {
         this.periodo = periodo;
     }
 
+    public Integer getOrdem() {
+        return ordem;
+    }
+
+    public void setOrdem(Integer order) {
+        this.ordem = order;
+    }
+    
     @Override
     public String toString() {
         return descricao;

@@ -38,7 +38,7 @@ public class IndexController {
         
         
     @Get("/")
-    @Permission({ Perfil.ALUNO, Perfil.COORDENADOR, Perfil.SECRETARIA, Perfil.ROOT, Perfil.COORDENADORACAD})
+    @Permission({ Perfil.ALUNO, Perfil.COORDENADOR, Perfil.PROFESSOR, Perfil.SECRETARIA, Perfil.ROOT, Perfil.COORDENADORACAD})
     public void index() {
         result.include("notificacaoList", notificador.getNotificacaoList());
     }		

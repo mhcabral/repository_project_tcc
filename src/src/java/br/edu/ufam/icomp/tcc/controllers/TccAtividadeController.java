@@ -21,9 +21,11 @@ import br.edu.ufam.icomp.tcc.dao.TccAtividadeDAO;
 import br.edu.ufam.icomp.tcc.model.TccAtividade;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -67,8 +69,29 @@ public class TccAtividadeController {
     
     @Get("/tccAtividade/create")
     public void create() {
+        Calendar limite = Calendar.getInstance(Locale.US);
+        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
+        limite.setTime(periodoAtual.getDtInicio());
+        System.out.println("Data1: "+limite.getTime());
+        tccAtividadeDAO.insertInPeriodo(periodoAtual);
+        
+        
+        
+        this.result.redirectTo(TccAtividadeController.class).index(periodoAtual.getId());
+        
+        /*
+        List<String> listResponsavel = new ArrayList();        
+        
+        listResponsavel.add("Aluno");
+        listResponsavel.add("Orientador");
+        listResponsavel.add("Coordenado");
+        listResponsavel.add("Aluno e Orientador");
+        listResponsavel.add("Todos");
+            
+        this.result.include("responsavelList", listResponsavel);
         
         this.result.include("operacao", "Cadastro");
+        */
     }
     
     @Get("/tccAtividade/{id}/edit")
@@ -144,11 +167,11 @@ public class TccAtividadeController {
     public void altera(final TccAtividade tccAtividade) {
         TccAtividade tccAtividadeEncontrado = this.tccAtividadeDAO.findById(tccAtividade.getId());
         
-        if (tccAtividadeEncontrado == null) {
-            //validator.add(new ValidationMessage("Desculpe! Atividade não encontrada.", "tccAtividade.id"));
-        }
-        System.out.println(tccAtividade.getId());
+        System.out.println(tccAtividade.getDatalimite());
         
+        if (tccAtividadeEncontrado == null) {
+            validator.add(new ValidationMessage("Desculpe! Atividade não encontrada.", "tccAtividade.id"));
+        }        
         
         this.validator.onErrorRedirectTo(TccAtividadeController.class).edit(tccAtividade.getId());
         

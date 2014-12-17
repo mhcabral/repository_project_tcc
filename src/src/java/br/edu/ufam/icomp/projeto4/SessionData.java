@@ -6,6 +6,7 @@ import br.edu.ufam.icomp.projeto4.model.PeriodoCadMon;
 import br.edu.ufam.icomp.projeto4.model.PeriodoInsMon;
 import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
 import br.edu.ufam.icomp.projeto4.model.Usuario;
+import br.edu.ufam.icomp.tcc.model.TccAtividade;
 import java.io.Serializable;
 
 /**
@@ -82,4 +83,6 @@ public class SessionData implements Serializable{
     public void setPeriodoInsMon(PeriodoInsMon periodoInsMon) {
         this.periodoInsMon = periodoInsMon;
     }
+    
+    
 }

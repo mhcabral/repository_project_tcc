@@ -51,25 +51,25 @@
         <script language="JavaScript" type="text/javascript">
             function radioHab(variavel) {
                     
-                var table = document.getElementById("formTccTema");
+                var table = document.getElementById("formTccLocais");
                 var Radio=null;
 
                 Radio = table.RadioGroup1;
                 if(Radio.checked){
                     switch (variavel){
                         case 'edit':
-                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/edit";
+                            document.location.href="${pageContext.request.contextPath}/tcclocais/"+Radio.value + "/edit";
                             return;
                         case 'remove':
                             decisao = confirm("Deseja realmente remover a atividade?");
                             if (decisao){
-                                document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/remove";
+                                document.location.href="${pageContext.request.contextPath}/tcclocais/"+Radio.value + "/remove";
                             } else {
                                 alert ("Nenhuma atividade foi removida");
                             }
                             return;
                         case "show":
-                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/show";                          
+                            document.location.href="${pageContext.request.contextPath}/tcclocais/"+Radio.value + "/show";                          
                             return;
                         }
                     } else {
@@ -79,24 +79,24 @@
                             {
                                 switch (variavel){
                                     case 'edit':
-                                        document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/edit";                          
+                                        document.location.href="${pageContext.request.contextPath}/tcclocais/"+Radio[i].value + "/edit";                          
                                         return;
                                     case 'remove':    
                                         decisao = confirm("Deseja realmente remover a atividade?");
                                         if (decisao){
-                                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/remove";
+                                            document.location.href="${pageContext.request.contextPath}/tcclocais/"+Radio[i].value + "/remove";
                                         } else {
                                             alert ("Nenhuma atividade foi removida");
                                         }                            
                                         return;
                                     case "show":
-                                        document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/show";
+                                        document.location.href="${pageContext.request.contextPath}/tcclocais/"+Radio[i].value + "/show";
                                         return;
                                     }
                                 }
                             }
 
-                            alert('Você precisa selecionar um tema');
+                            alert('Você precisa selecionar um local');
                         }
                     }
         </script>    

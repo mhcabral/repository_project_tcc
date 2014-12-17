@@ -376,6 +376,16 @@
                                     </div>
                                 </div>
                             </c:if>
+                            <c:if test="${sessionData.usuario.perfil == 5}">
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tcc/index">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-tcc.png" alt>
+                                            <span>TCC</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                     <div class="clr"></div>

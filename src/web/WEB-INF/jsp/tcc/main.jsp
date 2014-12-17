@@ -28,10 +28,10 @@
                         <div class="cpanel">
                             <div class="pagetitle icon-48-frontpage"><h2>TCC</h2></div>
                             <br/>
-                            <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 2}">
+                            <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 2 || sessionData.usuario.perfil == 5}">
                                 <div class="icon-wrapper" <c:if test="${sessionData.periodoInsMon == null}">title="Opção indisponível! Período de inscrição em monitoria fechado"</c:if>>
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcclocais" >
+                                        <a href="${pageContext.request.contextPath}/tcclocais">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Locais de<br/>Apresentação</span>
                                         </a>
@@ -39,9 +39,9 @@
                                 </div>                                
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/area">
+                                        <a href="${pageContext.request.contextPath}/tccavaliador">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
-                                            <span>Área de Pesquisa</span>
+                                            <span>Avaliadores</span>
                                         </a>
                                     </div>
                                 </div>
@@ -74,6 +74,14 @@
                                         <a href="${pageContext.request.contextPath}/tcc/atividades">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Relatórios</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tccsolicitacoes">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Controla<br/>Solicitações</span>
                                         </a>
                                     </div>
                                 </div>

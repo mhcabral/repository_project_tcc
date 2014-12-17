@@ -34,12 +34,4 @@ public class TccLocaisDAO extends DAOImpl<TccLocais> {
             return null;
         }
     }
-    
-    public List<TccLocais> findAll(){
-        EntityManager entityManager = this.getEntityManager();
-
-        Query query = entityManager.createNamedQuery("TccLocais.findAll");
-
-        return query.getResultList();
-    }
 }

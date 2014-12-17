@@ -20,31 +20,24 @@
                 var btn = document.getElementById("aproveitar");
                 
                 btn.onclick = function () {
-                    var tit, desc, orie, tema, temai, descricao, titulo, tam;
+                    var temai, tit, desc, orie, temat, tam, orie_imp;
                     
-                    tema = document.getElementById("temas").options;
                     temai = document.getElementById("temas").selectedIndex;
-                    tam = document.getElementById("temas").length;
+                    temat = document.getElementById("temat").rows[temai];
                     tit = document.getElementById("titulo");
                     desc = document.getElementById("descricao");
                     orie = document.getElementById("orientador");
+                    orie_imp = temat.cells[3].innerHTML;
+                    tam =  orie.length;
                     
-                    var meuArray = new Array;
-                    
-                    for(i=0;i<tam;i++){
-                        meuArray[i] = document.getElementById("temas").options[i];
+                    tit.setAttribute("value",temat.cells[2].innerHTML);
+                    desc.setAttribute("value",temat.cells[1].innerHTML);
+                    for(i=0;i<tam;i++) {
+                        if (orie.options[i].innerHTML == orie_imp) {
+                            orie.selectedIndex = i;
+                        }
                     }
-                    
-                    alert(meuArray[0]);
-                    titulo = "${temaList[0].titulo}";
-                    descricao = "${temaList[0].descricao}";
-                    tit.setAttribute("value",titulo);
-                    desc.setAttribute("value",descricao);
-                    //alert("Index: " + tema[temai].index + " is " + tema[temai].text);
-               
-                }
-                
-                
+                };
             };
         </script>
         <script laguage="Javascript" type="text/javascript">
@@ -126,14 +119,16 @@
                         <div class="icon-wrapper">
                             <div class="icon">
                                 <ul>
-                                    <li class="button" id="toolbar-apply">
-                                        <a href="javascript:void(0);" id="save" class="toolbar">
-                                            <span width="32" height="32" border="0" class="icon-32-save"></span>Salvar
-                                        </a>
-                                    </li>
+                                    <c:if test = "${podeSalvarTema}">
+                                        <li class="button" id="toolbar-apply" >
+                                            <a href="javascript:void(0);" id="save" class="toolbar">
+                                                <span width="32" height="32" border="0" class="icon-32-save"></span>Salvar
+                                            </a>
+                                        </li>
+                                    </c:if>
                                     <li class="button" id="toolbar-cancel">
                                         <a href="${pageContext.request.contextPath}/tcc/index">
-                                            <span width="32" height="32" border="0" class="icon-32-cancel"></span>Cancelar
+                                            <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
                                         </a>
                                     </li>
                                 </ul>
@@ -168,56 +163,63 @@
 
         <form id="formTccTcc" name="formTccTcc" method="POST" action="<c:url value="/tcctcc"/>"> 
             <p>
-                <c:if test="${not empty tccTema.id}">
+                <c:if test="${not empty tccTcc.id}">
                     <input type="hidden" name="tccTcc.id" value="${tccTcc.id}"/>
                     <input type="hidden" name="_method" value="put"/>
                 </c:if>
                 <input type="hidden" name="tccTcc.aluno.id" value="${aluno.id}"/>
                 <input type="hidden" name="tccTcc.periodo.id" value="${idPeriodo}"/>
                 <input type="hidden" name="tccTcc.estado" value="${tccTcc.estado}"/>
+                
             </p> 
             <p>
                 <label for="temas">Temas:</label><br/>
-                <select id="temas" name="tccTcc.tema" value="">
-                    <option onclick="selTema();" value="">Outro não listado</option>
+                <select id="temas" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>>
+                    <option value="" >Outro não listado</option>
                     <c:forEach var="temasl" items="${temaList}">
                         <option  value="${temasl.id}" >${temasl}</option>
                     </c:forEach>
                 </select>
-                <input type="button" id="aproveitar" value="Aproveitar">
+                <input type="button" id="aproveitar" value="Aproveitar" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>>
                 <br/>
             </p>
             <p>
                 <label for="titulo" >Título*:</label>
-                <input type="text" id="titulo" name="tccTcc.titulo" value="${tccTcc.titulo}" size="100" />
+                <input type="text" id="titulo" name="tccTcc.titulo" value="${tccTcc.titulo}" size="100" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>/>
             </p>
             <p>
                 <label for="descricao">Descrição*:</label>
-                <input type="text" id="descricao" name="tccTcc.descricao" value="${tccTcc.descricao}" size="100" />
+                <input type="text" id="descricao" name="tccTcc.descricao" value="${tccTcc.descricao}" size="100" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>/>
             </p>
             <p>
                 <label for="orientador">Orientador*:</label>
-                <select id="orientador" name="tccTcc.professor.id" value="${tccTcc.professor}">
+                <select id="orientador" name="tccTcc.professor.id" value="${tccTcc.professor}" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>>
                     <option value="">Selecione um orientador</option>
                     <c:forEach var="professor" items="${professorList}">
                         <option  value="${professor.id}" <c:if test = "${professor.id == tccTcc.professor.id}"> selected="true" </c:if>>${professor}</option>
                     </c:forEach>
                 </select><br/>
             </p>
-            <%--
-            <p>
-                <label for="selTemaCurso">Cursos:</label>
-                <select name="tcctema.cursos" size=5 id="campo-cursos" value="tccTema.cursos" multiple >
-                    <c:forEach items="${cursosList}" var="tccTemaCurso">
-                        <option value="" >${tccTemaCurso.curso}</option>
-                    </c:forEach>
-                </select>
-            </p>
-            --%>
             <p>
                 <label for="estado1">Estado*:</label>
                 <input id="estado1" type="text" name="campo-estado" value="${tccTcc.estado}" size="30" disabled="true"/>
             </p>
+            <table id="temat" hidden>
+                <tr>
+                    <td> 0 </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <c:forEach items="${temaList}" var="temaTab">
+                    <tr>
+                        <td>${temaTab.id}</td>
+                        <td>${temaTab.descricao}</td>
+                        <td>${temaTab.titulo}</td>
+                        <td>${temaTab.professor.usuario.nome}</td>
+                    </tr>
+                </c:forEach>
+            </table>
         </form>
     </body>
 </html>

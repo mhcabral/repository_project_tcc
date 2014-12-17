@@ -71,6 +71,9 @@
                                                         <c:if test="${sessionData.usuario.perfil == 4}">
                                                             <i>Coordenador Acadêmico</i>
                                                         </c:if>
+                                                        <c:if test="${sessionData.usuario.perfil == 5}">
+                                                            <i>Professor</i>
+                                                        </c:if>
                                                         <br/> Para sair do sistema faça 
                                                         <a href="<c:url value="/logout"/>"><i>Logout</i></a>
                                                     </c:if>

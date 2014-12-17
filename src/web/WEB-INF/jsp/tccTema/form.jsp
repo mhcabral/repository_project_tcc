@@ -159,11 +159,11 @@
             </p>
             <p>
                 <label for="descricao">Descrição*:</label>
-                <input type="text" id="descricao" name="tccTema.descricao" value="${tccTema.descricao}" size="100" />
+                <textarea rows="4" cols="70" id="descricao" name="tccTema.descricao" >${tccTema.descricao} </textarea>
             </p>
             <p>
                 <label for="Perfil">Perfil*:</label>
-                <input type="text" id="perfil" name="tccTema.perfil" value="${tccTema.perfil}" size="100" />
+                <textarea rows="4" cols="70" id="perfil" name="tccTema.perfil" >${tccTema.perfil} </textarea>
             </p>
             <p>
                 <label for="professor">Professor*:</label>

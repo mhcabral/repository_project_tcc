@@ -126,7 +126,7 @@
             </p>
             <p>
                 <label for="estado1">Estado*:</label>
-                <input id="estado1" type="text" name="campo-estado" value="${tccTema.estado}" size="30" disabled="true"/>
+                <input id="estado1" type="text" name="estado1" value="${tccLocais.estado}" size="30" disabled="true"/>
             </p>
         </form>
     </body>
