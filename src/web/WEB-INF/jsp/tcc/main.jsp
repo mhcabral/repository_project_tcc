@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/atividades">
+                                        <a href="${pageContext.request.contextPath}/underc">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Workshop</span>
                                         </a>
@@ -82,6 +82,14 @@
                                         <a href="${pageContext.request.contextPath}/tccsolicitacoes">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Controla<br/>Solicitações</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tccnotas">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Lançar<br/>Notas</span>
                                         </a>
                                     </div>
                                 </div>

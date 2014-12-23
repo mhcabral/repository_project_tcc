@@ -9,7 +9,7 @@
         function remove(){
             decisao = confirm("Deseja realmente remover o tema?");
             if (decisao){
-                document.location.href="${pageContext.request.contextPath}/tcctema${tccTema.id}/remove";                                                              
+                document.location.href="${pageContext.request.contextPath}/tcctema/${tccTema.id}/remove";                                                              
             } else {
                 alert ("Nenhum tema foi removido.");
             }                            

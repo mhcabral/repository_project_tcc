@@ -77,7 +77,7 @@ public class TccAvaliadorController {
         TccAvaliador tccAvaliador = this.tccAvaliadorDAO.findById(id);
 
         if (tccAvaliador == null) {
-            this.validator.add(new ValidationMessage("(mudar a mensagem daqui).", "tccAvaliador.id"));
+            this.validator.add(new ValidationMessage("Desculpe! O Avaliador não foi encontrado.", "tccAvaliador.id"));
         }
 
         this.validator.onErrorRedirectTo(TccAvaliadorController.class).index();

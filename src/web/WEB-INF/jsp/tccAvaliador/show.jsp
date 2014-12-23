@@ -8,12 +8,12 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Local [Exibição]</title>
+    <title>Avaliador [Exibição]</title>
     <script>
         function remove(){
             decisao = confirm("Deseja realmente remover esse avaliador?");
             if (decisao){
-                document.location.href="${pageContext.request.contextPath}/tccavaliador${tccAvaliador.id}/remove";                                                              
+                document.location.href="${pageContext.request.contextPath}/tccavaliador/${tccAvaliador.id}/remove";                                                              
             } else {
                 alert ("Não houve remoção de avaliador.");
             }                            
@@ -75,9 +75,5 @@
             <b>E-mail:</b>
             ${tccAvaliador.email}
         </p>
-        <p>
-            <b>Tipo:</b>
-            ${tccAvaliador.tipo}
-        </p> 
     </c:if>
 </body>

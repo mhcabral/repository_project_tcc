@@ -1,15 +1,14 @@
 <%-- 
-    Document   : form
-    Created on : 12/12/2014, 22:53:47
+    Document   : index
+    Created on : 17/12/2014, 11:24:30
     Author     : TAMMY
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
-    <head>
+<html> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_1.css">
@@ -22,25 +21,28 @@
             $(function () { 
                 $('#save').click(function(e) {
                     e.preventDefault();
-                    $("#formTccAvaliador").submit(); 
+                    $("#formTccNotas").submit(); 
                 }); 
-                $("#formTccAvaliador").validate({
+                $("#formTccNotas").validate({
                     rules:{
-                        "tccAvaliador.nome":{
+                        "tccNotas.nota1":{   
                             required:true
                         },
-                        "tccAvaliador.email":{
+                        "tccNotas.nota2":{ 
+                            required: true
+                        },
+                        "tccNotas.nota3":{ 
                             required: true
                         }
-                    },
+                    } /**
                     messages:{
-                        "tccAvaliador.nome":{
-                            required: "Informe o nome do avaliador"
+                        "tccLocais.nome":{
+                            required: "Informe o nome do local"
                         },
-                        "tccAvaliador.email":{
-                            required: "Informe o e-mail do avaliador"
+                        "tccLocais.descricao":{
+                            required: "Informe a descricao do local"
                         }
-                    }
+                    }  **/
                 });
             });
             
@@ -50,8 +52,8 @@
                 var digits="0123456789";  
                 var campo_temp;   
                 for (var i=0;i<campo.value.length;i++){  
-                    campo_temp=campo.value.substring(i,i+1);   
-                    if ( digits.indexOf(campo_temp)=== (-1) ){  
+                    campo_temp=campo.value.substring(i,i+1);  
+                    if ( digits.indexOf(campo_temp)== -1 ){  
                         campo.value = campo.value.substring(0,i);  
                     }  
                 }  
@@ -61,7 +63,7 @@
                 $("#campo-cpf").mask("999.999.999-99");
             });
         </script> 
-    </head>
+    
 
     <body>
         <div id="toolbar-box">
@@ -77,7 +79,7 @@
                                         </a>
                                     </li>
                                     <li class="button" id="toolbar-cancel">
-                                        <a href="${pageContext.request.contextPath}/tccavaliador">
+                                        <a href="${pageContext.request.contextPath}/tccnotas">
                                             <span width="32" height="32" border="0" class="icon-32-cancel"></span>Cancelar
                                         </a>
                                     </li>
@@ -88,10 +90,10 @@
                     <div class="clr"></div>
                 </div>
                 <c:if test="${operacao == 'Cadastro'}">
-                    <div class="pagetitle icon-48-article-add"><h2>${operacao} de Avaliador</h2></div>
+                    <div class="pagetitle icon-48-article-add"><h2>${operacao} de Notas</h2></div>
                 </c:if>
                 <c:if test="${operacao == 'Edição'}">
-                    <div class="pagetitle icon-48-article-edit"><h2>${operacao} de Avaliador</h2></div>
+                    <div class="pagetitle icon-48-article-edit"><h2>${operacao} de Notas</h2></div>
                 </c:if>
             </div>
         </div>
@@ -101,30 +103,42 @@
                     <p>
                         <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
                         <strong>Situações não permitidas:</strong>
-                    <ul>
-                        <c:forEach items="${errors}" var="error">
-                            <li style="color: #cd0a0a">${error.message}</li>
-                        </c:forEach>        
-                    </ul>
+                        <ul>
+                           <c:forEach items="${errors}" var="error">
+                               <li style="color: #cd0a0a">${error.message}</li>
+                           </c:forEach>        
+                        </ul>
                     </p>
                 </div>
             </div>   
         </c:if>
 
-        <form id="formTccAvaliador" name="formTccAvaliador" method="POST" action="<c:url value="/tccavaliador"/>"> 
+        <form id="formTccNotas" name="formTccNotas" method="POST" action="<c:url value="/tccnotas"/>"> 
             <p>
-                <c:if test="${not empty tccAvaliador.id}">
-                    <input type="hidden" name="tccAvaliador.id" value="${tccAvaliador.id}"/>
+                <c:if test="${not empty tccNotas.id}">
+                    <input type="hidden" name="tccNotas.id" value="${tccNotas.id}"/>
                     <input type="hidden" name="_method" value="put"/>
                 </c:if>
             </p> 
             <p>
-                <label for="nome">Nome*:</label>
-                <input type="text" id="nome" name="tccAvaliador.nome" value="${tccAvaliador.nome}" size="100"/>
+                <label for="nome">Nome:</label>  
+                <input type="text" id="nome" name="tccNotas.tcctcc.aluno" value="${tccNotas.tcctcc.aluno}" size="100"/>
             </p>
             <p>
-                <label for="email">E-mail*:</label>
-                <input type="text" id="descricao" name="tccAvaliador.email" value="${tccAvaliador.email}" size="100" />
+                <label for="descricao">Título:</label>         
+                <input type="text" id="descricao" name="tccNotas.tcctcc.titulo" value="${tccNotas.tcctcc.titulo}" size="100" />
+            </p>
+            <p>
+                <label for="nota1">Nota 1:</label>         
+                <input type="text" id="nota1" name="tccNotas.nota1" value="${tccNotas.nota1}" size="100" />
+            </p>
+            <p>
+                <label for="nota2">Nota 2:</label>         
+                <input type="text" id="nota2" name="tccNotas.nota2" value="${tccNotas.nota2}" size="100" />
+            </p>
+            <p>
+                <label for="nota3">Nota 3:</label>         
+                <input type="text" id="nota3" name="tccNotas.nota3" value="${tccNotas.nota3}" size="100" />
             </p>
         </form>
     </body>
