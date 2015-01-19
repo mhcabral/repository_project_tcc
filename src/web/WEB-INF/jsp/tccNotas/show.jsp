@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Local [Exibição]</title> 
+    <title>Notas [Exibição]</title> 
 </head>
 <body>
     <div id="toolbar-box">

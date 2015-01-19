@@ -1,7 +1,6 @@
 <%-- 
     Document   : create
-    Created on : 24/03/2013, 21:06:19
-    Author     : Thiago Santos
+    Author     : Marcelo Henrique
 --%>
 
 <head>

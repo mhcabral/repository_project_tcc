@@ -55,10 +55,10 @@
                 if(Radio.checked){
                     switch (variavel){
                         case 'edit':
-                            document.location.href="${pageContext.request.contextPath}/tcclocais/"+Radio.value + "/edit";
+                            document.location.href="${pageContext.request.contextPath}/tccnotas/"+Radio.value + "/edit";
                             return;
                         case "show":
-                            document.location.href="${pageContext.request.contextPath}/tcclocais/"+Radio.value + "/show";                          
+                            document.location.href="${pageContext.request.contextPath}/tccnotas/"+Radio.value + "/show";                          
                             return;
                         }
                     } else {

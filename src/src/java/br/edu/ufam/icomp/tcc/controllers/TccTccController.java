@@ -14,6 +14,7 @@ import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
+import br.edu.ufam.icomp.projeto4.model.Anexo;
 import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.tcc.dao.TccAtividadeDAO;
 import br.edu.ufam.icomp.tcc.dao.TccSolicitacaoDAO;
@@ -22,6 +23,7 @@ import br.edu.ufam.icomp.tcc.dao.TccTemaDAO;
 import br.edu.ufam.icomp.tcc.model.TccSolicitacao;
 import br.edu.ufam.icomp.tcc.model.TccTcc;
 import br.edu.ufam.icomp.tcc.model.TccTema;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +46,7 @@ public class TccTccController {
     private final TccTemaDAO tccTemaDAO;
     private final TccAtividadeDAO tccAtividadeDAO;
     private final TccSolicitacaoDAO tccSolicitacaoDAO;
+    private Anexo pastaDeAnexos;
     
     public TccTccController (Result result,TccTccDAO tccTccDAO, Validator validator, CursoDAO cursoDAO,
             ProfessorDAO professorDAO, SessionData sessionData, AlunoDAO alunoDAO, TccTemaDAO tccTemaDAO,
@@ -96,7 +99,6 @@ public class TccTccController {
         this.result.include("temaList", listTema);
         this.result.include("idPeriodo", idPeriodo);
         this.result.include("podeSalvarTema", podeSalvarTema);
-
         return tccTcc;
     }
     
@@ -182,4 +184,10 @@ public class TccTccController {
         this.result.redirectTo(TccController.class).main();
     }
     
+    @Get("/tcctcc/download/{anexo}")
+    public File download(String anexo) {
+
+        File file = pastaDeAnexos.mostrar(anexo);
+        return file;
+    }
 }

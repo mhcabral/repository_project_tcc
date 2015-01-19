@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/underc">
+                                        <a href="${pageContext.request.contextPath}/tccworkshop">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Workshop</span>
                                         </a>

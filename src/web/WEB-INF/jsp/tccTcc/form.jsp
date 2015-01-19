@@ -201,6 +201,20 @@
                 </select><br/>
             </p>
             <p>
+                <label for="campo-arquivo">Anexos (PDF, PNG, JPG)*:</label>
+                <div id="download-anexos">
+                    <ul id="lista">
+                        <c:forEach items="${tcctcc.anexos}" var="anexo">
+                            <li><a href="${pageContext.request.contextPath}/tcctcc/download/${anexo}" target="_blank" >${anexo}</a></li>                    
+                        </c:forEach>                        
+                    </ul>
+                    <a id="deleteAll" href="javascript:hide_download_anexos()">Excluir todos os anexos</a><br/><br/>                
+                </div>
+                <div id="upload-anexos">
+                    <input id="campo-anexo" type="file" name="anexos[]" multiple/>
+                </div>
+            </p>
+            <p>
                 <label for="estado1">Estado*:</label>
                 <input id="estado1" type="text" name="campo-estado" value="${tccTcc.estado}" size="30" disabled="true"/>
             </p>
