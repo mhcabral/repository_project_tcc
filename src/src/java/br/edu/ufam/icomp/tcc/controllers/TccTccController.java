@@ -27,6 +27,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import br.com.caelum.vraptor.interceptor.download.Download;
+import br.com.caelum.vraptor.interceptor.download.InputStreamDownload;
+import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 
 /**
  *
@@ -158,7 +161,7 @@ public class TccTccController {
         if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
         }
-               
+        
         tccTcc.setSolicitacaoTema(null);
         this.tccTccDAO.create(tccTcc);
         
@@ -173,10 +176,51 @@ public class TccTccController {
     }
     
     @Put("/tcctcc")
-    public void altera(TccTcc tccTcc) {
+    public void altera(TccTcc tccTcc,List<UploadedFile> anexos) {
         if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
         }
+        
+        String extensao = "";
+        int funcionou = 0;
+        
+        if (anexos.isEmpty()) {
+            this.validator.add(new ValidationMessage("Adicione a documentação comprobatória", "anexo"));
+        }
+        
+        
+        List<String> nomeAnexos = new ArrayList<String>();
+        
+        for (UploadedFile uploadedFile : anexos) {
+            
+            if (uploadedFile.getContentType().equals("application/pdf")){
+                extensao = ".pdf";
+                funcionou = 1 ;
+            }
+            else if(uploadedFile.getContentType().equals("image/png")){
+                extensao = ".png";
+                funcionou = 1 ;
+            }
+            else if(uploadedFile.getContentType().equals("image/jpeg")){
+                extensao = ".jpg";
+                funcionou = 1 ;
+            }
+            
+            if (funcionou == 0) {
+                this.validator.add(new ValidationMessage("A extensão do arquivo [" + uploadedFile.getFileName() + "] não é aceita no sistema", "anexos[]", anexos));
+            } else {
+                String nomeAleatorio = pastaDeAnexos.nomeAleatorio();
+                
+                nomeAleatorio += extensao;
+
+                pastaDeAnexos.salva(uploadedFile, nomeAleatorio);
+
+                nomeAnexos.add(nomeAleatorio);
+            }
+        }
+        
+         tccTcc.setAnexos(nomeAnexos);
+        
         this.tccTccDAO.update(tccTcc);
 
         this.result.include("success", "alterada");
