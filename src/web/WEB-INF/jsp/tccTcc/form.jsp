@@ -201,6 +201,7 @@
                 </select><br/>
             </p>
             <p>
+            <c:if test="${operacao == 'Edição'}">
                 <label for="campo-arquivo">Anexos (PDF, PNG, JPG)*:</label>
                 <div id="download-anexos">
                     <ul id="lista">
@@ -213,6 +214,7 @@
                 <div id="upload-anexos">
                     <input id="campo-anexo" type="file" name="anexos[]" multiple/>
                 </div>
+            </c:if>
             </p>
             <p>
                 <label for="estado1">Estado*:</label>
