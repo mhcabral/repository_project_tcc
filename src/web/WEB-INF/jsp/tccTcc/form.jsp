@@ -1,17 +1,20 @@
+<!--
+ *
+ * @author andre
+-->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-/**
- *
- * @author andre
- */
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_1.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_css.css">
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.maskedinput.js"></script>
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery.fileupload_1.js"></script>
         <style type="text/css">
             label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
         </style>
@@ -93,22 +96,6 @@
             });
             
         </script>
-        <script language="javascript">  
-            function somente_numero(campo){  
-                var digits="0123456789"  
-                var campo_temp   
-                for (var i=0;i<campo.value.length;i++){  
-                    campo_temp=campo.value.substring(i,i+1)   
-                    if (digits.indexOf(campo_temp)==-1){  
-                        campo.value = campo.value.substring(0,i);  
-                    }  
-                }  
-            }
-            
-            $(document).ready(function(){
-                $("#campo-cpf").mask("999.999.999-99");
-            });
-        </script> 
     </head>
 
     <body>
@@ -119,7 +106,7 @@
                         <div class="icon-wrapper">
                             <div class="icon">
                                 <ul>
-                                    <c:if test = "${podeSalvarTema}">
+                                    <c:if test = "${podeSalvarTema || podeSalvarUpload}">
                                         <li class="button" id="toolbar-apply" >
                                             <a href="javascript:void(0);" id="save" class="toolbar">
                                                 <span width="32" height="32" border="0" class="icon-32-save"></span>Salvar
@@ -161,7 +148,7 @@
             </div>   
         </c:if>
 
-        <form id="formTccTcc" name="formTccTcc" method="POST" action="<c:url value="/tcctcc"/>"> 
+        <form id="formTccTcc" name="formTccTcc" method="POST" action="${pageContext.request.contextPath}/tcctcc" enctype="multipart/form-data"> 
             <p>
                 <c:if test="${not empty tccTcc.id}">
                     <input type="hidden" name="tccTcc.id" value="${tccTcc.id}"/>
@@ -169,7 +156,11 @@
                 </c:if>
                 <input type="hidden" name="tccTcc.aluno.id" value="${aluno.id}"/>
                 <input type="hidden" name="tccTcc.periodo.id" value="${idPeriodo}"/>
-                <input type="hidden" name="tccTcc.estado" value="${tccTcc.estado}"/>
+                <c:if test = "${not podeSalvarTema}"> 
+                    <input type="hidden" name="tccTcc.descricao" value="${tccTcc.descricao}"/>
+                    <input type="hidden" name="tccTcc.titulo" value="${tccTcc.titulo}"/>
+                    <input type="hidden" name="tccTcc.professor.id" value="${tccTcc.professor.id}"/>
+                </c:if>
                 
             </p> 
             <p>
@@ -203,23 +194,59 @@
             <p>
             <c:if test="${operacao == 'Edição'}">
                 <label for="campo-arquivo">Anexos (PDF, PNG, JPG)*:</label>
+                
                 <div id="download-anexos">
-                    <ul id="lista">
-                        <c:forEach items="${tcctcc.anexos}" var="anexo">
-                            <li><a href="${pageContext.request.contextPath}/tcctcc/download/${anexo}" target="_blank" >${anexo}</a></li>                    
-                        </c:forEach>                        
-                    </ul>
+                    
                     <a id="deleteAll" href="javascript:hide_download_anexos()">Excluir todos os anexos</a><br/><br/>                
                 </div>
-                <div id="upload-anexos">
-                    <input id="campo-anexo" type="file" name="anexos[]" multiple/>
+                <div id="upload-anexos" >
+                    <input id="campo-anexo" type="file" name="anexos[]" multiple <c:if test = "${not podeSalvarUpload}"> disabled="true" </c:if> />
+                    <label for="campo-anexo_descricao">Descrição: </label>
+                    <input id="campo-anexo_descricao" type="text" name="descricao[]" style="width : 300px"/>
                 </div>
             </c:if>
             </p>
-            <p>
-                <label for="estado1">Estado*:</label>
-                <input id="estado1" type="text" name="campo-estado" value="${tccTcc.estado}" size="30" disabled="true"/>
-            </p>
+            <table id="solicitacoesTab">
+                <tr>
+                    <th>Ordem</th>
+                    <th>Solicitacao</th>
+                    <th>Estado</th>
+                </tr>
+                <c:forEach items="${tccTcc.solicitacoes}" var="solicitacoesList" >
+                    <tr>
+                        <td>${solicitacoesList.atividade.ordem}</td>
+                        <td>${solicitacoesList.atividade.descricao}</td>
+                        <td>${solicitacoesList.estado}</td>
+                    </tr>
+                    <c:if test = "${!(solicitacoesList.anexos == null)}">
+                    <table>
+                        <thead>
+                            <tr>
+                               <th>Data</th>
+                               <th>Nome</th>
+                               <th>Descrição</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                               <th>Data</th>
+                               <th>Nome</th>
+                               <th>Descrição</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                        <c:forEach items="${solicitacoesList.anexos}" var="anexoList" >
+                            <tr>
+                                <td>${anexoList.data}</td>
+                                <td>${anexoList.nome}</td>
+                                <td>${anexoList.descricao}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    </c:if>
+                </c:forEach>
+            </table>
             <table id="temat" hidden>
                 <tr>
                     <td> 0 </td>

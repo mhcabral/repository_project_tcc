@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TccAtividade.findAll", query = "SELECT t FROM TccAtividade t"),
     @NamedQuery(name = "TccAtividade.findByPeriodo", query = "SELECT t FROM TccAtividade t WHERE t.periodo.id = :idPeriodo ORDER BY t.datalimite, t.ordem"),
+    @NamedQuery(name = "TccAtividade.findByAnexo", query = "SELECT t FROM TccAtividade t WHERE t.ordem in (1,3,5,8,12) AND t.periodo.id = :idPeriodo ORDER BY t.datalimite, t.ordem"),
     @NamedQuery(name = "TccAtividade.findById", query = "SELECT t FROM TccAtividade t WHERE t.id = :id"),
     @NamedQuery(name = "TccAtividade.findByDatalimite", query = "SELECT t FROM TccAtividade t WHERE t.datalimite = :datalimite"),
     @NamedQuery(name = "TccAtividade.findByDataprorrogacao", query = "SELECT t FROM TccAtividade t WHERE t.dataprorrogacao = :dataprorrogacao"),

@@ -26,9 +26,6 @@ public class Anexo {
 
     public Anexo(ServletContext context) {
         String caminhoImagens = context.getRealPath("/anexos");
-
-        System.out.println(System.getProperty("user.home")+"\\anexos");
-
         pastaImagens = new File(caminhoImagens);
         pastaImagens.mkdir();
     }

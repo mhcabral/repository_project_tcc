@@ -9,6 +9,7 @@ import br.edu.ufam.icomp.projeto4.model.Aluno;
 import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
 import br.edu.ufam.icomp.projeto4.model.Professor;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -40,8 +41,6 @@ public class TccTcc implements Serializable {
     @Size(min = 1, max = 1024)
     @Column(name = "descricao")
     private String descricao;
-    @Transient
-    private String estado;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_aluno")
     private Aluno aluno;
@@ -51,10 +50,9 @@ public class TccTcc implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_periodo")
     private PeriodoLetivo periodo;
-    @OneToOne(mappedBy="tccTcc")
-    private TccSolicitacao solicitacaoTema;
-    @ElementCollection(targetClass = String.class)
-    private List<String> anexos;
+    @OneToMany(mappedBy="tccTcc")
+    @Column(insertable = false, updatable = false)
+    private List<TccSolicitacao> solicitacoes;
 
     public Long getId() {
         return id;
@@ -78,19 +76,6 @@ public class TccTcc implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getEstado() {
-        if (this.solicitacaoTema == null) {
-            estado = "Aberto";
-        } else if (this.solicitacaoTema.getEstado().equals("Solicitado")) {
-            estado = "Solicitando Tema";
-        } else if (this.solicitacaoTema.getEstado().equals("Deferido")) {
-            estado = "Tema Deferido";
-        } else if (this.solicitacaoTema.getEstado().equals("Indeferido")) {
-            estado = "Tema Indeferido";
-        }
-        return estado;
     }
 
     public Aluno getAluno() {
@@ -117,22 +102,13 @@ public class TccTcc implements Serializable {
         this.periodo = periodo;
     }
 
-    public TccSolicitacao getSolicitacaoTema() {
-        return solicitacaoTema;
+    public List<TccSolicitacao> getSolicitacoes() {
+        return solicitacoes;
     }
 
-    public void setSolicitacaoTema(TccSolicitacao solicitacaoTema) {
-        this.solicitacaoTema = solicitacaoTema;
+    public void setSolicitacoes(List<TccSolicitacao> solicitacoes) {
+        this.solicitacoes = solicitacoes;
     }
-
-    public List<String> getAnexos() {
-        return anexos;
-    }
-
-    public void setAnexos(List<String> anexos) {
-        this.anexos = anexos;
-    }
-    
     
     @Override
     public String toString() {

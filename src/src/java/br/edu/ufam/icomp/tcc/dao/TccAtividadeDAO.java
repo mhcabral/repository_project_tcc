@@ -36,6 +36,16 @@ public class TccAtividadeDAO extends DAOImpl<TccAtividade> {
         return query.getResultList();
     }
     
+    public List<TccAtividade> findByAnexo(Long idPeriodo) {
+        EntityManager entityManager = this.getEntityManager();
+        
+        Query query = entityManager.createNamedQuery("TccAtividade.findByAnexo");
+        
+        query.setParameter("idPeriodo", idPeriodo);        
+        
+        return query.getResultList();
+    }
+    
     @Override
     public TccAtividade findById(Long idPeriodo) {
         EntityManager entityManager = this.getEntityManager();
