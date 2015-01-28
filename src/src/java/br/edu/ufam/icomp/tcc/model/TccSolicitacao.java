@@ -2,17 +2,19 @@
 package br.edu.ufam.icomp.tcc.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -45,17 +47,17 @@ public class TccSolicitacao implements Serializable{
     @Size(min = 1, max = 20)
     @Column(name = "estado")
     private String estado;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "tipo") //{Aproveitamento, Definir Tema}
-    private String tipo;
-    @OneToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_tcc")
+    @ManyToOne
+    @JoinColumn(name = "id_atividade")
+    private TccAtividade atividade;
+    @ManyToOne
     private TccTcc tccTcc;
     @Size(min = 1, max = 1024)
     @Column(name = "observacao")
     private String observacao;
+    @OneToMany(mappedBy="tccSolicitacao")
+    @Column(insertable = false, updatable = false)
+    private List<TccAnexo> anexos;
 
     public Long getId() {
         return id;
@@ -72,14 +74,6 @@ public class TccSolicitacao implements Serializable{
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
     
     public String getObservacao() {
         return observacao;
@@ -89,17 +83,33 @@ public class TccSolicitacao implements Serializable{
         this.observacao = observacao;
     }
 
+    public TccAtividade getAtividade() {
+        return atividade;
+    }
+
+    public void setAtividade(TccAtividade atividade) {
+        this.atividade = atividade;
+    }
+
     public TccTcc getTccTcc() {
         return tccTcc;
     }
 
     public void setTccTcc(TccTcc tccTcc) {
         this.tccTcc = tccTcc;
-    }    
+    }
+
+    public List<TccAnexo> getAnexos() {
+        return anexos;
+    }
+
+    public void setAnexos(List<TccAnexo> anexos) {
+        this.anexos = anexos;
+    }
     
     @Override
     public String toString() {
-        return tipo;
+        return atividade.getDescricao();
     }
     
     

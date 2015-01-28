@@ -7,10 +7,14 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
+import br.edu.ufam.icomp.projeto4.SessionData;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
+import br.edu.ufam.icomp.projeto4.model.Aluno;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
+import br.edu.ufam.icomp.tcc.dao.TccTccDAO;
 import br.edu.ufam.icomp.tcc.model.TccNotas;
+import br.edu.ufam.icomp.tcc.model.TccTcc;
 import java.util.List;
 
 @Resource
@@ -19,20 +23,26 @@ public class TccNotasController {
     private final Result result;
     private final Validator validator;
     private final TccNotasDAO tccNotasDAO;
+    private SessionData session;
+    private final TccTccDAO tccTccDAO;
     
-    public TccNotasController (Result result,TccNotasDAO tccNotasDAO, Validator validator){
+    public TccNotasController (Result result,TccNotasDAO tccNotasDAO, Validator validator,SessionData session,TccTccDAO tcctccDAO){
         this.result = result;
         this.validator = validator;
         this.tccNotasDAO = tccNotasDAO;
+        this.session = session;
+        this.tccTccDAO = tcctccDAO;
     }
 
 
     @Get("/tccnotas")
     public void index() {
-             
-        List<TccNotas> tccNotas = this.tccNotasDAO.findAll();
+        if (session.getUsuario().getRole().equals(Perfil.PROFESSOR)) { 
+            
+        }    
+        //List<TccTcc> tccNotas = this.tccTccDAO.findTccByProfessor();
         
-        this.result.include("tccNotasList", tccNotas);
+        //this.result.include("tccNotasList", tccNotas);
     }
     
     @Get("/tccnotas/{id}/edit")

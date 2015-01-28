@@ -44,5 +44,15 @@ public class TccTccDAO extends DAOImpl<TccTcc> {
         
         return query.getResultList();
     }
+    
+    public List<TccTcc> findTccByProfessor(Long idProfessor) {
+        EntityManager entityManager = this.getEntityManager();
+        
+        Query query = entityManager.createNamedQuery("TccTcc.findTccByProfessor");
+        
+        query.setParameter("idProfessor", idProfessor);        
+        
+        return query.getResultList();
+    }
   
 }

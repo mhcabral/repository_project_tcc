@@ -30,6 +30,11 @@ import java.util.List;
 import br.com.caelum.vraptor.interceptor.download.Download;
 import br.com.caelum.vraptor.interceptor.download.InputStreamDownload;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
+import br.edu.ufam.icomp.tcc.dao.TccAnexoDAO;
+import br.edu.ufam.icomp.tcc.model.TccAnexo;
+import br.edu.ufam.icomp.tcc.model.TccAtividade;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -49,11 +54,13 @@ public class TccTccController {
     private final TccTemaDAO tccTemaDAO;
     private final TccAtividadeDAO tccAtividadeDAO;
     private final TccSolicitacaoDAO tccSolicitacaoDAO;
+    private final TccAnexoDAO tccAnexoDAO;
     private Anexo pastaDeAnexos;
     
     public TccTccController (Result result,TccTccDAO tccTccDAO, Validator validator, CursoDAO cursoDAO,
             ProfessorDAO professorDAO, SessionData sessionData, AlunoDAO alunoDAO, TccTemaDAO tccTemaDAO,
-            TccAtividadeDAO tccAtividadeDAO, TccSolicitacaoDAO tccSolicitacaoDAO){
+            TccAtividadeDAO tccAtividadeDAO, TccSolicitacaoDAO tccSolicitacaoDAO,
+            TccAnexoDAO tccAnexoDAO, Anexo pastaDeAnexos){
         this.result = result;
         this.validator = validator;
         this.tccTccDAO = tccTccDAO;
@@ -64,6 +71,8 @@ public class TccTccController {
         this.tccTemaDAO = tccTemaDAO;
         this.tccAtividadeDAO = tccAtividadeDAO;
         this.tccSolicitacaoDAO = tccSolicitacaoDAO;
+        this.tccAnexoDAO = tccAnexoDAO;
+        this.pastaDeAnexos = pastaDeAnexos;
     }
 
 
@@ -79,7 +88,6 @@ public class TccTccController {
     
     @Get("/tcctcc/{id}/edit")
     public TccTcc edit(Long id) {
-        Date dataTema = tccAtividadeDAO.findDataTema(sessionData.getLetivoAtual().getId());
         TccTcc tccTcc = tccTccDAO.findById(id);
         List<Perfil> perfisEncontrar = new ArrayList<Perfil>();
         perfisEncontrar.add(Perfil.PROFESSOR);
@@ -87,21 +95,39 @@ public class TccTccController {
         List<TccTema> listTema = tccTemaDAO.findAll();
         Aluno aluno = tccTcc.getAluno();
         Long idPeriodo = tccTcc.getPeriodo().getId();
+        TccSolicitacao tccSolicitacao = new TccSolicitacao();
+        List<TccSolicitacao> solicitacoes = tccTcc.getSolicitacoes();
+        List<TccAtividade> atividades = tccAtividadeDAO.findByPeriodo(sessionData.getLetivoAtual().getId());
+        Boolean podeSalvarTema = true;
+        Boolean podeSalvarUpload = true;
         
-        Boolean podeSalvarTema = (!(dataTema == null || !(tccTcc.getSolicitacaoTema().getEstado().equals("Solicitado"))));
-
         if (tccTcc == null) {
             this.validator.add(new ValidationMessage("Desculpe!O Tcc não foi encontrado.", "tccTcc.id"));
         }
         
         this.validator.onErrorRedirectTo(TccTccController.class).index();
-
+        
+        if (tccTcc.getSolicitacoes().size() == 1) {
+            if (tccTcc.getSolicitacoes().get(0).getEstado().equals("Solicitado")) {
+                podeSalvarTema = true;
+                podeSalvarUpload = false;
+            } else {
+                podeSalvarTema = false;
+                podeSalvarUpload = true;
+            }
+                
+        } else if (tccTcc.getSolicitacoes().size() >= 2) {
+            podeSalvarUpload = true;
+            podeSalvarTema = false;
+        }
+                
         this.result.include("operacao", "Edição");
         this.result.include("professorList", listProfessor);
         this.result.include("aluno", aluno);
         this.result.include("temaList", listTema);
         this.result.include("idPeriodo", idPeriodo);
         this.result.include("podeSalvarTema", podeSalvarTema);
+        this.result.include("podeSalvarUpload", podeSalvarUpload);
         return tccTcc;
     }
     
@@ -145,7 +171,7 @@ public class TccTccController {
         if (tccTcc == null) {
             this.validator.add(new ValidationMessage("Desculpe! O Tcc não foi encontrado.", "tccTcc.id"));
         }
-
+        
         this.validator.onErrorRedirectTo(TccTccController.class).index();
 
         this.tccTccDAO.delete(tccTcc);
@@ -157,70 +183,98 @@ public class TccTccController {
     
     @Post("/tcctcc")
     public void cadastrar(TccTcc tccTcc) {
-        TccSolicitacao tccSolicitacao = new TccSolicitacao();
+        List<TccAtividade> atividades = tccAtividadeDAO.findByPeriodo(sessionData.getLetivoAtual().getId());
+        
         if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
         }
+        this.validator.onErrorRedirectTo(TccTccController.class).index();
         
-        tccTcc.setSolicitacaoTema(null);
         this.tccTccDAO.create(tccTcc);
         
+        TccSolicitacao tccSolicitacao = new TccSolicitacao();
+        tccSolicitacao.setAtividade(atividades.get(0));
         tccSolicitacao.setEstado("Solicitado");
-        tccSolicitacao.setTipo("Definição de Tema");
         tccSolicitacao.setTccTcc(tccTcc);
         this.tccSolicitacaoDAO.create(tccSolicitacao);
-
+        
         this.result.include("success", "cadastrada");
         
         this.result.redirectTo(TccController.class).main();
     }
     
     @Put("/tcctcc")
-    public void altera(TccTcc tccTcc,List<UploadedFile> anexos) {
-        if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
+    public void altera(TccTcc tccTcc, List<UploadedFile> anexos, String descricao) {
+        TccTcc tcc1 = tccTccDAO.findById(tccTcc.getId());
+        tccTcc.setSolicitacoes(tcc1.getSolicitacoes());
+        
+        if (tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
         }
-        
+        this.validator.onErrorRedirectTo(TccTccController.class).index();
+                
         String extensao = "";
         int funcionou = 0;
-        
-        if (anexos.isEmpty()) {
-            this.validator.add(new ValidationMessage("Adicione a documentação comprobatória", "anexo"));
+                        
+        if (!(anexos == null)) {
+            if (anexos.isEmpty()) {
+                this.validator.add(new ValidationMessage("Adicione a documentação comprobatória", "anexo"));
+                this.validator.onErrorRedirectTo(TccTccController.class).index();
+            }
+
+            List<String> nomeAnexos = new ArrayList<String>();
+
+            for (UploadedFile uploadedFile : anexos) {
+
+                if (uploadedFile.getContentType().equals("application/pdf")){
+                    extensao = ".pdf";
+                    funcionou = 1 ;
+                }
+                else if(uploadedFile.getContentType().equals("image/png")){
+                    extensao = ".png";
+                    funcionou = 1 ;
+                }
+                else if(uploadedFile.getContentType().equals("image/jpeg")){
+                    extensao = ".jpg";
+                    funcionou = 1 ;
+                }
+
+                if (funcionou == 0) {
+                    this.validator.add(new ValidationMessage("A extensão do arquivo [" + uploadedFile.getFileName() + "] não é aceita no sistema", "anexos[]", anexos));
+                    this.validator.onErrorRedirectTo(TccTccController.class).index();
+                } else {
+                    String nomeAleatorio = pastaDeAnexos.nomeAleatorio();
+
+                    nomeAleatorio += extensao;
+
+                    pastaDeAnexos.salva(uploadedFile, nomeAleatorio);
+
+                    nomeAnexos.add(nomeAleatorio);
+                    
+                    List<TccAtividade> atividades = tccAtividadeDAO.findByAnexo(sessionData.getLetivoAtual().getId());
+                    Integer tamanho = tccTcc.getSolicitacoes().size();
+                    TccSolicitacao ultSolicitacao = tccTcc.getSolicitacoes().get(tamanho-1);
+                    Date date = new Date();
+                    TccAnexo tccAnexo = new TccAnexo();
+                    tccAnexo.setData(date);
+                    tccAnexo.setDescricao(descricao);
+                    tccAnexo.setNome(nomeAleatorio);
+                    if (!(ultSolicitacao.getEstado().equals("Solicitado"))) {
+                        TccSolicitacao tccSolicitacao = new TccSolicitacao();
+                        tccSolicitacao.setAtividade(atividades.get(tamanho));
+                        tccSolicitacao.setEstado("Solicitado");
+                        tccSolicitacao.setTccTcc(tccTcc);
+                        this.tccSolicitacaoDAO.create(tccSolicitacao);
+                        tccAnexo.setTccSolicitacao(tccSolicitacao);
+                    } else {
+                        tccAnexo.setTccSolicitacao(ultSolicitacao);
+                    }
+                    this.tccAnexoDAO.create(tccAnexo);
+                }
+            }
+
         }
-        
-        
-        List<String> nomeAnexos = new ArrayList<String>();
-        
-        for (UploadedFile uploadedFile : anexos) {
-            
-            if (uploadedFile.getContentType().equals("application/pdf")){
-                extensao = ".pdf";
-                funcionou = 1 ;
-            }
-            else if(uploadedFile.getContentType().equals("image/png")){
-                extensao = ".png";
-                funcionou = 1 ;
-            }
-            else if(uploadedFile.getContentType().equals("image/jpeg")){
-                extensao = ".jpg";
-                funcionou = 1 ;
-            }
-            
-            if (funcionou == 0) {
-                this.validator.add(new ValidationMessage("A extensão do arquivo [" + uploadedFile.getFileName() + "] não é aceita no sistema", "anexos[]", anexos));
-            } else {
-                String nomeAleatorio = pastaDeAnexos.nomeAleatorio();
                 
-                nomeAleatorio += extensao;
-
-                pastaDeAnexos.salva(uploadedFile, nomeAleatorio);
-
-                nomeAnexos.add(nomeAleatorio);
-            }
-        }
-        
-         tccTcc.setAnexos(nomeAnexos);
-        
         this.tccTccDAO.update(tccTcc);
 
         this.result.include("success", "alterada");
@@ -234,4 +288,5 @@ public class TccTccController {
         File file = pastaDeAnexos.mostrar(anexo);
         return file;
     }
+
 }
