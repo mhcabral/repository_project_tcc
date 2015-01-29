@@ -146,9 +146,10 @@
                             <th></th>
                             <th>Aluno</th>               
                             <th>Título</th>		
-                            <th>Nota 1</th>
-                            <th>Nota 2</th>
-                            <th>Nota 3</th>
+                            <th>Nota Primeira Entrega</th>
+                            <th>Nota Segunda Entrega</th>
+                            <th>Nota Workshop</th>
+                            <th>Media Final</th>
                         
                     </thead>
                     <tbody>
@@ -160,6 +161,7 @@
                                 <td class="center">${tccNotas.nota1}</td>
                                 <td class="center">${tccNotas.nota2}</td>
                                 <td class="center">${tccNotas.nota3}</td>
+                                <td class="center">${tccNotas.media}</td>
                             </tr>
                         </c:forEach>                    
                     </tbody>
@@ -168,9 +170,10 @@
                             <th></th>
                             <th>Aluno</th>      
                             <th>Título</th>
-                            <th>Nota 1</th>
-                            <th>Nota 2</th>
-                            <th>Nota 3</th>
+                            <th>Nota Primeira Entrega</th>
+                            <th>Nota Segunda Entrega</th>
+                            <th>Nota Workshop</th>
+                            <th>Media Final</th>
                         </tr>
                     </tfoot>
                 </table>                        

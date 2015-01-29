@@ -19,11 +19,6 @@
                     <div class="icon-wrapper">
                         <div class="icon">
                             <ul>
-                                <li class="button" id="toolbar-apply">
-                                    <a href="${pageContext.request.contextPath}/tccnotas/${tccNotas.id}/edit" id="edit" class="toolbar">
-                                        <span width="32" height="32" border="0" class="icon-32-edit"></span>Editar
-                                    </a>
-                                </li>
                                 <li class="button" id="toolbar-cancel">
                                     <a href="${pageContext.request.contextPath}/tccnotas" id="back">
                                         <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
@@ -54,19 +49,27 @@
     <c:if test="${not empty tccNotas.id}"> 
         <p>
             <b>Nome: </b>
-            ${tccNotas.tcc.aluno}
+            ${tccNotas.tcctcc.aluno}
         </p>
         <p>
-            <b>Nota 1: </b>
+            <b>Titulo: </b>
+            ${tccNotas.tcctcc.titulo}
+        </p>
+        <p>
+            <b>Nota Primeira entrega: </b>
             ${tccNotas.nota1}
         </p>
         <p>
-            <b>Nota 2: </b>
+            <b>Nota Segunda entrega: </b>
             ${tccNotas.nota2}
         </p> 
         <p>
-            <b>Nota 3: </b>
+            <b>Nota Workshop: </b>
             ${tccNotas.nota3}
+        </p> 
+        <p>
+            <b>Media Final: </b>
+            ${tccNotas.media}
         </p> 
     </c:if>
 </body>
