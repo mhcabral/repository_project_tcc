@@ -8,9 +8,11 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.edu.ufam.icomp.projeto4.SessionData;
+import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
+import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
 import br.edu.ufam.icomp.tcc.dao.TccTccDAO;
 import br.edu.ufam.icomp.tcc.model.TccNotas;
@@ -25,24 +27,31 @@ public class TccNotasController {
     private final TccNotasDAO tccNotasDAO;
     private SessionData session;
     private final TccTccDAO tccTccDAO;
+    private final ProfessorDAO professorDAO;
     
-    public TccNotasController (Result result,TccNotasDAO tccNotasDAO, Validator validator,SessionData session,TccTccDAO tcctccDAO){
+    public TccNotasController (Result result,TccNotasDAO tccNotasDAO, Validator validator,SessionData session,TccTccDAO tcctccDAO,ProfessorDAO professorDAO){
         this.result = result;
         this.validator = validator;
         this.tccNotasDAO = tccNotasDAO;
         this.session = session;
         this.tccTccDAO = tcctccDAO;
+        this.professorDAO = professorDAO;
     }
 
 
     @Get("/tccnotas")
     public void index() {
+        List<TccNotas> tccNotas = null;
         if (session.getUsuario().getRole().equals(Perfil.PROFESSOR)) { 
-            
-        }    
-        //List<TccTcc> tccNotas = this.tccTccDAO.findTccByProfessor();
+            Professor professor = this.professorDAO.findById(session.getUsuario().getId());
+            List<TccTcc> tcctcc = this.tccTccDAO.findTccByProfessor(professor.getId());
+            int i;
+            for(i=0;i<tcctcc.size();i++){
+                tccNotas.add(this.tccNotasDAO.findByTcc(tcctcc.get(i).getId()));
+            }
+        }
         
-        //this.result.include("tccNotasList", tccNotas);
+        this.result.include("tccNotasList", tccNotas);
     }
     
     @Get("/tccnotas/{id}/edit")

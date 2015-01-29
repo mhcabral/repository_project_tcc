@@ -26,7 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TccNotas.findAll", query = "SELECT t FROM TccNotas t"),
-    @NamedQuery(name = "TccNotas.findById", query = "SELECT t FROM TccNotas t WHERE t.id = :id")
+    @NamedQuery(name = "TccNotas.findById", query = "SELECT t FROM TccNotas t WHERE t.id = :id"),
+    @NamedQuery(name = "TccNotas.findByTcc", query = "SELECT t FROM TccNotas t WHERE t.tcctcc.id = :idTccTcc")
 })
 public class TccNotas implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -28,4 +28,18 @@ public class TccNotasDAO extends DAOImpl<TccNotas> {
             return null;
         }
     }
+    
+    public TccNotas findByTcc(Long idtcctcc) {
+        EntityManager entityManager = this.getEntityManager();
+        
+        Query query = entityManager.createNamedQuery("TccNotas.findByTcc");
+        
+        query.setParameter("id", idtcctcc);        
+        
+        try {
+            return (TccNotas) query.getSingleResult();
+        } catch (NoResultException n) {
+            return null;
+        }
+    }
 }
