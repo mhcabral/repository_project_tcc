@@ -121,23 +121,23 @@
                 </c:if>
             </p> 
             <p>
-                <label for="nome">Nome:</label>  
+                <label for="nome">Nome do Aluno:</label>  
                 <input type="text" id="nome" name="tccNotas.tcctcc.aluno" value="${tccNotas.tcctcc.aluno}" size="100"/>
             </p>
             <p>
-                <label for="descricao">Título:</label>         
+                <label for="descricao">Título do TCC:</label>         
                 <input type="text" id="descricao" name="tccNotas.tcctcc.titulo" value="${tccNotas.tcctcc.titulo}" size="100" />
             </p>
             <p>
-                <label for="nota1">Nota 1:</label>         
+                <label for="nota1">Nota da Primeira Entrega:</label>         
                 <input type="text" id="nota1" name="tccNotas.nota1" value="${tccNotas.nota1}" size="100" />
             </p>
             <p>
-                <label for="nota2">Nota 2:</label>         
+                <label for="nota2">Nota da Segunda Entrega:</label>         
                 <input type="text" id="nota2" name="tccNotas.nota2" value="${tccNotas.nota2}" size="100" />
             </p>
             <p>
-                <label for="nota3">Nota 3:</label>         
+                <label for="nota3">Nota do Workshop:</label>         
                 <input type="text" id="nota3" name="tccNotas.nota3" value="${tccNotas.nota3}" size="100" />
             </p>
         </form>

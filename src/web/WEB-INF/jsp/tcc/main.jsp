@@ -85,11 +85,18 @@
                                         </a>
                                     </div>
                                 </div>
+                            </c:if>
+                            <c:if test="${sessionData.usuario.perfil == 5 || sessionData.usuario.perfil == 0}">
                                 <div class="icon-wrapper">
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tccnotas">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 5}">
                                             <span>Lançar<br/>Notas</span>
+                                            </c:if>
+                                            <c:if test="${sessionData.usuario.perfil == 0}">
+                                            <span>Exibir<br/>Notas</span>
+                                            </c:if>
                                         </a>
                                     </div>
                                 </div>
@@ -108,14 +115,6 @@
                                         <a href="${pageContext.request.contextPath}/tcc/edit">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Enviar Documento</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="icon-wrapper">
-                                    <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/edit">
-                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
-                                            <span>Exibir Notas</span>
                                         </a>
                                     </div>
                                 </div>

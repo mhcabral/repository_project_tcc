@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Resource
-@Permission({Perfil.COORDENADOR, Perfil.COORDENADORACAD, Perfil.PROFESSOR, Perfil.ROOT}) 
+@Permission({Perfil.COORDENADOR, Perfil.COORDENADORACAD, Perfil.PROFESSOR, Perfil.ROOT, Perfil.ALUNO}) 
 public class TccNotasController {
     private final Result result;
     private final Validator validator;
@@ -49,20 +49,11 @@ public class TccNotasController {
 
     @Get("/tccnotas")
     public void index() {
-        List<TccNotas> tccNotas = null;
+        List<TccNotas> tccNotas = new ArrayList<TccNotas>();
         if (session.getUsuario().getRole().equals(Perfil.ALUNO)) { 
             Aluno aluno = this.alunoDAO.findByIdUsuario(session.getUsuario().getId());
             TccTcc tcctcc = this.tccTccDAO.findByAluno(aluno.getId());
             tccNotas.add(this.tccNotasDAO.findByTcc(tcctcc.getId()));
-        }
-        else if(session.getUsuario().getRole().equals(Perfil.COORDENADOR)){
-            CoordenadorCurso coordenador = this.coordenadorDAO.findById(session.getUsuario().getId());
-            Professor professor = coordenador.getProfessor();
-            List<TccTcc> tcctcc = this.tccTccDAO.findTccByProfessor(professor.getId());
-            int i;
-            for(i=0;i<tcctcc.size();i++){
-                tccNotas.add(this.tccNotasDAO.findByTcc(tcctcc.get(i).getId()));
-            }
         }
          else{
             Professor professor = this.professorDAO.findById(session.getUsuario().getId());
