@@ -8,19 +8,23 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.edu.ufam.icomp.projeto4.SessionData;
+import br.edu.ufam.icomp.projeto4.dao.AlunoDAO;
+import br.edu.ufam.icomp.projeto4.dao.CoordenadorCursoDAO;
 import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
+import br.edu.ufam.icomp.projeto4.model.CoordenadorCurso;
 import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
 import br.edu.ufam.icomp.tcc.dao.TccTccDAO;
 import br.edu.ufam.icomp.tcc.model.TccNotas;
 import br.edu.ufam.icomp.tcc.model.TccTcc;
+import java.util.ArrayList;
 import java.util.List;
 
 @Resource
-@Permission({Perfil.COORDENADOR, Perfil.COORDENADORACAD, Perfil.PROFESSOR, Perfil.ROOT}) 
+@Permission({Perfil.COORDENADOR, Perfil.COORDENADORACAD, Perfil.PROFESSOR, Perfil.ROOT, Perfil.ALUNO}) 
 public class TccNotasController {
     private final Result result;
     private final Validator validator;
@@ -28,21 +32,30 @@ public class TccNotasController {
     private SessionData session;
     private final TccTccDAO tccTccDAO;
     private final ProfessorDAO professorDAO;
+    private final AlunoDAO alunoDAO;
+    private final CoordenadorCursoDAO coordenadorDAO;
     
-    public TccNotasController (Result result,TccNotasDAO tccNotasDAO, Validator validator,SessionData session,TccTccDAO tcctccDAO,ProfessorDAO professorDAO){
+    public TccNotasController (Result result,TccNotasDAO tccNotasDAO, Validator validator,SessionData session,TccTccDAO tcctccDAO,ProfessorDAO professorDAO,AlunoDAO alunoDAO,CoordenadorCursoDAO coordenadorDAO){
         this.result = result;
         this.validator = validator;
         this.tccNotasDAO = tccNotasDAO;
         this.session = session;
         this.tccTccDAO = tcctccDAO;
         this.professorDAO = professorDAO;
+        this.alunoDAO = alunoDAO;
+        this.coordenadorDAO = coordenadorDAO;
     }
 
 
     @Get("/tccnotas")
     public void index() {
-        List<TccNotas> tccNotas = null;
-        if (session.getUsuario().getRole().equals(Perfil.PROFESSOR)) { 
+        List<TccNotas> tccNotas = new ArrayList<TccNotas>();
+        if (session.getUsuario().getRole().equals(Perfil.ALUNO)) { 
+            Aluno aluno = this.alunoDAO.findByIdUsuario(session.getUsuario().getId());
+            TccTcc tcctcc = this.tccTccDAO.findByAluno(aluno.getId());
+            tccNotas.add(this.tccNotasDAO.findByTcc(tcctcc.getId()));
+        }
+         else{
             Professor professor = this.professorDAO.findById(session.getUsuario().getId());
             List<TccTcc> tcctcc = this.tccTccDAO.findTccByProfessor(professor.getId());
             int i;
@@ -54,6 +67,7 @@ public class TccNotasController {
         this.result.include("tccNotasList", tccNotas);
     }
     
+    @Permission(Perfil.PROFESSOR)
     @Get("/tccnotas/{id}/edit")
     public TccNotas edit(Long id) {
 
@@ -68,6 +82,7 @@ public class TccNotasController {
         return tccNotas;
     }
     
+    @Permission(Perfil.PROFESSOR)
     @Get("/tccnotas/create")
     public void create() {
         
@@ -87,6 +102,7 @@ public class TccNotasController {
         return tccNotas;
     }
     /*
+    @Permission(Perfil.PROFESSOR)
     @Get("/tccnotas/{id}/remove")
     public void remove(Long id) {
         TccNotas tccNotas = this.tccNotasDAO.findById(id);

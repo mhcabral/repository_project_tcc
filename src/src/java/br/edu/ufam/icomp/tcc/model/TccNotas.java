@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -53,6 +54,8 @@ public class TccNotas implements Serializable {
     @OneToOne
     @JoinColumn(name = "id_tcc_tcc")
     private TccTcc tcctcc;
+    @Transient
+    private float media;
 
     public TccNotas() {
     }
@@ -98,6 +101,10 @@ public class TccNotas implements Serializable {
 
     public void setNota3(float nota3) {
         this.nota3 = nota3;
+    }
+
+    public float getMedia() {
+        return ((this.nota1 + this.nota2 + (2*this.nota3))/4);
     }
 
     @Override

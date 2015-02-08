@@ -34,7 +34,7 @@ public class TccNotasDAO extends DAOImpl<TccNotas> {
         
         Query query = entityManager.createNamedQuery("TccNotas.findByTcc");
         
-        query.setParameter("id", idtcctcc);        
+        query.setParameter("idTccTcc", idtcctcc);        
         
         try {
             return (TccNotas) query.getSingleResult();
