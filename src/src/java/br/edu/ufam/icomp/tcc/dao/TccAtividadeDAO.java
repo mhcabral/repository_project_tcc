@@ -226,6 +226,15 @@ public class TccAtividadeDAO extends DAOImpl<TccAtividade> {
         tccAtividade.setOrdem(14);
         entityManager.persist(tccAtividade);
         
+        //Ordem 15 - Aproveitamento de Tcc
+        tccAtividade = new TccAtividade();
+        tccAtividade.setDatalimite(limiteFim.getTime());
+        tccAtividade.setDescricao("Solicitar aproveitamento de TCC");
+        tccAtividade.setResponsavel("Aluno");
+        tccAtividade.setPeriodo(periodo);
+        tccAtividade.setOrdem(15);
+        entityManager.persist(tccAtividade);
+        
         try {
             entityManager.getTransaction().commit();
         } catch (Exception e) {

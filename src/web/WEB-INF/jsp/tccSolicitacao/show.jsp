@@ -112,11 +112,31 @@
         <p>
             <b>Anexos:</b>
         </p>
-        <ul>
-            <c:forEach items="${solicitacao.anexos}" var="anexo">
-                <li><a href="${pageContext.request.contextPath}/analise/download/${anexo}" target="_blank">${anexo}</a></li>                    
+        <table>
+            <thead>
+                <tr>
+                   <th>Data</th>
+                   <th>Nome</th>
+                   <th>Descrição</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                   <th>Data</th>
+                   <th>Nome</th>
+                   <th>Descrição</th>
+                </tr>
+            </tfoot>
+            <tbody>
+            <c:forEach items="${tccSolicitacao.anexos}" var="anexoList" >
+                <tr>
+                    <td>${anexoList.data}</td>
+                    <td><a href="${pageContext.request.contextPath}/tcctcc/download/${anexoList.nome}">${anexoList.nome}</a></td>
+                    <td>${anexoList.descricao}</td>
+                </tr>
             </c:forEach>
-        </ul>
+            </tbody>
+        </table>
         <form id="formSolicitacao" method="POST" action="${pageContext.request.contextPath}/tccsolicitacoes">
             <p>
                 <label for="campo-observacao">Observação:</label><img src="${pageContext.request.contextPath}/img/edit_lapis.png" width="16" height="16"><br/>

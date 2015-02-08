@@ -42,6 +42,8 @@ public class TccTcc implements Serializable {
     @Size(min = 1, max = 1024)
     @Column(name = "descricao")
     private String descricao;
+    @Column(name = "aproveitamento")
+    private Boolean aproveitamento;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_aluno")
     private Aluno aluno;
@@ -111,6 +113,22 @@ public class TccTcc implements Serializable {
 
     public void setSolicitacoes(List<TccSolicitacao> solicitacoes) {
         this.solicitacoes = solicitacoes;
+    }
+
+    public Boolean getAproveitamento() {
+        return aproveitamento;
+    }
+
+    public void setAproveitamento(Boolean aproveitamento) {
+        this.aproveitamento = aproveitamento;
+    }
+
+    public TccNotas getTccnotas() {
+        return tccnotas;
+    }
+
+    public void setTccnotas(TccNotas tccnotas) {
+        this.tccnotas = tccnotas;
     }
     
     @Override

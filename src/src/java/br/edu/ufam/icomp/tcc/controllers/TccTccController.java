@@ -27,14 +27,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import br.com.caelum.vraptor.interceptor.download.Download;
-import br.com.caelum.vraptor.interceptor.download.InputStreamDownload;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.edu.ufam.icomp.tcc.dao.TccAnexoDAO;
 import br.edu.ufam.icomp.tcc.model.TccAnexo;
 import br.edu.ufam.icomp.tcc.model.TccAtividade;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -42,7 +42,6 @@ import java.text.SimpleDateFormat;
  */
 
 @Resource
-@Permission({Perfil.ALUNO})
 public class TccTccController {
     private final Result result;
     private final Validator validator;
@@ -110,7 +109,7 @@ public class TccTccController {
         if (tccTcc.getSolicitacoes().size() == 1) {
             if (tccTcc.getSolicitacoes().get(0).getEstado().equals("Solicitado")) {
                 podeSalvarTema = true;
-                podeSalvarUpload = false;
+                podeSalvarUpload = true;
             } else {
                 podeSalvarTema = false;
                 podeSalvarUpload = true;
@@ -133,7 +132,6 @@ public class TccTccController {
     
     @Get("/tcctcc/create")
     public void create() {
-        Date dataTema = tccAtividadeDAO.findDataTema(sessionData.getLetivoAtual().getId());
         Aluno aluno = alunoDAO.findByIdUsuario(sessionData.getUsuario().getId());
         List<Perfil> perfisEncontrar = new ArrayList<Perfil>();
         perfisEncontrar.add(Perfil.PROFESSOR);
@@ -141,14 +139,12 @@ public class TccTccController {
         List<TccTema> listTema = tccTemaDAO.findAll();
         Long idPeriodo = sessionData.getLetivoAtual().getId();
         
-        Boolean podeSalvarTema = !(dataTema == null);
-        
         this.result.include("operacao", "Cadastro");
         this.result.include("professorList", listProfessor);
         this.result.include("aluno", aluno);
         this.result.include("temaList", listTema);
         this.result.include("idPeriodo", idPeriodo);
-        this.result.include("podeSalvarTema", podeSalvarTema);
+        this.result.include("podeSalvarTema", podeSalvarTema());
     }
     
     @Get("/tcctcc/{id}/show")
@@ -164,26 +160,16 @@ public class TccTccController {
         return tccTcc;
     }
     
-    @Get("/tcctcc/{id}/remove")
-    public void remove(Long id) {
-        TccTcc tccTcc = this.tccTccDAO.findById(id);
+    @Get("/tcctcc/download/{nome}")
+    public File download(String nome) {
 
-        if (tccTcc == null) {
-            this.validator.add(new ValidationMessage("Desculpe! O Tcc não foi encontrado.", "tccTcc.id"));
-        }
-        
-        this.validator.onErrorRedirectTo(TccTccController.class).index();
-
-        this.tccTccDAO.delete(tccTcc);
-
-        this.result.include("success", "removida");
-
-        this.result.redirectTo(this).index();
+        File file = pastaDeAnexos.mostrar(nome);
+        return file;
     }
     
     @Post("/tcctcc")
-    public void cadastrar(TccTcc tccTcc) {
-        List<TccAtividade> atividades = tccAtividadeDAO.findByPeriodo(sessionData.getLetivoAtual().getId());
+    public void cadastrar(TccTcc tccTcc, Boolean aproveitamento) {
+        List<TccAtividade> atividades = tccAtividadeDAO.findByAnexo(sessionData.getLetivoAtual().getId());
         
         if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
@@ -192,8 +178,14 @@ public class TccTccController {
         
         this.tccTccDAO.create(tccTcc);
         
+        
+        tccTcc.setAproveitamento(aproveitamento);
         TccSolicitacao tccSolicitacao = new TccSolicitacao();
-        tccSolicitacao.setAtividade(atividades.get(0));
+        if (tccTcc.getAproveitamento()) {
+            tccSolicitacao.setAtividade(atividades.get(5));
+        } else {
+            tccSolicitacao.setAtividade(atividades.get(0));
+        }
         tccSolicitacao.setEstado("Solicitado");
         tccSolicitacao.setTccTcc(tccTcc);
         this.tccSolicitacaoDAO.create(tccSolicitacao);
@@ -204,9 +196,10 @@ public class TccTccController {
     }
     
     @Put("/tcctcc")
-    public void altera(TccTcc tccTcc, List<UploadedFile> anexos, String descricao) {
+    public void altera(TccTcc tccTcc, List<UploadedFile> anexos, String descricao, Boolean aproveitamento) {
         TccTcc tcc1 = tccTccDAO.findById(tccTcc.getId());
         tccTcc.setSolicitacoes(tcc1.getSolicitacoes());
+        tccTcc.setAproveitamento(aproveitamento);
         
         if (tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
@@ -281,12 +274,46 @@ public class TccTccController {
 
         this.result.redirectTo(TccController.class).main();
     }
+  
+    private Boolean podeSalvarTema() {
+        List<TccAtividade> atividades = tccAtividadeDAO.findByAnexo(sessionData.getLetivoAtual().getId());
+        TccAtividade actTema = atividades.get(0);
+        TccAtividade actAproveitamento = atividades.get(5);
+        Date data = new Date();
+        Date limiteTema = actTema.getDatalimite();
+        Date prorrogacaoTema = actTema.getDataprorrogacao();
+        Date limiteAproveitamento = actAproveitamento.getDatalimite();
+        Date prorrogacaoAproveitamento = actAproveitamento.getDataprorrogacao();
+        
+        if (prorrogacaoTema == null) {
+            prorrogacaoTema = limiteTema;
+        }
+        if (prorrogacaoAproveitamento == null) {
+            prorrogacaoAproveitamento = limiteAproveitamento;
+        }
+        
+        data = zerarHoras(data);
+        Boolean podeSalvar = (!(limiteTema.before(data) || prorrogacaoTema.equals(limiteTema)) ||
+                !(prorrogacaoTema.before(data) || prorrogacaoTema.before(limiteTema))) ||
+                (!(limiteAproveitamento.before(data) || prorrogacaoAproveitamento.equals(limiteAproveitamento)) ||
+                !(prorrogacaoAproveitamento.before(data) || prorrogacaoAproveitamento.before(limiteAproveitamento)));
+        
+        System.out.println("limite "+limiteAproveitamento);
+        System.out.println("prorrogacao "+prorrogacaoAproveitamento);
+        System.out.println("data "+data);
+        System.out.println("podeSalvar "+prorrogacaoAproveitamento.before(data));
+        
+        return podeSalvar;
+    }
     
-    @Get("/tcctcc/download/{anexo}")
-    public File download(String anexo) {
-
-        File file = pastaDeAnexos.mostrar(anexo);
-        return file;
+    private static Date zerarHoras(Date data){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(data);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
 
 }

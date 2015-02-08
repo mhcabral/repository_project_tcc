@@ -8,4 +8,4 @@ public enum Perfil {
 
     ALUNO, COORDENADOR, SECRETARIA, ROOT, COORDENADORACAD, PROFESSOR;
 
-}
+}  //0 Aluno, 5 Professor

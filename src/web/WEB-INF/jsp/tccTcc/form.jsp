@@ -21,6 +21,19 @@
         <script laguage="Javascript" type="text/javascript">
             window.onload = function() {
                 var btn = document.getElementById("aproveitar");
+                var solicitacao = document.getElementById("solicitacao");
+                
+                solicitacao.onclick = function () {
+                    var temas = document.getElementById("temas");
+                    var btAproveitar = document.getElementById("aproveitar");
+                    if (solicitacao.checked) {
+                        temas.disabled = true;
+                        btAproveitar.disabled = true;
+                    } else {
+                        temas.disabled = false;
+                        btAproveitar.disabled = false;
+                    }
+                };
                 
                 btn.onclick = function () {
                     var temai, tit, desc, orie, temat, tam, orie_imp;
@@ -162,10 +175,13 @@
                     <input type="hidden" name="tccTcc.professor.id" value="${tccTcc.professor.id}"/>
                 </c:if>
                 
-            </p> 
+            </p>
+            <p>
+                <input type="checkbox" id="solicitacao" name="aproveitamento" value="true" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if> <c:if test = "${tccTcc.aproveitamento == true}"> checked </c:if>>Solicitar Aproveitamento de Artigo
+            </p>
             <p>
                 <label for="temas">Temas:</label><br/>
-                <select id="temas" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>>
+                <select id="temas" <c:if test = "${not podeSalvarTema || tccTcc.aproveitamento == true}"> disabled="true" </c:if>>
                     <option value="" >Outro não listado</option>
                     <c:forEach var="temasl" items="${temaList}">
                         <option  value="${temasl.id}" >${temasl}</option>
@@ -200,7 +216,7 @@
                     <a id="deleteAll" href="javascript:hide_download_anexos()">Excluir todos os anexos</a><br/><br/>                
                 </div>
                 <div id="upload-anexos" >
-                    <input id="campo-anexo" type="file" name="anexos[]" multiple <c:if test = "${not podeSalvarUpload}"> disabled="true" </c:if> />
+                    <input id="campo-anexo" type="file" name="anexos[]" multiple />
                     <label for="campo-anexo_descricao">Descrição: </label>
                     <input id="campo-anexo_descricao" type="text" name="descricao[]" style="width : 300px"/>
                 </div>
@@ -238,7 +254,7 @@
                         <c:forEach items="${solicitacoesList.anexos}" var="anexoList" >
                             <tr>
                                 <td>${anexoList.data}</td>
-                                <td>${anexoList.nome}</td>
+                                <td><a href="${pageContext.request.contextPath}/tcctcc/download/${anexoList.nome}">${anexoList.nome}</a></td>
                                 <td>${anexoList.descricao}</td>
                             </tr>
                         </c:forEach>
