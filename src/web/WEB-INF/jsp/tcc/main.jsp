@@ -89,7 +89,7 @@
                             <c:if test="${sessionData.usuario.perfil == 5 || sessionData.usuario.perfil == 0}">
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tccnotas">
+                                        <a href="${pageContext.request.contextPath}/tccnotas/index">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 5}">
                                             <span>Lançar<br/>Notas</span>

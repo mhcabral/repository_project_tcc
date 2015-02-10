@@ -114,9 +114,4 @@ public class TccNotas implements Serializable {
     public float getMedia() {
         return ((this.nota1 + this.nota2 + (2*this.nota3))/4);
     }
-
-    @Override
-    public String toString() {
-        return tcctcc.getTitulo().toString();                      
-    }
 }

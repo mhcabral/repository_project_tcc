@@ -46,7 +46,7 @@ public class TccNotasController {
     }
 
 
-    @Get("/tccnotas")
+    @Get("/tccnotas/index")
     public void index() {
         if (session.getUsuario().getRole().equals(Perfil.ALUNO)) { 
             Aluno aluno = this.alunoDAO.findByIdUsuario(session.getUsuario().getId());
@@ -74,12 +74,6 @@ public class TccNotasController {
         return tccNotas;
     }
     
-    @Get("/tccnotas/create")
-    public void create() {
-        
-        this.result.include("operacao", "Lançar notas"); 
-    }
-    
     @Get("/tccnotas/{id}/show")
     public TccNotas show(Long id) {
         TccNotas tccNotas = this.tccNotasDAO.findById(id);
@@ -92,25 +86,7 @@ public class TccNotasController {
         
         return tccNotas;
     }
-    /*
-    @Permission(Perfil.PROFESSOR)
-    @Get("/tccnotas/{id}/remove")
-    public void remove(Long id) {
-        TccNotas tccNotas = this.tccNotasDAO.findById(id);
-
-        if (tccNotas == null) {
-            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccNotas.id"));
-        }
-
-        this.validator.onErrorRedirectTo(TccNotasController.class).index();
-
-        this.tccNotasDAO.delete(tccNotas);
-
-        this.result.include("success", "removida");
-
-        this.result.redirectTo(this).index();
-    }  */
-    
+        
     @Post("/tccnotas")
     public void cadastrar(TccNotas tccNotas) {
                 
@@ -123,6 +99,7 @@ public class TccNotasController {
     
     @Put("/tccnotas")
     public void altera(TccNotas tccNotas) {
+        System.out.println(tccNotas.getNota1());
         this.tccNotasDAO.update(tccNotas);
 
         this.result.include("success", "alterada");

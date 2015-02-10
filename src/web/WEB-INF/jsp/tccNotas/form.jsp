@@ -1,56 +1,61 @@
-<%-- 
-    Document   : index
-    Created on : 17/12/2014, 11:24:30
-    Author     : TAMMY
---%>
-
+<!--
+ *
+ * @author andre
+-->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html> 
+<html>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_1.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_css.css">
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.maskedinput.js"></script>
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery.fileupload_1.js"></script>
         <style type="text/css">
             label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
         </style>
+        
         <script laguage="Javascript" type="text/javascript">
+            
             $(function () { 
                 $('#save').click(function(e) {
+                                        
                     e.preventDefault();
                     $("#formTccNotas").submit(); 
                 });
-                
                 $("#formTccNotas").validate({
                     rules:{
-                        "tccNotas.nota1":{   
+                        "tccNotas.nota1":{
                             required:true
                         },
-                        "tccNotas.nota2":{ 
-                            required: true
-                        },
-                        "tccNotas.nota3":{ 
-                            required: true
-                        }
-                    }
-                    messages:{
-                        "tccNotas.nota1":{
-                            required: "Informe a primeira nota"
-                        },
                         "tccNotas.nota2":{
-                            required: "Informe a segunda nota"
+                            required: true
                         },
                         "tccNotas.nota3":{
-                            required: "Informe a terceira nota"
+                            required: true
+                        }
+                    },
+                    messages:{
+                        "tccNotas.nota1":{
+                            required: "Informe a nota1"
+                        },
+                        "tccNotas.nota2":{
+                            required: "Informe a nota2"
+                        },
+                        "tccNotas.nota3":{
+                            required: "Informe a nota3"
                         }
                     }
                 });
             });
             
         </script>
+    </head>
+
     <body>
         <div id="toolbar-box">
             <div class="m">
@@ -59,14 +64,16 @@
                         <div class="icon-wrapper">
                             <div class="icon">
                                 <ul>
-                                    <li class="button" id="toolbar-apply">
+                                    
+                                    <li class="button" id="toolbar-apply" >
                                         <a href="javascript:void(0);" id="save" class="toolbar">
                                             <span width="32" height="32" border="0" class="icon-32-save"></span>Salvar
                                         </a>
                                     </li>
+                                    
                                     <li class="button" id="toolbar-cancel">
-                                        <a href="${pageContext.request.contextPath}/tccnotas">
-                                            <span width="32" height="32" border="0" class="icon-32-cancel"></span>Cancelar
+                                        <a href="${pageContext.request.contextPath}/tccnotas/index">
+                                            <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
                                         </a>
                                     </li>
                                 </ul>
@@ -76,10 +83,10 @@
                     <div class="clr"></div>
                 </div>
                 <c:if test="${operacao == 'Cadastro'}">
-                    <div class="pagetitle icon-48-article-add"><h2>${operacao} de Notas</h2></div>
+                    <div class="pagetitle icon-48-article-add"><h2>${operacao} de TCC</h2></div>
                 </c:if>
                 <c:if test="${operacao == 'Edição'}">
-                    <div class="pagetitle icon-48-article-edit"><h2>${operacao} de Notas</h2></div>
+                    <div class="pagetitle icon-48-article-edit"><h2>${operacao} de TCC</h2></div>
                 </c:if>
             </div>
         </div>
@@ -89,24 +96,24 @@
                     <p>
                         <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
                         <strong>Situações não permitidas:</strong>
-                        <ul>
-                           <c:forEach items="${errors}" var="error">
-                               <li style="color: #cd0a0a">${error.message}</li>
-                           </c:forEach>        
-                        </ul>
+                    <ul>
+                        <c:forEach items="${errors}" var="error">
+                            <li style="color: #cd0a0a">${error.message}</li>
+                        </c:forEach>        
+                    </ul>
                     </p>
                 </div>
             </div>   
         </c:if>
 
-        <form id="formTccNotas" name="formTccNotas" method="POST" action="<c:url value="/tccnotas"/>"> 
+        <form id="formTccNotas" name="formTccNotas" method="POST" action="${pageContext.request.contextPath}/tccnotas" > 
             <p>
                 <c:if test="${not empty tccNotas.id}">
                     <input type="hidden" name="tccNotas.id" value="${tccNotas.id}"/>
+                    <input type="hidden" name="tccNotas.tcctcc.id" value="${tccNotas.tcctcc.id}"/>
                     <input type="hidden" name="_method" value="put"/>
-                </c:if>
+                </c:if>                
             </p>
-            <input type="hidden" name="tccNotas.tcctcc.id" value="${tccNotas.tcctcc.id}"/>
             <p>
                 <label>Nome do Aluno:</label>  
                 <label>${tccNotas.tcctcc.aluno}</label>
