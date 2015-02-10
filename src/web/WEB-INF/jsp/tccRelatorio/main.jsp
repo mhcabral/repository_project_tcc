@@ -37,6 +37,14 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tcc/calendarioAtividades">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Calendário de<br/>Atividades</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </c:if>
                         </div>
                     </div>

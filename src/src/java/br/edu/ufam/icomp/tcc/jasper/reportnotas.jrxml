@@ -102,7 +102,7 @@ ORDER BY
 				<imageExpression><![CDATA[$P{imgBrasao}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="482" y="0" width="73" height="79" uuid="20cfd120-628e-4beb-b5be-9c83dcfbc5e3"/>
+				<reportElement x="467" y="0" width="88" height="79" uuid="20cfd120-628e-4beb-b5be-9c83dcfbc5e3"/>
 				<imageExpression><![CDATA[$P{imgUfam}]]></imageExpression>
 			</image>
 			<staticText>

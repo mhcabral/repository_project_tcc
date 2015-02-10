@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportatividadestcc" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b94bf05d-5c0b-4574-ae50-e8d91c6a1bb3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idperiodo" class="java.lang.String"/>
+	<parameter name="imgUfam" class="java.lang.String"/>
+	<parameter name="imgBrasao" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     tccatividade."descricao" AS tccatividade_descricao,
+     tccatividade."responsavel" AS tccatividade_responsavel,
+     tccatividade."datalimite" AS tccatividade_datalimite,
+     tccatividade."dataprorrogacao" AS tccatividade_dataprorrogacao
+FROM
+     "public"."tccatividade" tccatividade
+WHERE
+     tccatividade."id_periodo" = $P!{idperiodo}
+ORDER BY
+     tccatividade."ordem" ASC]]>
+	</queryString>
+	<field name="tccatividade_descricao" class="java.lang.String"/>
+	<field name="tccatividade_responsavel" class="java.lang.String"/>
+	<field name="tccatividade_datalimite" class="java.sql.Date"/>
+	<field name="tccatividade_dataprorrogacao" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="169" y="20" width="246" height="20" uuid="5364dcdc-9359-48ef-9ffa-a828bb361908"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO DA EDUCAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="0" width="246" height="20" uuid="336a0270-da8b-475b-b20b-fc90e89caad4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Poder Executivo]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="88" height="79" uuid="53c81fd7-4680-488a-adf3-93597d91098c"/>
+				<imageExpression><![CDATA[$P{imgBrasao}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="482" y="0" width="73" height="79" uuid="7f891c0d-0049-4a2d-bb9a-fc4f8524b42d"/>
+				<imageExpression><![CDATA[$P{imgUfam}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="135" y="40" width="320" height="20" uuid="915186e9-cd31-4fa5-84aa-ab879ec0e476"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO AMAZONAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="171" y="0" width="244" height="20" uuid="ca0da8a7-6282-465c-adb8-13825fe58509"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calendário de Atividades do TCC]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="214" height="20" uuid="6d7d5001-0b63-441c-9088-cdda4b753674"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Descricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="41" width="141" height="20" uuid="2a03ad0e-007e-4bbe-9492-924c61de30f3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Responsavel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="41" width="100" height="20" uuid="0ee81788-2cb9-42cb-9d52-2e7eca91df99"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Data Limite]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="41" width="100" height="20" uuid="6d8df2a3-43ed-4628-bf5a-66d5b82634b7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Data Prorrogação]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="214" height="41" uuid="376bb6fe-245e-40d2-95c0-33e210c7fb6b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tccatividade_descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="214" y="0" width="141" height="41" uuid="e33add33-ebaa-424f-a453-c99bdd45bd8f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tccatividade_responsavel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="100" height="41" uuid="0717e412-0e88-4a11-bcd7-9c50839920e5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tccatividade_datalimite}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="41" uuid="8911b839-fb4e-4c89-8800-6829b5e6c375"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tccatividade_dataprorrogacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
