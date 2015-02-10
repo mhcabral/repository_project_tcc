@@ -153,15 +153,15 @@
                         
                     </thead>
                     <tbody>
-                        <c:forEach items="${tccNotasList}" var="tccNotas">
+                        <c:forEach items="${tccList}" var="tcc">
                             <tr>
-                                <td><input type="radio" name="RadioGroup1" value="${tccNotas.id}"/></td>
-                                <td class="center">${tccNotas.tcctcc.aluno}</td>   
-                                <td class="center">${tccNotas.tcctcc.titulo}</td>   
-                                <td class="center">${tccNotas.nota1}</td>
-                                <td class="center">${tccNotas.nota2}</td>
-                                <td class="center">${tccNotas.nota3}</td>
-                                <td class="center">${tccNotas.media}</td>
+                                <td><input type="radio" name="RadioGroup1" value="${tcc.tccnotas.id}"/></td>
+                                <td class="center">${tcc.aluno.usuario.nome}</td>   
+                                <td class="center">${tcc.titulo}</td>   
+                                <td class="center">${tcc.tccnotas.nota1}</td>
+                                <td class="center">${tcc.tccnotas.nota2}</td>
+                                <td class="center">${tcc.tccnotas.nota3}</td>
+                                <td class="center">${tcc.tccnotas.media}</td>
                             </tr>
                         </c:forEach>                    
                     </tbody>

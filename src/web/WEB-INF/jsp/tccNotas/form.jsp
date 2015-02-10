@@ -22,7 +22,8 @@
                 $('#save').click(function(e) {
                     e.preventDefault();
                     $("#formTccNotas").submit(); 
-                }); 
+                });
+                
                 $("#formTccNotas").validate({
                     rules:{
                         "tccNotas.nota1":{   
@@ -34,37 +35,22 @@
                         "tccNotas.nota3":{ 
                             required: true
                         }
-                    } /**
+                    }
                     messages:{
-                        "tccLocais.nome":{
-                            required: "Informe o nome do local"
+                        "tccNotas.nota1":{
+                            required: "Informe a primeira nota"
                         },
-                        "tccLocais.descricao":{
-                            required: "Informe a descricao do local"
+                        "tccNotas.nota2":{
+                            required: "Informe a segunda nota"
+                        },
+                        "tccNotas.nota3":{
+                            required: "Informe a terceira nota"
                         }
-                    }  **/
+                    }
                 });
             });
             
         </script>
-        <script language="javascript">  
-            function somente_numero(campo){  
-                var digits="0123456789";  
-                var campo_temp;   
-                for (var i=0;i<campo.value.length;i++){  
-                    campo_temp=campo.value.substring(i,i+1);  
-                    if ( digits.indexOf(campo_temp)== -1 ){  
-                        campo.value = campo.value.substring(0,i);  
-                    }  
-                }  
-            }
-            
-            $(document).ready(function(){
-                $("#campo-cpf").mask("999.999.999-99");
-            });
-        </script> 
-    
-
     <body>
         <div id="toolbar-box">
             <div class="m">
@@ -119,14 +105,15 @@
                     <input type="hidden" name="tccNotas.id" value="${tccNotas.id}"/>
                     <input type="hidden" name="_method" value="put"/>
                 </c:if>
-            </p> 
+            </p>
+            <input type="hidden" name="tccNotas.tcctcc.id" value="${tccNotas.tcctcc.id}"/>
             <p>
-                <label for="nome">Nome do Aluno:</label>  
-                <input type="text" id="nome" name="tccNotas.tcctcc.aluno" value="${tccNotas.tcctcc.aluno}" size="100"/>
+                <label>Nome do Aluno:</label>  
+                <label>${tccNotas.tcctcc.aluno}</label>
             </p>
             <p>
                 <label for="descricao">Título do TCC:</label>         
-                <input type="text" id="descricao" name="tccNotas.tcctcc.titulo" value="${tccNotas.tcctcc.titulo}" size="100" />
+                <label>${tccNotas.tcctcc.titulo}</label>
             </p>
             <p>
                 <label for="nota1">Nota da Primeira Entrega:</label>         

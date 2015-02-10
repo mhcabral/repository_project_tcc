@@ -79,6 +79,14 @@ public class TccNotas implements Serializable {
         this.id = id;
     }
 
+    public TccTcc getTcctcc() {
+        return tcctcc;
+    }
+
+    public void setTcctcc(TccTcc tcctcc) {
+        this.tcctcc = tcctcc;
+    }
+    
     public float getNota1() {
         return nota1;
     }

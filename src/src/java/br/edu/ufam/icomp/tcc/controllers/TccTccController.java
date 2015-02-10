@@ -29,6 +29,8 @@ import java.util.Date;
 import java.util.List;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.edu.ufam.icomp.tcc.dao.TccAnexoDAO;
+import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
+import br.edu.ufam.icomp.tcc.dao.TccWorkshopDAO;
 import br.edu.ufam.icomp.tcc.model.TccAnexo;
 import br.edu.ufam.icomp.tcc.model.TccAtividade;
 import java.text.DateFormat;
@@ -54,12 +56,14 @@ public class TccTccController {
     private final TccAtividadeDAO tccAtividadeDAO;
     private final TccSolicitacaoDAO tccSolicitacaoDAO;
     private final TccAnexoDAO tccAnexoDAO;
+    private final TccWorkshopDAO tccWorkshopDAO;
+    private final TccNotasDAO tccNotasDAO;
     private Anexo pastaDeAnexos;
     
     public TccTccController (Result result,TccTccDAO tccTccDAO, Validator validator, CursoDAO cursoDAO,
             ProfessorDAO professorDAO, SessionData sessionData, AlunoDAO alunoDAO, TccTemaDAO tccTemaDAO,
             TccAtividadeDAO tccAtividadeDAO, TccSolicitacaoDAO tccSolicitacaoDAO,
-            TccAnexoDAO tccAnexoDAO, Anexo pastaDeAnexos){
+            TccAnexoDAO tccAnexoDAO, TccWorkshopDAO tccWorkshopDAO, TccNotasDAO tccNotasDAO, Anexo pastaDeAnexos){
         this.result = result;
         this.validator = validator;
         this.tccTccDAO = tccTccDAO;
@@ -71,6 +75,8 @@ public class TccTccController {
         this.tccAtividadeDAO = tccAtividadeDAO;
         this.tccSolicitacaoDAO = tccSolicitacaoDAO;
         this.tccAnexoDAO = tccAnexoDAO;
+        this.tccWorkshopDAO = tccWorkshopDAO;
+        this.tccNotasDAO = tccNotasDAO;
         this.pastaDeAnexos = pastaDeAnexos;
     }
 
@@ -176,10 +182,11 @@ public class TccTccController {
         }
         this.validator.onErrorRedirectTo(TccTccController.class).index();
         
-        this.tccTccDAO.create(tccTcc);
-        
-        
+        if (aproveitamento == null) {aproveitamento = false;}
         tccTcc.setAproveitamento(aproveitamento);
+        
+        this.tccTccDAO.create(tccTcc);  
+        
         TccSolicitacao tccSolicitacao = new TccSolicitacao();
         if (tccTcc.getAproveitamento()) {
             tccSolicitacao.setAtividade(atividades.get(5));

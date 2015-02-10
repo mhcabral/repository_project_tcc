@@ -39,50 +39,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class TccWorkshop implements Serializable {
     private static final long serialVersionUID = 1L;
-     @Id
+    @Id
     @SequenceGenerator(name="id_tcc_workshop", sequenceName="tcc_workshop_id_seq", initialValue=1)
     @GeneratedValue(generator="id_tcc_workshop", strategy= GenerationType.AUTO)
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
     private Long id;
-    @Column(name = "data", nullable = false)
+    @Column(name = "data")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tcc_tcc")
     private TccTcc tcctcc;
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne
     @JoinColumn(name = "id_tcc_locais")
     private TccLocais tcclocais;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)   
+    @Size(min = 1, max = 100)   
     @Column(name = "avaliador1")
     private String avaliador1;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)   
+    @Size(min = 1, max = 100)   
     @Column(name = "avaliador2")
     private String avaliador2;
-
-    public TccWorkshop() {
-    }
-
-    public TccWorkshop(Long id) {
-        this.id = id;
-    }
-
-    public TccWorkshop(Long id, Date data, TccTcc tcctcc, TccLocais tcclocais, String avaliador1, String avaliador2) {
-        this.id = id;
-        this.data = data;
-        this.tcctcc = tcctcc;
-        this.tcclocais = tcclocais;
-        this.avaliador1 = avaliador1;
-        this.avaliador2 = avaliador2;
-    }
-
-    
 
     public Long getId() {
         return id;
@@ -132,11 +114,9 @@ public class TccWorkshop implements Serializable {
         this.avaliador2 = avaliador2;
     }
 
-    
-
     @Override
     public String toString() {
-        return "TccWorkshop{" + "id=" + id + ", tcctcc=" + tcctcc + '}';
+        return id + "";
     }
     
     
