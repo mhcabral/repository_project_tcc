@@ -176,10 +176,10 @@ public class TccTccController {
         }
         this.validator.onErrorRedirectTo(TccTccController.class).index();
         
+        tccTcc.setAproveitamento(aproveitamento);
+        
         this.tccTccDAO.create(tccTcc);
         
-        
-        tccTcc.setAproveitamento(aproveitamento);
         TccSolicitacao tccSolicitacao = new TccSolicitacao();
         if (tccTcc.getAproveitamento()) {
             tccSolicitacao.setAtividade(atividades.get(5));
