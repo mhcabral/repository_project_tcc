@@ -76,7 +76,7 @@
                                             <span>Relatórios</span>
                                         </a>
                                     </div>
-                                </div>
+</div>
                                 <div class="icon-wrapper">
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tccsolicitacoes">
