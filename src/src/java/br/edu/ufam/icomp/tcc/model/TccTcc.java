@@ -45,7 +45,7 @@ public class TccTcc implements Serializable {
     private String descricao;
     @Column(name = "aproveitamento")
     private Boolean aproveitamento;
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_aluno")
     private Aluno aluno;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -59,6 +59,8 @@ public class TccTcc implements Serializable {
     private List<TccSolicitacao> solicitacoes;
     @OneToOne(mappedBy="tcctcc")
     private TccNotas tccnotas;
+    @OneToOne(mappedBy="tcctcc")
+    private TccWorkshop tccworkshop;
 
     public Long getId() {
         return id;
@@ -130,6 +132,14 @@ public class TccTcc implements Serializable {
 
     public void setTccnotas(TccNotas tccnotas) {
         this.tccnotas = tccnotas;
+    }
+
+    public TccWorkshop getTccworkshop() {
+        return tccworkshop;
+    }
+
+    public void setTccworkshop(TccWorkshop tccworkshop) {
+        this.tccworkshop = tccworkshop;
     }
     
     @Override

@@ -49,7 +49,7 @@ public class TccWorkshop implements Serializable {
     @Column(name = "data")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne
     @JoinColumn(name = "id_tcc_tcc")
     private TccTcc tcctcc;
     @OneToOne

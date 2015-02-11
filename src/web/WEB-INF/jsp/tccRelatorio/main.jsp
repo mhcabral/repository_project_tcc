@@ -37,6 +37,14 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tcc/formularioavaliacao">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Formulário de Avaliação</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </c:if>
                         </div>
                     </div>

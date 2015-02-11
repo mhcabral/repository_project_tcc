@@ -12,15 +12,12 @@ import br.edu.ufam.icomp.projeto4.dao.AlunoDAO;
 import br.edu.ufam.icomp.projeto4.dao.CoordenadorCursoDAO;
 import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
-import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
-import br.edu.ufam.icomp.projeto4.model.CoordenadorCurso;
 import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
 import br.edu.ufam.icomp.tcc.dao.TccTccDAO;
 import br.edu.ufam.icomp.tcc.model.TccNotas;
 import br.edu.ufam.icomp.tcc.model.TccTcc;
-import java.util.ArrayList;
 import java.util.List;
 
 @Resource
@@ -106,4 +103,6 @@ public class TccNotasController {
 
         this.result.redirectTo(TccNotasController.class).index();
     }
+    
+    
 }
