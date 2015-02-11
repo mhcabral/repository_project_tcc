@@ -10,12 +10,10 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -113,6 +111,8 @@ public class TccWorkshop implements Serializable {
     public void setAvaliador2(String avaliador2) {
         this.avaliador2 = avaliador2;
     }
+    
+    
 
     @Override
     public String toString() {

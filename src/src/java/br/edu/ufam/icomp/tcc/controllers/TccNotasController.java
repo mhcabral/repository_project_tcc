@@ -12,12 +12,14 @@ import br.edu.ufam.icomp.projeto4.dao.AlunoDAO;
 import br.edu.ufam.icomp.projeto4.dao.CoordenadorCursoDAO;
 import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
+import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
 import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
 import br.edu.ufam.icomp.tcc.dao.TccTccDAO;
 import br.edu.ufam.icomp.tcc.model.TccNotas;
 import br.edu.ufam.icomp.tcc.model.TccTcc;
+import java.util.ArrayList;
 import java.util.List;
 
 @Resource
@@ -42,12 +44,12 @@ public class TccNotasController {
         this.coordenadorDAO = coordenadorDAO;
     }
 
-
     @Get("/tccnotas/index")
     public void index() {
         if (session.getUsuario().getRole().equals(Perfil.ALUNO)) { 
             Aluno aluno = this.alunoDAO.findByIdUsuario(session.getUsuario().getId());
-            TccTcc tccTcc = this.tccTccDAO.findByAluno(aluno.getId());
+            List<TccTcc> tccTcc = new ArrayList();
+            tccTcc.add(this.tccTccDAO.findByAluno(aluno.getId()));
             this.result.include("tccList", tccTcc);
         }
         else{
@@ -57,6 +59,7 @@ public class TccNotasController {
         }
     }
     
+    @Permission({Perfil.COORDENADOR, Perfil.COORDENADORACAD, Perfil.PROFESSOR, Perfil.ROOT, Perfil.SECRETARIA})
     @Get("/tccnotas/{id}/edit")
     public TccNotas edit(Long id) {
 

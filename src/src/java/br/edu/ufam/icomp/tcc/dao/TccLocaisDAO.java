@@ -20,6 +20,14 @@ public class TccLocaisDAO extends DAOImpl<TccLocais> {
         super(TccLocais.class, entityManager);
     }
     
+    public List<TccLocais> findIfAtivo() {
+        EntityManager entityManager = this.getEntityManager();
+        
+        Query query = entityManager.createNamedQuery("TccLocais.findIfAtivo");        
+        
+        return query.getResultList();
+    }
+    
     @Override
     public TccLocais findById(Long idlocal) {
         EntityManager entityManager = this.getEntityManager();

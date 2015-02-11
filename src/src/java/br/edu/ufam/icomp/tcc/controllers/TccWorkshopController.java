@@ -14,7 +14,11 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
+import br.edu.ufam.icomp.tcc.dao.TccAvaliadorDAO;
+import br.edu.ufam.icomp.tcc.dao.TccLocaisDAO;
 import br.edu.ufam.icomp.tcc.dao.TccWorkshopDAO;
+import br.edu.ufam.icomp.tcc.model.TccAvaliador;
+import br.edu.ufam.icomp.tcc.model.TccLocais;
 import br.edu.ufam.icomp.tcc.model.TccWorkshop;
 import java.util.List;
 
@@ -24,11 +28,16 @@ public class TccWorkshopController {
     private final Result result;
     private final Validator validator;
     private final TccWorkshopDAO tccWorkshopDAO;
+    private final TccLocaisDAO tccLocaisDAO;
+    private final TccAvaliadorDAO tccAvaliadorDAO;
     
-    public TccWorkshopController (Result result,TccWorkshopDAO tccWorkshopDAO, Validator validator){
+    public TccWorkshopController (Result result,TccWorkshopDAO tccWorkshopDAO, Validator validator, TccLocaisDAO tccLocaisDAO,
+            TccAvaliadorDAO tccAvaliadorDAO){
         this.result = result;
         this.validator = validator;
         this.tccWorkshopDAO = tccWorkshopDAO;
+        this.tccLocaisDAO = tccLocaisDAO;
+        this.tccAvaliadorDAO = tccAvaliadorDAO;
     }
 
 
@@ -42,21 +51,30 @@ public class TccWorkshopController {
     
     @Get("/tccworkshop/{id}/edit")
     public TccWorkshop edit(Long id) {
+        List<TccLocais> tccLocais = this.tccLocaisDAO.findIfAtivo();
+        List<TccAvaliador> tccAvaliadores = this.tccAvaliadorDAO.findAll();
 
         TccWorkshop tccWorkshop = tccWorkshopDAO.findById(id);
         
         if (tccWorkshop == null) {
             this.validator.add(new ValidationMessage("Desculpe!O Workshop não foi encontrado.", "tccWorkshop.id"));
         }
-        
         this.validator.onErrorRedirectTo(TccWorkshopController.class).index();
+        
+        this.result.include("tccLocais", tccLocais);
+        this.result.include("tccAvaliadores", tccAvaliadores);
+        this.result.include("operacao", "Edição");
 
         return tccWorkshop;
     }
     
     @Get("/tccworkshop/create")
     public void create() {
+        List<TccLocais> tccLocais = this.tccLocaisDAO.findIfAtivo();
+        List<TccAvaliador> tccAvaliadores = this.tccAvaliadorDAO.findAll();
         
+        this.result.include("tccLocais", tccLocais);
+        this.result.include("tccAvaliadores", tccAvaliadores);
         this.result.include("operacao", "Cadastro");
     }
     

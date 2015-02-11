@@ -3,8 +3,8 @@
     Created on : 19/01/2015, 11:39:38
     Author     : mhcabral
 --%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,22 +13,34 @@
         <title>JSP Page</title>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_1.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bluestork/css/template_css.css">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.maskedinput.js"></script>
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/vendor/jquery.ui.widget.js"></script>
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery.iframe-transport.js"></script>
+        
+        <script type="text/javascript" language="javascript" src="${pageContext.request.contextPath}/js/jquery.maskedinput.js"></script>
         <style type="text/css">
             label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
         </style>
         <script laguage="Javascript" type="text/javascript">
-            $(function () { 
-                $('#save').click(function(e) {
-                    e.preventDefault();
-                    $("#formTccWorkshop").submit(); 
-                }); 
+            $(document).ready(function(){
+                $(".data").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+                    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior'
+                });
+                
                 $("#formTccWorkshop").validate({
                     rules:{
                         "tccWorkshop.data":{
                             required:true
                         },
-                        "tccWorkshop.local":{
+                        "tccWorkshop.tcclocais.id":{
                             required: true
                         },
                         "tccWorkshop.avaliador1":{
@@ -40,38 +52,31 @@
                     },
                     messages:{
                         "tccWorkshop.data":{
-                            required: "Informe o data do workshop"
+                            required: "Informe a data"
                         },
-                        "tccLocais.local":{
-                            required: "Informe a local do workshop"
+                        "tccWorkshop.tcclocais.id":{
+                            required: "Selecione um local"
                         },
                         "tccWorkshop.avaliador1":{
-                            required: "Informe o primeiro avaliador do workshop"
+                            required: "Selecione um avaliador1"
                         },
                         "tccWorkshop.avaliador2":{
-                            required: "Informe o segundo avaliador do workshop"
-                        },
+                            required: "Selecione um avaliador2"
+                        }
                     }
                 });
             });
+        </script>
+        <script laguage="Javascript" type="text/javascript">
+            $(function () { 
+                $('#save').click(function(e) {
+                    e.preventDefault();
+                    $("#formTccWorkshop").submit(); 
+                }); 
+                
+            });
             
         </script>
-        <script language="javascript">  
-            function somente_numero(campo){  
-                var digits="0123456789"  
-                var campo_temp   
-                for (var i=0;i<campo.value.length;i++){  
-                    campo_temp=campo.value.substring(i,i+1)   
-                    if (digits.indexOf(campo_temp)==-1){  
-                        campo.value = campo.value.substring(0,i);  
-                    }  
-                }  
-            }
-            
-            $(document).ready(function(){
-                $("#campo-cpf").mask("999.999.999-99");
-            });
-        </script> 
     </head>
 
     <body>
@@ -99,10 +104,10 @@
                     <div class="clr"></div>
                 </div>
                 <c:if test="${operacao == 'Cadastro'}">
-                    <div class="pagetitle icon-48-article-add"><h2>${operacao} da Defesa</h2></div>
+                    <div class="pagetitle icon-48-article-add"><h2>${operacao} do Workshop</h2></div>
                 </c:if>
                 <c:if test="${operacao == 'Edição'}">
-                    <div class="pagetitle icon-48-article-edit"><h2>${operacao} da Defesa</h2></div>
+                    <div class="pagetitle icon-48-article-edit"><h2>${operacao} do Workshop</h2></div>
                 </c:if>
             </div>
         </div>
@@ -122,28 +127,44 @@
             </div>   
         </c:if>
 
-        <form id="formTccLocais" name="formTccWorkshop" method="POST" action="<c:url value="/tccworkshop"/>"> 
+        <form id="formTccWorkshop" name="formTccWorkshop" method="POST" action="<c:url value="/tccworkshop"/>"> 
             <p>
                 <c:if test="${not empty tccWorkshop.id}">
-                    <input type="hidden" name="tccLocais.id" value="${tccWorkshop.id}"/>
+                    <input type="hidden" name="tccWorkshop.id" value="${tccWorkshop.id}"/>
                     <input type="hidden" name="_method" value="put"/>
                 </c:if>
-            </p> 
+            </p>
+            <input type="hidden" name="tccWorkshop.tcctcc.id" value="${tccWorkshop.tcctcc.id}"/>
             <p>
                 <label for="data">Data*:</label>
-                <input type="text" id="data" name="tccWorkshop.data" value="${tccWorkshop.data}" size="100"/>
+                <input name="tccWorkshop.data" type="text" id="data" value="<fmt:formatDate value="${tccWorkshop.data}" pattern="dd/MM/yyyy"/>"  class="data"> <br/>
             </p>
             <p>
-                <label for="local">Local*:</label>
-                <input type="text" id="local" name="tccWorkshop.local" value="${tccWorkshop.tcclocal}" size="100" />
+                <label for="locais">Local*:</label><br/>
+                <select id="locais" name="tccWorkshop.tcclocais.id" value="${tccWorkshop.tcclocais}" style="width: 500px">
+                    <option value="" >Selecione um Local</option>
+                    <c:forEach var="locaisList" items="${tccLocais}">
+                        <option  value="${locaisList.id}" <c:if test = "${locaisList.id == tccWorkshop.tcclocais.id}"> selected="true" </c:if> >${locaisList.nome}</option>
+                    </c:forEach>
+                </select>
             </p>
             <p>
-                <label for="avaliador1">Primeiro Avaliador*:</label>
-                <input id="avaliador1" type="text" name="avaliador1" value="${tccWorkshop.avaliador1}" size="100"/>
+                <label for="avaliador1">Primeiro Avaliador*:</label><br/>
+                <select id="avaliador1" name="tccWorkshop.avaliador1" value="${tccWorkshop.avaliador1}" style="width: 500px">
+                    <option value="" >Selecione um Avaliador</option>
+                    <c:forEach var="avaliadorList" items="${tccAvaliadores}">
+                        <option  value="${avaliadorList.nome}" <c:if test = "${avaliadorList.nome == tccWorkshop.avaliador1}"> selected="true" </c:if> >${avaliadorList.nome}</option>
+                    </c:forEach>
+                </select>
             </p>
             <p>
-                <label for="avaliador2">Segundo Avaliador*:</label>
-                <input id="avaliador2" type="text" name="avaliador2" value="${tccWorkshop.avaliador2}" size="100"/>
+                <label for="avaliador2">Segundo Avaliador*:</label><br/>
+                <select id="avaliador2" name="tccWorkshop.avaliador2" value="${tccWorkshop.avaliador2}" style="width: 500px">
+                    <option value="" >Selecione um Avaliador</option>
+                    <c:forEach var="avaliadorList" items="${tccAvaliadores}">
+                        <option  value="${avaliadorList.nome}" <c:if test = "${avaliadorList.nome == tccWorkshop.avaliador2}"> selected="true" </c:if> >${avaliadorList.nome}</option>
+                    </c:forEach>
+                </select>
             </p>
         </form>
     </body>

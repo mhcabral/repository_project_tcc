@@ -25,7 +25,7 @@ public class TccWorkshopDAO extends DAOImpl<TccWorkshop> {
         
         Query query = entityManager.createNamedQuery("TccWorkshop.findById");
         
-        query.setParameter("id", idWorkshop);        
+        query.setParameter("idWorkshop", idWorkshop);        
         
         try {
             return (TccWorkshop) query.getSingleResult();

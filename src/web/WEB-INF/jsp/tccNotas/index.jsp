@@ -113,11 +113,13 @@
                                                 <span width="32" height="32" border="0" class="icon-32-preview"></span>Visualizar
                                             </a>
                                         </li>
+                                        <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 2 || sessionData.usuario.perfil == 5}">
                                         <li class="button" id="toolbar-apply">
                                             <a href="javascript:radioHab('edit')">
                                                 <span width="32" height="32" border="0" class="icon-32-edit"></span>Editar
                                             </a>
                                         </li>
+                                        </c:if>
                                         <li>                                
                                         <li class="button" id="toolbar-cancel">
                                             <a href="${pageContext.request.contextPath}/tcc/index" id="back">
@@ -139,6 +141,7 @@
         </p>
 
         <div id="demo">
+            
             <form id="formTccNotas">
                 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
                     <thead>

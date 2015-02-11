@@ -1,10 +1,11 @@
+<%-- 
+    Document   : form
+    Created on : 19/01/2015, 11:39:38
+    Author     : mhcabral
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-/**
- *
- * @author andre
- */
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

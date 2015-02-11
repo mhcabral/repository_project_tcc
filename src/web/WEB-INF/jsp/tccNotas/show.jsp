@@ -20,7 +20,7 @@
                         <div class="icon">
                             <ul>
                                 <li class="button" id="toolbar-cancel">
-                                    <a href="${pageContext.request.contextPath}/tccnotas" id="back">
+                                    <a href="${pageContext.request.contextPath}/tccnotas/index" id="back">
                                         <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
                                     </a>
                                 </li>

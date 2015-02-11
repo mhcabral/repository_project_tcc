@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TccLocais.findAll", query = "SELECT t FROM TccLocais t"),
-    @NamedQuery(name = "TccLocais.findById", query = "SELECT t FROM TccLocais t WHERE t.id = :id")
+    @NamedQuery(name = "TccLocais.findById", query = "SELECT t FROM TccLocais t WHERE t.id = :id"),
+    @NamedQuery(name = "TccLocais.findIfAtivo", query = "SELECT l FROM TccLocais l WHERE l.estado = 'Ativo'")
 })
 public class TccLocais implements Serializable {
     private static final long serialVersionUID = 1L;

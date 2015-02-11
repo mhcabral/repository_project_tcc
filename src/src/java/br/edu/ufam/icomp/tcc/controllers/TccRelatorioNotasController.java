@@ -147,7 +147,7 @@ public class TccRelatorioNotasController {
         List<TccTcc> tccTccs = tcctccDAO.findTccByProfessor(professor.getId());
         
         if (tccTccs.isEmpty()) {
-            this.validator.add(new ValidationMessage("Desculpe! Não foi registrado nenhuma nota para o periodo " + periodoAtual.toString(), "."));
+            this.validator.add(new ValidationMessage("Desculpe! Não foi registrado nenhum workshop para o periodo " + periodoAtual.toString(), "."));
         }
 
         this.validator.onErrorRedirectTo(IndexController.class).index();

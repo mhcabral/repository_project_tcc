@@ -28,13 +28,8 @@
                         <div class="icon">
                             <ul>
                                 <li class="button" id="toolbar-apply">
-                                    <a href="${pageContext.request.contextPath}/tccWorkshop/${tccLocais.id}/edit" id="edit" class="toolbar">
+                                    <a href="${pageContext.request.contextPath}/tccworkshop/${tccWorkshop.id}/edit" id="edit" class="toolbar">
                                         <span width="32" height="32" border="0" class="icon-32-edit"></span>Editar
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:remove()">
-                                        <span width="32" height="32" border="0" class="icon-32-delete"></span>Remover
                                     </a>
                                 </li>
                                 <li class="button" id="toolbar-cancel">
@@ -48,7 +43,7 @@
                 </div>
                 <div class="clr"></div>
             </div>
-            <div class="pagetitle icon-48-info"><h2>Informações da Defesa</h2></div>
+            <div class="pagetitle icon-48-info"><h2>Informações do Workshop</h2></div>
         </div>
     </div>
     <c:if test="${not empty errors}">
@@ -71,7 +66,7 @@
         </p>
         <p>
             <b>Aluno:</b>
-            ${tccWorkshop.tcctcc.aluno.nome}
+            ${tccWorkshop.tcctcc.aluno.usuario.nome}
         </p>
         <p>
             <b>Orientador:</b>

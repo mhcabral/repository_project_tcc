@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Listando Defesas</title>            
+        <title>Listando Workshop</title>            
 
         <style type="text/css" title="currentStyle">
             @import "${pageContext.request.contextPath}/css/demo_page.css";
@@ -260,11 +260,6 @@
                                 <div class="icon">
                                     <ul>                                    
                                         <li class="button" id="toolbar-apply">
-                                            <a href="${pageContext.request.contextPath}/tccworkshop/create" id="new">
-                                                <span width="32" height="32" border="0" class="icon-32-new"></span>Novo
-                                            </a>
-                                        </li>
-                                        <li class="button" id="toolbar-apply">
                                             <a href="javascript:radioHab('show')">
                                                 <span width="32" height="32" border="0" class="icon-32-preview"></span>Visualizar
                                             </a>
@@ -273,12 +268,7 @@
                                             <a href="javascript:radioHab('edit')">
                                                 <span width="32" height="32" border="0" class="icon-32-edit"></span>Editar
                                             </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:radioHab('remove')">
-                                                <span width="32" height="32" border="0" class="icon-32-delete"></span>Remover
-                                            </a>
-                                        </li>                                    
+                                        </li>                              
                                         <li class="button" id="toolbar-cancel">
                                             <a href="${pageContext.request.contextPath}/tcc/index" id="back">
                                                 <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
@@ -290,7 +280,7 @@
                         </div>
                         <div class="clr"></div>
                     </div>
-                    <div class="pagetitle icon-48-article"><h2>Defesas</h2></div>
+                    <div class="pagetitle icon-48-article"><h2>Workshop</h2></div>
                 </div>
             </div>
             <br/>
@@ -318,7 +308,7 @@
                                 <td><input type="radio" name="RadioGroup1" value="${tccWorkshop.id}"/></td>
                                 <td class="center">${tccWorkshop.data}</td>
                                 <td class="center">${tccWorkshop.tcctcc.titulo}</td>
-                                <td class="center">${tccWorkshop.tcctcc.aluno.nome}</td>
+                                <td class="center">${tccWorkshop.tcctcc.aluno.usuario.nome}</td>
                                 <td class="center">${tccWorkshop.tcclocais.nome}</td>
                                 <td class="center">${tccWorkshop.avaliador1}</td>
                                 <td class="center">${tccWorkshop.avaliador2}</td>

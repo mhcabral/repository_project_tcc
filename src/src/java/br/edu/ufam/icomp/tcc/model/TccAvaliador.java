@@ -37,7 +37,7 @@ public class TccAvaliador implements Serializable {
     private Long id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)   
+    @Size(min = 1, max = 100)   
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
