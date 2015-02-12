@@ -32,7 +32,7 @@
                                 <div class="icon-wrapper" <c:if test="${sessionData.periodoInsMon == null}">title="Opção indisponível! Período de inscrição em monitoria fechado"</c:if>>
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tcclocais">
-                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-local.png" alt>
                                             <span>Locais de<br/>Apresentação</span>
                                         </a>
                                     </div>
@@ -40,7 +40,7 @@
                                 <div class="icon-wrapper">
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tccavaliador">
-                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-avaliador.png" alt>
                                             <span>Avaliadores</span>
                                         </a>
                                     </div>
@@ -56,7 +56,7 @@
                                 <div class="icon-wrapper">
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tcctemas">
-                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-temas.png" alt>
                                             <span>Temas</span>
                                         </a>
                                     </div>
@@ -64,7 +64,7 @@
                                 <div class="icon-wrapper">
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tccworkshop">
-                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-workshop.png" alt>
                                             <span>Workshop</span>
                                         </a>
                                     </div>
@@ -72,7 +72,7 @@
                                 <div class="icon-wrapper">
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tcc/relatorio/index">
-                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-relatorio.png" alt>
                                             <span>Relatórios</span>
                                         </a>
                                     </div>
@@ -80,7 +80,7 @@
                                 <div class="icon-wrapper">
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tccsolicitacoes">
-                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-solicitacao.png" alt>
                                             <span>Controla<br/>Solicitações</span>
                                         </a>
                                     </div>
@@ -90,7 +90,7 @@
                                 <div class="icon-wrapper">
                                     <div class="icon">
                                         <a href="${pageContext.request.contextPath}/tccnotas/index">
-                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-nota.png" alt>
                                             <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 5}">
                                             <span>Lançar<br/>Notas</span>
                                             </c:if>
