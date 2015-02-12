@@ -12,7 +12,6 @@ import br.edu.ufam.icomp.projeto4.dao.AlunoDAO;
 import br.edu.ufam.icomp.projeto4.dao.CursoDAO;
 import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
-import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
 import br.edu.ufam.icomp.projeto4.model.Anexo;
 import br.edu.ufam.icomp.projeto4.model.Professor;
@@ -28,14 +27,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
+import br.edu.ufam.icomp.projeto4.Notificador;
 import br.edu.ufam.icomp.tcc.dao.TccAnexoDAO;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
 import br.edu.ufam.icomp.tcc.dao.TccWorkshopDAO;
 import br.edu.ufam.icomp.tcc.model.TccAnexo;
 import br.edu.ufam.icomp.tcc.model.TccAtividade;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -50,7 +47,7 @@ public class TccTccController {
     private final TccTccDAO tccTccDAO;
     private final CursoDAO cursoDAO;
     private final ProfessorDAO professorDAO;
-    private SessionData sessionData;
+    private final SessionData sessionData;
     private final AlunoDAO alunoDAO;
     private final TccTemaDAO tccTemaDAO;
     private final TccAtividadeDAO tccAtividadeDAO;
@@ -59,11 +56,13 @@ public class TccTccController {
     private final TccWorkshopDAO tccWorkshopDAO;
     private final TccNotasDAO tccNotasDAO;
     private Anexo pastaDeAnexos;
+    private final Notificador notificador;
     
     public TccTccController (Result result,TccTccDAO tccTccDAO, Validator validator, CursoDAO cursoDAO,
             ProfessorDAO professorDAO, SessionData sessionData, AlunoDAO alunoDAO, TccTemaDAO tccTemaDAO,
             TccAtividadeDAO tccAtividadeDAO, TccSolicitacaoDAO tccSolicitacaoDAO,
-            TccAnexoDAO tccAnexoDAO, TccWorkshopDAO tccWorkshopDAO, TccNotasDAO tccNotasDAO, Anexo pastaDeAnexos){
+            TccAnexoDAO tccAnexoDAO, TccWorkshopDAO tccWorkshopDAO, TccNotasDAO tccNotasDAO, Anexo pastaDeAnexos,
+            Notificador notificador){
         this.result = result;
         this.validator = validator;
         this.tccTccDAO = tccTccDAO;
@@ -78,6 +77,7 @@ public class TccTccController {
         this.tccWorkshopDAO = tccWorkshopDAO;
         this.tccNotasDAO = tccNotasDAO;
         this.pastaDeAnexos = pastaDeAnexos;
+        this.notificador = notificador;
     }
 
 
@@ -185,7 +185,7 @@ public class TccTccController {
         if (aproveitamento == null) {aproveitamento = false;}
         tccTcc.setAproveitamento(aproveitamento);
         
-        this.tccTccDAO.create(tccTcc);  
+        this.tccTccDAO.create(tccTcc);
         
         TccSolicitacao tccSolicitacao = new TccSolicitacao();
         if (tccTcc.getAproveitamento()) {
@@ -196,6 +196,8 @@ public class TccTccController {
         tccSolicitacao.setEstado("Solicitado");
         tccSolicitacao.setTccTcc(tccTcc);
         this.tccSolicitacaoDAO.create(tccSolicitacao);
+        String email = sessionData.getUsuario().getEmail();
+        this.notificador.enviarEmail(email, tccSolicitacao.getAtividade().getDescricao(), "[Sistema de Controle de TCC] Solicitação.");
         
         this.result.include("success", "cadastrada");
         
@@ -265,6 +267,7 @@ public class TccTccController {
                         tccSolicitacao.setEstado("Solicitado");
                         tccSolicitacao.setTccTcc(tccTcc);
                         this.tccSolicitacaoDAO.create(tccSolicitacao);
+                        this.notificador.enviarEmail(sessionData.getUsuario().getEmail(), tccSolicitacao.getAtividade().getDescricao(), "[Sistema de Controle de TCC] Solicitação.");
                         tccAnexo.setTccSolicitacao(tccSolicitacao);
                     } else {
                         tccAnexo.setTccSolicitacao(ultSolicitacao);

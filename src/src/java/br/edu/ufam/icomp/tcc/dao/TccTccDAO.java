@@ -123,5 +123,4 @@ public class TccTccDAO extends DAOImpl<TccTcc> {
         }
         
     }
-  
 }

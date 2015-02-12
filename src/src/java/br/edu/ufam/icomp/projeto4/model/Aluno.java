@@ -39,8 +39,8 @@ public class Aluno implements Serializable {
     @Column(nullable=false)
     private Date dataIngresso;
         
+    @OneToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "id_usuario")
-    @OneToOne    
     private Usuario usuario;
         
     @ManyToOne
