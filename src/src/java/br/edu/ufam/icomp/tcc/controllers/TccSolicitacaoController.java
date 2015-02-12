@@ -12,6 +12,7 @@ import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
+import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
 import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.projeto4.model.Usuario;
 import br.edu.ufam.icomp.tcc.dao.TccSolicitacaoDAO;
@@ -45,6 +46,7 @@ public class TccSolicitacaoController {
     
     @Get("/tccsolicitacoes")
     public void index(Integer idEstado, Long idAluno) {
+        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
         String aEstado[] = new String[]{"Solicitado", "Deferido", "Indeferido"};
         if (idEstado == null) {
             idEstado = 0;
@@ -59,7 +61,7 @@ public class TccSolicitacaoController {
         Professor professor = this.professorDAO.findByUsuario(usuario.getId());
         
         List<TccSolicitacao> tccSolicitacao = this.tccSolicitacaoDAO.findByProfessorEstadoAluno(professor.getId(),estado,idAluno);
-        List<Aluno> aluno = tccTccDAO.findByProfessor(professor.getId());
+        List<Aluno> aluno = tccTccDAO.findByProfessor(professor.getId(), periodoAtual.getId());
         
         this.result.include("tccSolicitacaoList", tccSolicitacao);
         this.result.include("alunoList", aluno);

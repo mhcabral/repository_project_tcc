@@ -14,6 +14,7 @@ import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.interceptor.Perfil;
 import br.edu.ufam.icomp.projeto4.interceptor.Permission;
 import br.edu.ufam.icomp.projeto4.model.Aluno;
+import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
 import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
 import br.edu.ufam.icomp.tcc.dao.TccTccDAO;
@@ -46,15 +47,16 @@ public class TccNotasController {
 
     @Get("/tccnotas/index")
     public void index() {
+        PeriodoLetivo periodoAtual = session.getLetivoAtual();
         if (session.getUsuario().getRole().equals(Perfil.ALUNO)) { 
             Aluno aluno = this.alunoDAO.findByIdUsuario(session.getUsuario().getId());
             List<TccTcc> tccTcc = new ArrayList();
-            tccTcc.add(this.tccTccDAO.findByAluno(aluno.getId()));
+            tccTcc.add(this.tccTccDAO.findByAluno(aluno.getId(),periodoAtual.getId()));
             this.result.include("tccList", tccTcc);
         }
         else{
            Professor professor = this.professorDAO.findByUsuario(session.getUsuario().getId());
-           List<TccTcc> tccTcc = this.tccTccDAO.findTccByProfessor(professor.getId());
+           List<TccTcc> tccTcc = this.tccTccDAO.findTccByProfessor(professor.getId(),periodoAtual.getId());
            this.result.include("tccList", tccTcc);
         }
     }

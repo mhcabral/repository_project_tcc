@@ -37,12 +37,13 @@ public class TccTccDAO extends DAOImpl<TccTcc> {
      * @param idAluno
      * @return
      */
-    public TccTcc findByAluno(Long idAluno) {
+    public TccTcc findByAluno(Long idAluno, Long idPeriodo) {
         EntityManager entityManager = this.getEntityManager();
         
         Query query = entityManager.createNamedQuery("TccTcc.findByAluno");
         
-        query.setParameter("idAluno", idAluno);        
+        query.setParameter("idAluno", idAluno);
+        query.setParameter("idPeriodo", idPeriodo);
         
         try {
             return (TccTcc) query.getSingleResult();
@@ -56,12 +57,13 @@ public class TccTccDAO extends DAOImpl<TccTcc> {
      * @param idProfessor
      * @return
      */
-    public List<Aluno> findByProfessor(Long idProfessor) {
+    public List<Aluno> findByProfessor(Long idProfessor, Long idPeriodo) {
         EntityManager entityManager = this.getEntityManager();
         
         Query query = entityManager.createNamedQuery("TccTcc.findByProfessor");
         
-        query.setParameter("idProfessor", idProfessor);        
+        query.setParameter("idProfessor", idProfessor);
+        query.setParameter("idPeriodo", idPeriodo);
         
         return query.getResultList();
     }
@@ -71,12 +73,13 @@ public class TccTccDAO extends DAOImpl<TccTcc> {
      * @param idProfessor
      * @return
      */
-    public List<TccTcc> findTccByProfessor(Long idProfessor) {
+    public List<TccTcc> findTccByProfessor(Long idProfessor, Long idPeriodo) {
         EntityManager entityManager = this.getEntityManager();
         
         Query query = entityManager.createNamedQuery("TccTcc.findTccByProfessor");
         
-        query.setParameter("idProfessor", idProfessor);        
+        query.setParameter("idProfessor", idProfessor);
+        query.setParameter("idPeriodo", idPeriodo);
         
         return query.getResultList();
     }

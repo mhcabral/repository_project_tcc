@@ -19,9 +19,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tcctcc")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TccTcc.findByAluno", query = "SELECT t FROM TccTcc t WHERE t.aluno.id = :idAluno"),
-    @NamedQuery(name = "TccTcc.findByProfessor", query = "SELECT t.aluno FROM TccTcc t WHERE t.professor.id = :idProfessor ORDER BY t.aluno.usuario.nome"),
-    @NamedQuery(name = "TccTcc.findTccByProfessor", query = "SELECT t FROM TccTcc t WHERE t.professor.id = :idProfessor ORDER BY t.aluno.usuario.nome"),
+    @NamedQuery(name = "TccTcc.findByAluno", query = "SELECT t FROM TccTcc t WHERE t.aluno.id = :idAluno AND t.periodo.id = :idPeriodo"),
+    @NamedQuery(name = "TccTcc.findByProfessor", query = "SELECT t.aluno FROM TccTcc t WHERE t.professor.id = :idProfessor AND t.periodo.id = :idPeriodo ORDER BY t.aluno.usuario.nome"),
+    @NamedQuery(name = "TccTcc.findTccByProfessor", query = "SELECT t FROM TccTcc t WHERE t.professor.id = :idProfessor AND t.periodo.id = :idPeriodo ORDER BY t.aluno.usuario.nome"),
     @NamedQuery(name = "TccTcc.findByPeriodo", query = "SELECT t FROM TccTcc t WHERE t.periodo.id = :idPeriodo ORDER BY t.aluno.usuario.nome")
 })
 public class TccTcc implements Serializable {

@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.edu.ufam.icomp.projeto4.Notificador;
+import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
 import br.edu.ufam.icomp.tcc.dao.TccAnexoDAO;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
 import br.edu.ufam.icomp.tcc.dao.TccWorkshopDAO;
@@ -83,8 +84,9 @@ public class TccTccController {
 
     @Get("/tcctcc")
     public void index() {
+        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
         Aluno aluno = alunoDAO.findByIdUsuario(sessionData.getUsuario().getId());
-        TccTcc tccTcc = this.tccTccDAO.findByAluno(aluno.getId());
+        TccTcc tccTcc = this.tccTccDAO.findByAluno(aluno.getId(), periodoAtual.getId());
         
         if (tccTcc == null) {
             this.result.redirectTo(TccTccController.class).create();

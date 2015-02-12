@@ -144,7 +144,7 @@ public class TccRelatorioNotasController {
        
         PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
         
-        List<TccTcc> tccTccs = tcctccDAO.findTccByProfessor(professor.getId());
+        List<TccTcc> tccTccs = tcctccDAO.findTccByProfessor(professor.getId(), periodoAtual.getId());
         
         if (tccTccs.isEmpty()) {
             this.validator.add(new ValidationMessage("Desculpe! Não foi registrado nenhum workshop para o periodo " + periodoAtual.toString(), "."));
