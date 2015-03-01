@@ -35,7 +35,6 @@ public class AuthorizationInterceptor implements Interceptor {
 
     @Override
     public void intercept(InterceptorStack stack, ResourceMethod method, Object resource) {
-
         Permission methodPermission = method.getMethod().getAnnotation(Permission.class);
         Permission controllerPermission = method.getResource().getType().getAnnotation(Permission.class);
 

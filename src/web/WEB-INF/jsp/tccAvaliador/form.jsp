@@ -103,7 +103,7 @@
                 </c:if>
             </p> 
             <p>
-                <label for="nome">Nome*:</label>
+                <label for="nome">Nome Completo, sem abreviações*:</label><br>
                 <input type="text" id="nome" name="tccAvaliador.nome" value="${tccAvaliador.nome}" size="100"/>
             </p>
             <p>

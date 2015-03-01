@@ -136,9 +136,21 @@
                 </div>
             </div>
             <br/>
-            <p>
-            
-        </p>
+            <c:if test="${not empty errors}">
+                <div class="ui-widget">
+                    <div class="ui-state-error ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                        <p>
+                            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                            <strong>Situações não permitidas:</strong>
+                        <ul>
+                            <c:forEach items="${errors}" var="error">
+                                <li style="color: #cd0a0a">${error.message}</li>
+                            </c:forEach>        
+                        </ul>
+                        </p>
+                    </div>
+                </div>   
+            </c:if>
 
         <div id="demo">
             

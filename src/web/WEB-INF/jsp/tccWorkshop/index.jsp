@@ -4,6 +4,7 @@
  */
  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -295,6 +296,7 @@
                         <tr>   
                             <th></th>
                             <th>Data</th>
+                            <th>Hora</th>
                             <th>Trabalho</th>
                             <th>Aluno</th>
                             <th>Local</th>
@@ -306,7 +308,8 @@
                         <c:forEach items="${tccWorkshopList}" var="tccWorkshop">
                             <tr>
                                 <td><input type="radio" name="RadioGroup1" value="${tccWorkshop.id}"/></td>
-                                <td class="center">${tccWorkshop.data}</td>
+                                <td class="center"><fmt:formatDate value="${tccWorkshop.data}" pattern="dd/MM/yyyy"/></td>
+                                <td class="center">${tccWorkshop.hora}</td>
                                 <td class="center">${tccWorkshop.tcctcc.titulo}</td>
                                 <td class="center">${tccWorkshop.tcctcc.aluno.usuario.nome}</td>
                                 <td class="center">${tccWorkshop.tcclocais.nome}</td>
@@ -320,6 +323,7 @@
                         <tr>   
                             <th></th>
                             <th>Data</th>
+                            <th>Hora</th>
                             <th>Trabalho</th>
                             <th>Aluno</th>
                             <th>Local</th>

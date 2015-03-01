@@ -6,6 +6,7 @@
 package br.edu.ufam.icomp.tcc.model;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,7 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TccWorkshop.findAll", query = "SELECT a FROM TccWorkshop a"),
-    @NamedQuery(name = "TccWorkshop.findById", query = "SELECT a FROM  TccWorkshop a WHERE a.id = :idWorkshop")
+    @NamedQuery(name = "TccWorkshop.findByPeriodo", query = "SELECT w FROM TccWorkshop w WHERE w.tcctcc.periodo.id = :pPeriodo ORDER BY w.data, w.hora, w.tcclocais.nome"),
+    @NamedQuery(name = "TccWorkshop.findById", query = "SELECT a FROM  TccWorkshop a WHERE a.id = :idWorkshop"),
+    @NamedQuery(name = "TccWorkshop.findOcupado", query = "SELECT w FROM TccWorkshop w WHERE w.data = :pData AND w.tcclocais.id = :pLocal AND w.hora = :pHora")
 })
 public class TccWorkshop implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -47,6 +50,9 @@ public class TccWorkshop implements Serializable {
     @Column(name = "data")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
+    @Size(min = 1, max = 5)   
+    @Column(name = "hora")
+    private String hora;
     @OneToOne
     @JoinColumn(name = "id_tcc_tcc")
     private TccTcc tcctcc;
@@ -58,8 +64,6 @@ public class TccWorkshop implements Serializable {
     @Size(min = 1, max = 100)   
     @Column(name = "avaliador1")
     private String avaliador1;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)   
     @Column(name = "avaliador2")
     private String avaliador2;
@@ -111,9 +115,15 @@ public class TccWorkshop implements Serializable {
     public void setAvaliador2(String avaliador2) {
         this.avaliador2 = avaliador2;
     }
-    
-    
 
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+    
     @Override
     public String toString() {
         return id + "";

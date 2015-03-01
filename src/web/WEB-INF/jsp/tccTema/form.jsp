@@ -27,9 +27,6 @@
                         "tccTema.area":{
                             required:true
                         },
-                        "tccTema.sigla":{
-                            required: true
-                        },
                         "tccTema.titulo":{
                             required: true
                         },
@@ -46,9 +43,6 @@
                     messages:{
                         "tccTema.area":{
                             required: "Selecione a área"
-                        },
-                        "tccTema.sigla":{
-                            required: "Informe a sigla"
                         },
                         "tccTema.titulo":{
                             required: "Informe o título"
@@ -139,7 +133,6 @@
                     <input type="hidden" name="tccTema.id" value="${tccTema.id}"/>
                     <input type="hidden" name="_method" value="put"/>
                 </c:if>
-                <input type="hidden" name="tccTema.estado" value="${tccTema.estado}"/>
             </p> 
             <p>
                 <label for="area">Área*:</label><br/>
@@ -149,10 +142,6 @@
                         <option  value="${string}" <c:if test = "${string == tccTema.area}"> selected="true" </c:if>>${string}</option>
                     </c:forEach>
                 </select><br/>
-            </p>
-            <p>
-                <label for="sigla">Sigla*:</label>
-                <input type="text" id="sigla" name="tccTema.sigla" value="${tccTema.sigla}" size="4"/>
             </p>
             <p>
                 <label for="titulo" >Título*:</label>
@@ -174,20 +163,6 @@
                         <option  value="${professor.id}" <c:if test = "${professor.id == tccTema.professor.id}"> selected="true" </c:if>>${professor}</option>
                     </c:forEach>
                 </select><br/>
-            </p>
-            <%--
-            <p>
-                <label for="selTemaCurso">Cursos:</label>
-                <select name="tcctema.cursos" size=5 id="campo-cursos" value="tccTema.cursos" multiple >
-                    <c:forEach items="${cursosList}" var="tccTemaCurso">
-                        <option value="" >${tccTemaCurso.curso}</option>
-                    </c:forEach>
-                </select>
-            </p>
-            --%>
-            <p>
-                <label for="estado1">Estado*:</label>
-                <input id="estado1" type="text" name="campo-estado" value="${tccTema.estado}" size="30" disabled="true"/>
             </p>
         </form>
     </body>

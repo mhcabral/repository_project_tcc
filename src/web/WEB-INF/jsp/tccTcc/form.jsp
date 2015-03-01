@@ -167,7 +167,6 @@
                     <input type="hidden" name="tccTcc.id" value="${tccTcc.id}"/>
                     <input type="hidden" name="_method" value="put"/>
                 </c:if>
-                <input type="hidden" name="tccTcc.aluno.id" value="${aluno.id}"/>
                 <input type="hidden" name="tccTcc.periodo.id" value="${idPeriodo}"/>
                 <c:if test = "${not podeSalvarTema}"> 
                     <input type="hidden" name="tccTcc.descricao" value="${tccTcc.descricao}"/>

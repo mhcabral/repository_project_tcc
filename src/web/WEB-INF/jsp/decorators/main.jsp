@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title><decorator:title default="Projeto4"/></title>
+        <title><decorator:title default="Atividades Extracurriculares"/></title>
 
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" media="screen"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/application.css"/>

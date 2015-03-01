@@ -48,10 +48,10 @@ public class TccTcc implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_aluno")
     private Aluno aluno;
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_professor")
     private Professor professor;
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_periodo")
     private PeriodoLetivo periodo;
     @OneToMany(mappedBy="tccTcc")

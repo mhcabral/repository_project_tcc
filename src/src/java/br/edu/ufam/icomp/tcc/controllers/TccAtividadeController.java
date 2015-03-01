@@ -72,7 +72,7 @@ public class TccAtividadeController {
         PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
         List<TccAtividade> tccAtividades = tccAtividadeDAO.findByPeriodo(periodoAtual.getId());
         
-        if (!(tccAtividades == null)) {
+        if (tccAtividades.size() > 0) {
             this.validator.add(new ValidationMessage("Desculpe! Já Existem Atividades Cadastradas.", ""));
         }
         this.validator.onErrorRedirectTo(TccAtividadeController.class).index(periodoAtual.getId());

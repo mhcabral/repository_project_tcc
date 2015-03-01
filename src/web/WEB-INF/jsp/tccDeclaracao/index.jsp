@@ -1,6 +1,6 @@
 /**
  *
- * @author andre
+ * @author mhcabral
  */
  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Listando Temas</title>            
+        <title>Listando TCC para Declaração</title>            
 
         <style type="text/css" title="currentStyle">
             @import "${pageContext.request.contextPath}/css/demo_page.css";
@@ -51,25 +51,31 @@
         <script language="JavaScript" type="text/javascript">
             function radioHab(variavel) {
                     
-                var table = document.getElementById("formTccTema");
+                var table = document.getElementById("formTccDeclaracao");
                 var Radio=null;
 
                 Radio = table.RadioGroup1;
                 if(Radio.checked){
                     switch (variavel){
-                        case 'edit':
-                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/edit";
+                        case 'dorientador':
+                            document.location.href="${pageContext.request.contextPath}/tccdeclaracao/"+Radio.value+"/declaracaoOrientador";
+                            return;
+                        case 'davalia1':
+                            document.location.href="${pageContext.request.contextPath}/tccdeclaracao/"+Radio.value+"/declaracaoAvaliador1";
+                            return;
+                        case 'davalia2':
+                            document.location.href="${pageContext.request.contextPath}/tccdeclaracao/"+Radio.value+"/declaracaoAvaliador2";
                             return;
                         case 'remove':
-                            decisao = confirm("Deseja realmente remover a atividade?");
+                            decisao = confirm("Deseja realmente remover esse workshop?");
                             if (decisao){
-                                document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/remove";
+                                document.location.href="${pageContext.request.contextPath}/tccworkshop/"+Radio.value + "/remove";
                             } else {
-                                alert ("Nenhuma atividade foi removida");
+                                alert ("Nenhum workshop foi removido");
                             }
                             return;
                         case "show":
-                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio.value + "/show";                          
+                            document.location.href="${pageContext.request.contextPath}/tccworkshop/"+Radio.value + "/show";                          
                             return;
                         }
                     } else {
@@ -78,25 +84,31 @@
                             if(Radio[i].checked) 
                             {
                                 switch (variavel){
-                                    case 'edit':
-                                        document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/edit";                          
-                                        return;
+                                    case 'dorientador':
+                                        document.location.href="${pageContext.request.contextPath}/tccdeclaracao/"+Radio[i].value+"/declaracaoOrientador";
+                                    return;
+                                    case 'davalia1':
+                                        document.location.href="${pageContext.request.contextPath}/tccdeclaracao/"+Radio[i].value+"/declaracaoAvaliador1";
+                                    return;
+                                    case 'davalia2':
+                                        document.location.href="${pageContext.request.contextPath}/tccdeclaracao/"+Radio[i].value+"/declaracaoAvaliador2";
+                                    return;
                                     case 'remove':    
-                                        decisao = confirm("Deseja realmente remover a atividade?");
+                                        decisao = confirm("Deseja realmente remover o workshop?");
                                         if (decisao){
-                                            document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/remove";
+                                            document.location.href="${pageContext.request.contextPath}/tccworkshop/"+Radio[i].value + "/remove";
                                         } else {
-                                            alert ("Nenhuma atividade foi removida");
+                                            alert ("Nenhuma workshop foi removida");
                                         }                            
                                         return;
                                     case "show":
-                                        document.location.href="${pageContext.request.contextPath}/tcctemas/"+Radio[i].value + "/show";
+                                        document.location.href="${pageContext.request.contextPath}/tccworkshop/"+Radio[i].value + "/show";
                                         return;
                                     }
                                 }
                             }
 
-                            alert('Você precisa selecionar um tema');
+                            alert('Você precisa selecionar um TCC');
                         }
                     }
         </script>    
@@ -260,27 +272,22 @@
                                 <div class="icon">
                                     <ul>                                    
                                         <li class="button" id="toolbar-apply">
-                                            <a href="${pageContext.request.contextPath}/tcctemas/create" id="new">
-                                                <span width="32" height="32" border="0" class="icon-32-new"></span>Novo
+                                            <a href="javascript:radioHab('dorientador')">
+                                                <span width="32" height="32" border="0" class="icon-32-edit"></span>Declaracao<br>Orientador
                                             </a>
-                                        </li>
+                                        </li>     
                                         <li class="button" id="toolbar-apply">
-                                            <a href="javascript:radioHab('show')">
-                                                <span width="32" height="32" border="0" class="icon-32-preview"></span>Visualizar
+                                            <a href="javascript:radioHab('davalia1')">
+                                                <span width="32" height="32" border="0" class="icon-32-edit"></span>Declaracao<br>Primeiro<br>Avaliador
                                             </a>
-                                        </li>
+                                        </li>   
                                         <li class="button" id="toolbar-apply">
-                                            <a href="javascript:radioHab('edit')">
-                                                <span width="32" height="32" border="0" class="icon-32-edit"></span>Editar
+                                            <a href="javascript:radioHab('davalia2')">
+                                                <span width="32" height="32" border="0" class="icon-32-edit"></span>Declaracao<br>Segundo<br>Avaliador
                                             </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:radioHab('remove')">
-                                                <span width="32" height="32" border="0" class="icon-32-delete"></span>Remover
-                                            </a>
-                                        </li>                                    
+                                        </li>   
                                         <li class="button" id="toolbar-cancel">
-                                            <a href="${pageContext.request.contextPath}/tcc/index" id="back">
+                                            <a href="${pageContext.request.contextPath}/tcc/relatorio/index" id="back">
                                                 <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
                                             </a>
                                         </li>
@@ -290,7 +297,7 @@
                         </div>
                         <div class="clr"></div>
                     </div>
-                    <div class="pagetitle icon-48-article"><h2>Temas</h2></div>
+                    <div class="pagetitle icon-48-article"><h2>Declarações</h2></div>
                 </div>
             </div>
             <br/>
@@ -299,32 +306,38 @@
         </p>
 
         <div id="demo">
-            <form id="formTccTema">
+            <form id="formTccDeclaracao">
                 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
                     <thead>
                         <tr>   
                             <th></th>
-                            <th>Professor</th>
-                            <th>Área</th>
-                            <th>Título</th>
+                            <th>Aluno</th>
+                            <th>Trabalho</th>
+                            <th>Orientador</th>
+                            <th>Primeiro Avaliador</th>
+                            <th>Segundo Avaliador</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${tccTemaList}" var="tccTema">
+                        <c:forEach items="${tcctccList}" var="tcctcc">
                             <tr>
-                                <td><input type="radio" name="RadioGroup1" value="${tccTema.id}"/></td>
-                                <td class="center">${tccTema.professor.usuario.nome}</td>
-                                <td class="center">${tccTema.area}</td>
-                                <td class="center" style="width: 30%">${tccTema.titulo}</td>
+                                <td><input type="radio" name="RadioGroup1" value="${tcctcc.id}"/></td>
+                                <td class="center">${tcctcc.aluno.usuario.nome}</td>
+                                <td class="center">${tcctcc.titulo}</td>
+                                <td class="center">${tcctcc.professor.usuario.nome}</td>
+                                <td class="center">${tcctcc.tccworkshop.avaliador1}</td>
+                                <td class="center">${tcctcc.tccworkshop.avaliador2}</td>
                             </tr>
                         </c:forEach>                    
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr>   
                             <th></th>
-                            <th>Professor</th>
-                            <th>Área</th>
-                            <th>Título</th>
+                            <th>Aluno</th>
+                            <th>Trabalho</th>
+                            <th>Orientador</th>
+                            <th>Primeiro Avaliador</th>
+                            <th>Segundo Avaliador</th>
                         </tr>
                     </tfoot>
                 </table>                        

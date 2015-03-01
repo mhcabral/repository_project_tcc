@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-10T18:34:40 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportnotas" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="06622398-80e5-4298-adf4-47c45e24a8aa">
+<!-- 2015-02-27T00:40:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportnotas" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="06622398-80e5-4298-adf4-47c45e24a8aa">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -84,10 +84,10 @@ ORDER BY
 	</queryString>
 	<field name="titulo" class="java.lang.String"/>
 	<field name="aluno.usuario.nome" class="java.lang.String"/>
-	<field name="tccnotas.nota1" class="java.lang.String"/>
-	<field name="tccnotas.nota2" class="java.lang.String"/>
-	<field name="tccnotas.nota3" class="java.lang.String"/>
-	<field name="tccnotas.media" class="java.lang.String"/>
+	<field name="tccnotas.nota1" class="java.lang.Float"/>
+	<field name="tccnotas.nota2" class="java.lang.Float"/>
+	<field name="tccnotas.nota3" class="java.lang.Float"/>
+	<field name="tccnotas.media" class="java.lang.Float"/>
 	<field name="aluno.matricula" class="java.lang.String"/>
 	<field name="periodo.codigo" class="java.lang.String"/>
 	<background>

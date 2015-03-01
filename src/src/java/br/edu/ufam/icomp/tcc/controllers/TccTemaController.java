@@ -138,7 +138,6 @@ public class TccTemaController {
     
     @Post("/tcctemas")
     public void cadastrar(TccTema tccTema) {
-        tccTema.setEstado("Ativo");
         
         if (tccTema.getProfessor().getId() == null || tccTema.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTema.professor.id"));

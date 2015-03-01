@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-10T22:44:56 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tccAvaliacao" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9247b74d-2581-4bce-90eb-8dbfebc4685e">
+<!-- 2015-02-27T10:12:35 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tccAvaliacao" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9247b74d-2581-4bce-90eb-8dbfebc4685e">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="imgUfam" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="imgBrasao" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
@@ -14,21 +23,92 @@
 	<field name="tccworkshop.avaliador1" class="java.lang.String"/>
 	<field name="tccworkshop.avaliador2" class="java.lang.String"/>
 	<field name="professor.usuario.nome" class="java.lang.String"/>
+	<variable name="vAvaliador2" class="java.lang.String">
+		<variableExpression><![CDATA[($F{tccworkshop.avaliador2}.equals(null)) ? "" : (" e " + $F{tccworkshop.avaliador2})]]></variableExpression>
+	</variable>
+	<variable name="vAlaviadorVazio" class="java.lang.String">
+		<variableExpression><![CDATA[($F{tccworkshop.avaliador2}.equals(null)) ? "" : ($F{tccworkshop.avaliador2})]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<image>
-				<reportElement x="20" y="0" width="88" height="79" uuid="935fd227-0053-4b56-ac71-1a17329a6dea"/>
-				<imageExpression><![CDATA[$P{imgBrasao}]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="460" y="0" width="73" height="79" uuid="75820111-759b-4353-978e-5545802edd72"/>
-				<imageExpression><![CDATA[$P{imgUfam}]]></imageExpression>
-			</image>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="555" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="0" y="401" width="560" height="50" uuid="7cbc2d01-9a0f-4083-aeb1-7fc60b4f7c84"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="450" width="560" height="50" uuid="3c66f89c-7e52-4a8c-be6f-555ebc500ce1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="351" width="560" height="50" uuid="214e8550-0d13-4627-be08-7a2706db617a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="256" width="49" height="38" uuid="860b565f-8c86-4cff-8cd1-ca0f7248a33a">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="50" y="256" width="751" height="38" uuid="d90e55ec-18da-4064-bc58-0127c65ffad6">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="218" width="49" height="38" uuid="512ff59f-3d5a-41ae-a23a-aa4b537020af"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="50" y="218" width="751" height="38" uuid="b764ca86-ea90-480b-b7e5-c008298f1593"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="126" width="801" height="84" uuid="05121781-b25b-4d17-81ff-7cdd58a6d118"/>
+			</rectangle>
+			<textField>
+				<reportElement x="350" y="150" width="440" height="18" uuid="421d2d9f-bd65-4e7d-9163-707f601a3607"/>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="116" y="0" width="234" height="79" uuid="4bc7d14f-3690-4152-a856-e25964ac8ed0"/>
+				<reportElement x="8" y="150" width="72" height="18" uuid="00fc7667-9dd9-4c98-9b7d-8adb649c9bdf"/>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="150" width="230" height="18" uuid="a2c385de-1cca-4931-850c-d2cd3493e43c"/>
+				<textFieldExpression><![CDATA[$F{aluno.curso.curso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="130" width="72" height="18" uuid="f623604f-ccc3-4811-baa7-2a37d4b733ff"/>
+				<text><![CDATA[Aluno(a):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="170" width="460" height="30" uuid="e80eac4c-f44f-4fdc-ad4e-9f1b2a5f235d"/>
+				<textFieldExpression><![CDATA[$F{professor.usuario.nome} + ", " + $F{tccworkshop.avaliador1} + $V{vAvaliador2} + "."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="150" width="72" height="18" uuid="230e290f-c48f-47d8-aebe-9b2c42cfc349"/>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="170" width="72" height="18" uuid="7ded3b8a-2382-4ed7-8e2f-0afb125b9faa"/>
+				<text><![CDATA[Avaliadores:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="130" width="460" height="18" uuid="a756c51b-45e9-41c7-b642-c0f64f4e1e53"/>
+				<textFieldExpression><![CDATA[$F{aluno.usuario.nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="116" y="0" width="234" height="79" uuid="5fff8cea-2eb9-4f19-a32d-de12dddf2f35"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -38,322 +118,253 @@ Universidade Federal do Amazonas
 Instituto de Computação
 ]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="45" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="1" width="550" height="20" uuid="75f90acc-a0c2-486b-9906-55385b9bdcdf"/>
+				<reportElement x="0" y="81" width="801" height="20" uuid="1232c72d-4369-4b97-b521-5cadc36bcdfc"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Formulário de Avaliação de Apresentação de Trabalho"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="19" width="550" height="20" uuid="aab81a48-2fc6-4c58-9400-39adfd27353b"/>
+				<reportElement x="0" y="99" width="801" height="20" uuid="9e31282e-e1bb-4c31-a72a-3839f72e27a6"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Conclusão de Curso (TCC)"]]></textFieldExpression>
 			</textField>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="677" splitType="Stretch">
-			<rectangle>
-				<reportElement x="170" y="606" width="100" height="71" uuid="1017e808-c7f1-4bc2-babc-f6c668161b90"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="270" y="606" width="100" height="71" uuid="76588815-bfac-4f6d-a755-8e143bf6eeb7"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="0" y="548" width="370" height="50" uuid="87029593-ccd5-423e-98c4-fdea6036a7c8"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="0" y="498" width="370" height="50" uuid="fbd1f420-a070-4113-9e1a-66e800a951f2"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="0" y="448" width="370" height="50" uuid="61bbcdba-52e8-46cb-bfed-be209433e442"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="370" y="448" width="180" height="50" uuid="c8963222-7cb9-40b4-81d2-0aaa1b2247d2"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="0" y="311" width="370" height="50" uuid="7f33d617-922e-483a-a7b1-424df7fa0f5d"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="370" y="211" width="180" height="50" uuid="a0dfa4e5-3307-4849-8528-ab30307e068c"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="370" y="311" width="180" height="50" uuid="18b6466f-c68c-4009-9e09-a6f4424ddc23"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="0" y="261" width="370" height="50" uuid="76c51118-c763-4d8c-9104-aba8e919bd0b"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="0" y="6" width="550" height="118" uuid="6c2f89cd-ba8f-4515-825f-3f9636c0ebc4"/>
-			</rectangle>
+			<image>
+				<reportElement x="710" y="0" width="73" height="79" uuid="64f3d81e-eb69-4386-9143-e52be8f54c1a"/>
+				<imageExpression><![CDATA[$P{imgUfam}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="20" y="0" width="88" height="79" uuid="b8d5083a-dda8-4f0f-8e2b-24d8d735b037"/>
+				<imageExpression><![CDATA[$P{imgBrasao}]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement x="8" y="30" width="72" height="18" uuid="af68d03a-e857-4f10-98f7-2c632f00a261"/>
-				<text><![CDATA[Curso:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="80" y="10" width="460" height="18" uuid="16dc2703-b903-4cf3-8184-30db5180a3c3"/>
-				<textFieldExpression><![CDATA[$F{aluno.usuario.nome}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="8" y="10" width="72" height="18" uuid="af9180cd-5500-4bb8-b6fd-e09167153a39"/>
-				<text><![CDATA[Aluno(a):]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="80" y="30" width="460" height="18" uuid="1b3f4756-473d-480e-a011-9a5a6f7d0a9a"/>
-				<textFieldExpression><![CDATA[$F{aluno.curso.curso}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="8" y="50" width="72" height="18" uuid="93e3ea69-3db9-47d0-af21-cda6ef38ce5c"/>
-				<text><![CDATA[Título]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="80" y="50" width="460" height="18" uuid="0f67b2c4-f50c-4c50-aff7-4876aaae7ef5"/>
-				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="8" y="70" width="72" height="18" uuid="af9838f8-5efe-4ac5-95ae-5060c396e74a"/>
-				<text><![CDATA[Avaliadores:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="80" y="70" width="460" height="18" uuid="c9a4b8d5-a7f7-4065-97fd-e587c93ea5c7"/>
-				<textFieldExpression><![CDATA[$F{professor.usuario.nome}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="80" y="88" width="460" height="18" uuid="667d21b1-0039-4242-8114-f9c8b5a518f4"/>
-				<textFieldExpression><![CDATA[$F{tccworkshop.avaliador1}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="80" y="106" width="460" height="18" uuid="d4f4653c-69db-4fae-94d7-3e490a143cde"/>
-				<textFieldExpression><![CDATA[$F{tccworkshop.avaliador2}]]></textFieldExpression>
-			</textField>
-			<rectangle>
-				<reportElement x="0" y="131" width="370" height="80" uuid="a1e0cd36-5489-4309-94a2-610cf0c92eb4"/>
-			</rectangle>
-			<staticText>
-				<reportElement x="10" y="141" width="352" height="22" uuid="da927074-a287-46d6-ae5c-6a093878dba6"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Apresentação Oral (Valor: 3,0)]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement x="370" y="131" width="180" height="80" uuid="c842b268-20ef-4b29-aa85-4579830e6484"/>
-			</rectangle>
-			<staticText>
-				<reportElement x="10" y="161" width="352" height="50" uuid="2f95fa55-20a8-4886-8036-54a407e0a0d3"/>
+				<reportElement x="239" y="223" width="543" height="34" uuid="bbe2cd3f-8890-4e24-9633-5afedc5b2df5"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Critério: tempo de apresentação (máximo de 15 minutos), desenvoltura, domínio do tema, capacidade se síntese, entre outros.]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="380" y="163" width="160" height="30" uuid="b3ea1088-d471-4098-89a4-91de9cfea9e9"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nota Atribuída (N1)]]></text>
-			</staticText>
 			<rectangle>
-				<reportElement x="0" y="211" width="370" height="50" uuid="b929ea98-9b28-4beb-91b0-1f094c63d81d"/>
+				<reportElement x="0" y="301" width="560" height="50" uuid="334e9252-d40b-4e29-a1ec-d139a3844b84"/>
 			</rectangle>
-			<rectangle>
-				<reportElement x="370" y="261" width="180" height="50" uuid="8309e521-141a-48fb-91ea-dd63d33da5b9"/>
-			</rectangle>
-			<textField>
-				<reportElement x="10" y="216" width="352" height="18" uuid="1ddedf4d-a738-4dae-857c-6b28d1736089"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{professor.usuario.nome}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="10" y="228" width="100" height="16" uuid="de49523b-0e77-4cde-9619-c5931d152439"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Orientador]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="109" y="241" width="155" height="20" uuid="bff5fae3-b239-4c0a-b1f1-6d3e5e49e0e0"/>
-				<textElement textAlignment="Center">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Assintaura do Avaliador]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="10" y="278" width="100" height="16" uuid="6bc866e3-35ed-47f6-921b-7abea886ddcd"/>
+				<reportElement x="8" y="422" width="100" height="16" uuid="b7589f65-7764-44b1-9ac5-4ee48336cd63"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Membro da Banca]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="10" y="266" width="352" height="18" uuid="bee22df1-cd97-404b-aaf2-12a788bc8cbc"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tccworkshop.avaliador1}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="108" y="291" width="155" height="20" uuid="5bf5c1ad-06ec-4ff4-bc43-b220f0211fa7"/>
-				<textElement textAlignment="Center">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Assintaura do Avaliador]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="10" y="328" width="100" height="16" uuid="dfbd8a76-1e81-4128-a1d1-456d9d5cbc8a"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Membro da Banca]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="109" y="341" width="155" height="20" uuid="7bc09c2a-dd48-4e70-bdac-00a644e93066"/>
-				<textElement textAlignment="Center">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Assintaura do Avaliador]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="9" y="316" width="352" height="18" uuid="d076445b-828d-48fc-8e82-e24b5a5a115d"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="7" y="460" width="352" height="18" uuid="d7231f47-d07e-408f-9dec-eb4898367c20"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tccworkshop.avaliador2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="465" width="100" height="16" uuid="8b152edb-e7e2-47c7-8618-90dc7e0b46b2"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Orientador]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="108" y="528" width="155" height="20" uuid="0cb4ba8b-db56-4822-afd5-94a79af92924"/>
+				<reportElement x="107" y="485" width="452" height="20" uuid="3c709019-30ac-4fb6-aead-85f6e4c2602a"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Assintaura do Avaliador]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="565" width="100" height="16" uuid="ec469330-9516-4203-81d8-9a1255b5d340"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Membro da Banca]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="10" y="453" width="352" height="18" uuid="f4ea753c-9418-473f-a0f7-4dedc9dbe929"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{professor.usuario.nome}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="380" y="400" width="160" height="30" uuid="c396380c-f99c-407c-b89d-87f3f8dfee49"/>
-				<textElement>
+				<reportElement x="0" y="217" width="48" height="30" uuid="fd7cd8e8-540e-45d6-bc11-8040789bf7f7"/>
+				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nota Atribuída (N1)]]></text>
+				<text><![CDATA[N1]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement x="0" y="368" width="370" height="80" uuid="2ced3492-ef0f-4d17-b049-12bb97f5e28d"/>
-			</rectangle>
 			<staticText>
-				<reportElement x="10" y="398" width="352" height="50" uuid="502fc30e-9390-4536-be66-a317275c663c"/>
+				<reportElement x="239" y="262" width="542" height="37" uuid="2e6c1e90-4dc0-41bd-868c-7a2c16ff1e4e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Critério: relevância técnica, qualidade do texto, encadeamento lógico do conteúdo, entendimento do tema, bibliografia, entre outros.]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement x="370" y="498" width="180" height="50" uuid="3f2d5e6b-b4a7-42eb-b513-6e2d13da1abc"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="370" y="368" width="180" height="80" uuid="a7359b8b-34ef-495e-9c84-500f1eeb9a3f"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="370" y="548" width="180" height="50" uuid="3cd86c9e-b13d-454d-a9d3-b1b303357037"/>
-			</rectangle>
-			<textField>
-				<reportElement x="9" y="553" width="352" height="18" uuid="f80bb331-4ed5-4875-aeb7-7cb850edf151"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tccworkshop.avaliador2}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="10" y="503" width="352" height="18" uuid="1207625e-5f65-4b57-baaa-e7c151b32098"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tccworkshop.avaliador1}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="109" y="478" width="155" height="20" uuid="c38114c3-ec44-4d36-8826-1c28422e7104"/>
-				<textElement textAlignment="Center">
-					<font size="8"/>
+				<reportElement x="55" y="260" width="184" height="22" uuid="7e81b52e-ec47-4abc-8976-6a6e81debf31"/>
+				<textElement>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Assintaura do Avaliador]]></text>
+				<text><![CDATA[Documento Escrito (Valor: 7,0)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="515" width="100" height="16" uuid="906bcc69-c500-464a-ad9d-9048d51a9431"/>
+				<reportElement x="0" y="256" width="48" height="30" uuid="fc83fced-dc18-4bf1-bc0d-d22895b0d58e"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="472" width="100" height="16" uuid="34d75c84-47ca-4564-bc31-df2bd6b28c72"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Membro da Banca]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="109" y="578" width="155" height="20" uuid="9d89b82c-31b6-43cc-b5ec-fd1cba374d17"/>
+				<reportElement x="106" y="435" width="452" height="20" uuid="1a872d0d-8046-4e65-9adf-ea636d940860"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Assintaura do Avaliador]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="378" width="352" height="22" uuid="3f6cdeee-eb1c-485f-876d-e70a214e5771"/>
+				<reportElement x="55" y="222" width="184" height="22" uuid="873da3d9-6c91-4623-a7de-a00a30852861"/>
 				<textElement>
-					<font size="14" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Documento Escrito (Valor: 7,0)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="380" y="400" width="160" height="30" uuid="cac7cce9-e488-446a-9d1f-860685103e45"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nota Atribuída (N2)]]></text>
+				<text><![CDATA[Apresentação Oral (Valor: 3,0)]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="370" y="606" width="180" height="71" uuid="468dd197-7526-460c-8c95-8d607da77d21"/>
+				<reportElement x="560" y="301" width="80" height="50" uuid="5bb70245-039e-45f6-a492-d3118398d373">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="8" y="410" width="352" height="18" uuid="4c264884-0608-4ea9-9d3c-113b1f5320d6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tccworkshop.avaliador1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="560" y="311" width="80" height="30" uuid="a5c620ac-8d45-4ecb-ae41-ce85851115a3"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N1]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="640" y="301" width="80" height="50" uuid="fb244764-df92-4979-a83f-0e6cb61d0552">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="720" y="301" width="80" height="50" uuid="940950a4-0b41-4d0e-8333-bbf332ffb0fb">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="181" y="610" width="79" height="16" uuid="c40c2822-afe2-449d-9035-0fca190fd6c4"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Nota N1]]></text>
+				<reportElement x="640" y="311" width="80" height="30" uuid="2e2786e6-0b61-448d-b568-f1350300f739"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="610" width="79" height="16" uuid="a1413a73-f225-42d8-ae21-4fa8739db6f8"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Nota N2]]></text>
+				<reportElement x="720" y="311" width="80" height="30" uuid="a506bfb8-02d9-4c52-b318-4f6c41732d65"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N1 + N2]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="500" width="560" height="50" uuid="a7c55a34-fc31-4877-82a1-2ebf421a325a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="410" y="510" width="140" height="30" uuid="cd84d7a0-f562-413e-83c8-d0245ff625c6"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Média]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="560" y="351" width="80" height="50" uuid="efffcb85-c598-4db1-a918-bd0bbe171964">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="640" y="351" width="80" height="50" uuid="aaeb6b9b-0e31-462c-8a25-a519e4a08c1e">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="720" y="351" width="80" height="50" uuid="a01d08aa-240d-41d2-abe1-4828298ef0af">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="560" y="401" width="80" height="50" uuid="214daafe-da68-4a5d-b894-0474d96553eb">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="640" y="401" width="80" height="50" uuid="acabc416-d77c-4787-a8a7-bf9ba5bf6afa">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="720" y="401" width="80" height="50" uuid="300cb013-ceeb-41f2-904a-c51d9336fcfe">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="560" y="500" width="240" height="50" uuid="d5b032b6-5ab4-4bba-bad7-0f5ad55c99a3">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="311" width="540" height="30" uuid="d4ca2dbb-1205-4c68-9178-b231a534b004"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avaliadores]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="560" y="450" width="80" height="50" uuid="c44bbb19-5f07-429c-aadd-0cab64f0ad4a">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="640" y="450" width="80" height="50" uuid="74403897-ec64-4d7f-9d3b-db22a4d61648">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="720" y="450" width="80" height="50" uuid="101b77c4-11d0-4814-ab91-4c00a2fb24f8">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="360" width="352" height="18" uuid="b44d1fc1-8efe-40f6-8eb0-0f771c982b13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{professor.usuario.nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="372" width="100" height="16" uuid="662faefd-69cf-481c-8df5-758da40f1c54"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Orientador]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="610" width="159" height="16" uuid="51e4b5e1-209d-4f49-9d8b-9e5a285c207e"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Nota Total (N1 + N2)]]></text>
+				<reportElement x="108" y="385" width="452" height="20" uuid="bb41ffde-94f4-42d7-a3ba-8e4002f3e6ba"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Assintaura do Avaliador]]></text>
 			</staticText>
 		</band>
-	</columnHeader>
-	<detail>
-		<band splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>

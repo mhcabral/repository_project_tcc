@@ -28,10 +28,25 @@
                         <div class="cpanel">
                             <div class="pagetitle icon-48-frontpage"><h2>TCC</h2></div>
                             <br/>
+                            <c:if test="${not empty errors}">
+                                <div class="ui-widget">
+                                    <div class="ui-state-error ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                                        <p>
+                                            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                                            <strong>Situações não permitidas:</strong>
+                                        <ul>
+                                            <c:forEach items="${errors}" var="error">
+                                                <li style="color: #cd0a0a">${error.message}</li>
+                                            </c:forEach>        
+                                        </ul>
+                                        </p>
+                                    </div>
+                                </div> <br><br>  
+                            </c:if>
                             <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 2 || sessionData.usuario.perfil == 5}">
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/relatorioNotas">
+                                        <a href="${pageContext.request.contextPath}/tcc/relatorio/notas">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Relatório de<br/>Notas</span>
                                         </a>
@@ -39,9 +54,45 @@
                                 </div>
                                 <div class="icon-wrapper">
                                     <div class="icon">
-                                        <a href="${pageContext.request.contextPath}/tcc/formularioavaliacao">
+                                        <a href="${pageContext.request.contextPath}/tcc/relatorio/avaliacao">
                                             <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
                                             <span>Formulário de Avaliação</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tcc/relatorio/presenca">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Lista de Presença</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tccdeclaracao">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Declarações</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                            </c:if>
+                            <c:if test="${sessionData.usuario.perfil == 1 || sessionData.usuario.perfil == 2 || sessionData.usuario.perfil == 5 || sessionData.usuario.perfil == 0}">
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tcc/relatorio/atividades">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Calendário de Atividades</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tcc/relatorio/workshop">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Calendário de Workshop</span>
                                         </a>
                                     </div>
                                 </div>

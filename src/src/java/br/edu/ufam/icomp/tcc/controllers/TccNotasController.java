@@ -48,17 +48,21 @@ public class TccNotasController {
     @Get("/tccnotas/index")
     public void index() {
         PeriodoLetivo periodoAtual = session.getLetivoAtual();
+        List<TccTcc> tccTccs = new ArrayList();
         if (session.getUsuario().getRole().equals(Perfil.ALUNO)) { 
             Aluno aluno = this.alunoDAO.findByIdUsuario(session.getUsuario().getId());
-            List<TccTcc> tccTcc = new ArrayList();
-            tccTcc.add(this.tccTccDAO.findByAluno(aluno.getId(),periodoAtual.getId()));
-            this.result.include("tccList", tccTcc);
+            
+            TccTcc tccTcc = this.tccTccDAO.findByAluno(aluno.getId(),periodoAtual.getId());
+            if (tccTcc != null) {
+                tccTccs.add(tccTcc);
+            }
         }
         else{
-           Professor professor = this.professorDAO.findByUsuario(session.getUsuario().getId());
-           List<TccTcc> tccTcc = this.tccTccDAO.findTccByProfessor(professor.getId(),periodoAtual.getId());
-           this.result.include("tccList", tccTcc);
+            Professor professor = this.professorDAO.findByUsuario(session.getUsuario().getId());
+            tccTccs = this.tccTccDAO.findTccByProfessor(professor.getId(),periodoAtual.getId());
         }
+        
+        this.result.include("tccList", tccTccs);
     }
     
     @Permission({Perfil.COORDENADOR, Perfil.COORDENADORACAD, Perfil.PROFESSOR, Perfil.ROOT, Perfil.SECRETARIA})

@@ -100,92 +100,91 @@ public class TccAtividadeDAO extends DAOImpl<TccAtividade> {
         tccAtividade.setOrdem(1);
         entityManager.persist(tccAtividade);
         
-        //Ordem 2 - Definir Plano de Trabalho
+        //Ordem 2 - Aproveitamento de Tcc
+        tccAtividade = new TccAtividade();
+        tccAtividade.setDatalimite(limite.getTime());
+        tccAtividade.setDescricao("Solicitar aproveitamento de TCC");
+        tccAtividade.setResponsavel("Aluno");
+        tccAtividade.setPeriodo(periodo);
+        tccAtividade.setOrdem(2);
+        entityManager.persist(tccAtividade);
+        
+        //Ordem 3 - Definir Plano de Trabalho
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limite.getTime());
         tccAtividade.setDescricao("Estabelecer um plano de trabalho com metas a serem cumpridas durante a execução do TCC.");
         tccAtividade.setResponsavel("Aluno e Orientador");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(2);
+        tccAtividade.setOrdem(3);
         entityManager.persist(tccAtividade);
         limite.add( Calendar.DAY_OF_MONTH , 7 );
         
-        //Ordem 3 - 1ª Entrega
+        //Ordem 4 - 1ª Entrega
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limite.getTime());
         tccAtividade.setDescricao("Entregar ao Orientador a revisão bibliográfica e outros resultados estabelecidos no plano de trabalho, se houver.");
         tccAtividade.setResponsavel("Aluno");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(3);
+        tccAtividade.setOrdem(4);
         entityManager.persist(tccAtividade);
         limite.add( Calendar.DAY_OF_MONTH , 7 );
         
-        //Ordem 4 - Lançar 1ª Nota
+        //Ordem 5 - Lançar 1ª Nota
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limite.getTime());
         tccAtividade.setDescricao("Informar 1ª nota parcial para Coordenador do TCC.");
         tccAtividade.setResponsavel("Orientador");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(4);
+        tccAtividade.setOrdem(5);
         entityManager.persist(tccAtividade);
         limite.add( Calendar.DAY_OF_MONTH , 14 );
         
-        //Ordem 5 - 2ª Entrega
+        //Ordem 6 - 2ª Entrega
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limite.getTime());
         tccAtividade.setDescricao("Entregar ao Orientador os resultados correspondentes às metas estabelecidas no plano de trabalho.");
         tccAtividade.setResponsavel("Aluno");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(5);
+        tccAtividade.setOrdem(6);
         entityManager.persist(tccAtividade);
         limite.add( Calendar.DAY_OF_MONTH , 7 );
         
-        //Ordem 6 - Lançar 2ª Nota
+        //Ordem 7 - Lançar 2ª Nota
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limite.getTime());
         tccAtividade.setDescricao("Informar 2ª nota parcial para Coordenador do TCC.");
         tccAtividade.setResponsavel("Orientador");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(6);
+        tccAtividade.setOrdem(7);
         entityManager.persist(tccAtividade);
                 
-        //Ordem 7 - Informar Monografia
+        //Ordem 8 - Informar Monografia
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limite.getTime());
         tccAtividade.setDescricao("Informar ao Coordenador do TCC o título da Monografia, resumo e o nome dos  componentes da banca de avaliação do trabalho.");
         tccAtividade.setResponsavel("Orientador");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(7);
+        tccAtividade.setOrdem(8);
         entityManager.persist(tccAtividade);
         
-        //Ordem 8 - 3ª Entrega
+        //Ordem 9 - 3ª Entrega
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limite.getTime());
         tccAtividade.setDescricao("Entregar a monografia para o Orientador e Avaliador(es).");
         tccAtividade.setResponsavel("Aluno");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(8);
+        tccAtividade.setOrdem(9);
         entityManager.persist(tccAtividade);
         
-        //Ordem 9 - Divulgar Workshop
+        //Ordem 10 - Divulgar Workshop
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limiteFim.getTime());
         tccAtividade.setDescricao("Divulgar a programação do Workshop de Monografias.");
         tccAtividade.setResponsavel("Coordenador");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(9);
-        entityManager.persist(tccAtividade);
-        limiteFim.add( Calendar.DAY_OF_MONTH , 3 );
-        
-        //Ordem 10 - Workshop
-        tccAtividade = new TccAtividade();
-        tccAtividade.setDatalimite(limiteFim.getTime());
-        tccAtividade.setDescricao("Workshop de Monografias.");
-        tccAtividade.setResponsavel("Todos");
-        tccAtividade.setPeriodo(periodo);
         tccAtividade.setOrdem(10);
         entityManager.persist(tccAtividade);
-        limiteFim.add( Calendar.DAY_OF_MONTH , 1 );
+        limiteFim.add( Calendar.DAY_OF_MONTH , 3 );
         
         //Ordem 11 - Workshop
         tccAtividade = new TccAtividade();
@@ -195,42 +194,43 @@ public class TccAtividadeDAO extends DAOImpl<TccAtividade> {
         tccAtividade.setPeriodo(periodo);
         tccAtividade.setOrdem(11);
         entityManager.persist(tccAtividade);
+        limiteFim.add( Calendar.DAY_OF_MONTH , 1 );
+        
+        //Ordem 12 - Workshop
+        tccAtividade = new TccAtividade();
+        tccAtividade.setDatalimite(limiteFim.getTime());
+        tccAtividade.setDescricao("Workshop de Monografias.");
+        tccAtividade.setResponsavel("Todos");
+        tccAtividade.setPeriodo(periodo);
+        tccAtividade.setOrdem(12);
+        entityManager.persist(tccAtividade);
         limiteFim.add( Calendar.DAY_OF_MONTH , 2 );
         
-        //Ordem 12 - 4ª Entrega
+        //Ordem 13 - 4ª Entrega
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limiteFim.getTime());
         tccAtividade.setDescricao("Entregar ao Orientador a versão final da monografia.");
         tccAtividade.setResponsavel("Aluno");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(12);
+        tccAtividade.setOrdem(13);
         entityManager.persist(tccAtividade);
         limiteFim.add( Calendar.DAY_OF_MONTH , 1 );
         
-        //Ordem 13 - Lançar Nota Final
+        //Ordem 14 - Lançar Nota Final
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limiteFim.getTime());
         tccAtividade.setDescricao("Informar nota de avaliação do TCC para Coordenador do TCC. Entregar a versão final da Monografia e da Apresentação, a fim de serem publicadas no site do IComp.");
         tccAtividade.setResponsavel("Orientador");
         tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(13);
+        tccAtividade.setOrdem(14);
         entityManager.persist(tccAtividade);
         limiteFim.add( Calendar.DAY_OF_MONTH , 1 );
         
-        //Ordem 14 - Lançar Notas
+        //Ordem 15 - Lançar Notas
         tccAtividade = new TccAtividade();
         tccAtividade.setDatalimite(limiteFim.getTime());
         tccAtividade.setDescricao("Lançar notas dos alunos no SIE.");
         tccAtividade.setResponsavel("Coordenador");
-        tccAtividade.setPeriodo(periodo);
-        tccAtividade.setOrdem(14);
-        entityManager.persist(tccAtividade);
-        
-        //Ordem 15 - Aproveitamento de Tcc
-        tccAtividade = new TccAtividade();
-        tccAtividade.setDatalimite(limiteFim.getTime());
-        tccAtividade.setDescricao("Solicitar aproveitamento de TCC");
-        tccAtividade.setResponsavel("Aluno");
         tccAtividade.setPeriodo(periodo);
         tccAtividade.setOrdem(15);
         entityManager.persist(tccAtividade);

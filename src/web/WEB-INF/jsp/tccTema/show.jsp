@@ -68,20 +68,6 @@
             ${tccTema.area}
         </p>
         <p>
-            <b>Sigla:</b>
-            ${tccTema.sigla}
-        </p>
-        <%--
-        <p>
-            <b>Cursos:</b><p/>
-            <c:forEach items="${tccTema.curso}" var="tccTemaCurso">
-                <tr>
-                    <td class="center">${tccTemaCurso.curso}</td><p/>
-                </tr>
-            </c:forEach>
-        </p>
-        --%>
-        <p>
             <b>Título:</b>
             ${tccTema.titulo}
         </p>
@@ -97,9 +83,5 @@
             <b>Professor:</b>
             ${tccTema.professor.usuario.nome}
         </p>
-        <p>
-            <b>Estado:</b>
-            ${tccTema.estado}
-        </p> 
     </c:if>
 </body>

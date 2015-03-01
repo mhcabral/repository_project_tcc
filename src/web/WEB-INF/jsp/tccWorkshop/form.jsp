@@ -23,21 +23,13 @@
             label.error { float: none; color: red; margin: 0 .5em 0 0; vertical-align: top; font-size: 10px }
         </style>
         <script laguage="Javascript" type="text/javascript">
-            $(document).ready(function(){
-                $(".data").datepicker({
-                    dateFormat: 'dd/mm/yy',
-                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-                    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-                    nextText: 'Próximo',
-                    prevText: 'Anterior'
-                });
-                
+            $(document).ready(function(){        
                 $("#formTccWorkshop").validate({
                     rules:{
                         "tccWorkshop.data":{
+                            required:true
+                        },
+                        "tccWorkshop.hora":{
                             required:true
                         },
                         "tccWorkshop.tcclocais.id":{
@@ -45,23 +37,20 @@
                         },
                         "tccWorkshop.avaliador1":{
                             required: true
-                        },
-                        "tccWorkshop.avaliador2":{
-                            required: true
                         }
                     },
                     messages:{
                         "tccWorkshop.data":{
                             required: "Informe a data"
                         },
+                        "tccWorkshop.hora":{
+                            required: "Informe a hora"
+                        },
                         "tccWorkshop.tcclocais.id":{
                             required: "Selecione um local"
                         },
                         "tccWorkshop.avaliador1":{
                             required: "Selecione um avaliador1"
-                        },
-                        "tccWorkshop.avaliador2":{
-                            required: "Selecione um avaliador2"
                         }
                     }
                 });
@@ -136,8 +125,22 @@
             </p>
             <input type="hidden" name="tccWorkshop.tcctcc.id" value="${tccWorkshop.tcctcc.id}"/>
             <p>
-                <label for="data">Data*:</label>
-                <input name="tccWorkshop.data" type="text" id="data" value="<fmt:formatDate value="${tccWorkshop.data}" pattern="dd/MM/yyyy"/>"  class="data"> <br/>
+                <label for="data">Data*:</label><br/>
+                <select id="data" name="tccWorkshop.data" value="<fmt:formatDate value="${datasList}" pattern="dd/MM/yyyy"/>" style="width: 200px">
+                    <option value="" >Selecione uma Data</option>
+                    <c:forEach var="datasList" items="${datasWorkshop}">
+                        <option  value="<fmt:formatDate value="${datasList}" pattern="dd/MM/yyyy"/>" <c:if test = "${datasList == tccWorkshop.data}"> selected="true" </c:if> ><fmt:formatDate value="${datasList}" pattern="dd/MM/yyyy"/></option>
+                    </c:forEach>
+                </select>
+            </p>
+            <p>
+                <label for="hora">Hora*:</label><br/>
+                <select id="hora" name="tccWorkshop.hora" style="width: 150px">
+                    <option value="" >Selecione uma Hora</option>
+                    <c:forEach var="horasList" items="${horasWorkshop}">
+                        <option value="${horasList}" <c:if test = "${horasList == tccWorkshop.hora}"> selected="true" </c:if> >${horasList}</option>
+                    </c:forEach>
+                </select>
             </p>
             <p>
                 <label for="locais">Local*:</label><br/>
@@ -158,7 +161,7 @@
                 </select>
             </p>
             <p>
-                <label for="avaliador2">Segundo Avaliador*:</label><br/>
+                <label for="avaliador2">Segundo Avaliador:</label><br/>
                 <select id="avaliador2" name="tccWorkshop.avaliador2" value="${tccWorkshop.avaliador2}" style="width: 500px">
                     <option value="" >Selecione um Avaliador</option>
                     <c:forEach var="avaliadorList" items="${tccAvaliadores}">

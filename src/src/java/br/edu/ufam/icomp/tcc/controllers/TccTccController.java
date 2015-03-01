@@ -140,7 +140,14 @@ public class TccTccController {
     
     @Get("/tcctcc/create")
     public void create() {
-        Aluno aluno = alunoDAO.findByIdUsuario(sessionData.getUsuario().getId());
+        List<TccAtividade> atividades = tccAtividadeDAO.findByAnexo(sessionData.getLetivoAtual().getId());
+        
+        if (atividades.size() < 1) {
+            this.validator.add(new ValidationMessage("Desculpe! A Definição de TCC ainda não foi liberada para cadastro.", ""));
+        }
+
+        this.validator.onErrorRedirectTo(TccController.class).main();
+        
         List<Perfil> perfisEncontrar = new ArrayList<Perfil>();
         perfisEncontrar.add(Perfil.PROFESSOR);
         List<Professor> listProfessor = professorDAO.findByPerfisAndAtivo(perfisEncontrar, true);
@@ -149,7 +156,6 @@ public class TccTccController {
         
         this.result.include("operacao", "Cadastro");
         this.result.include("professorList", listProfessor);
-        this.result.include("aluno", aluno);
         this.result.include("temaList", listTema);
         this.result.include("idPeriodo", idPeriodo);
         this.result.include("podeSalvarTema", podeSalvarTema());
@@ -177,6 +183,7 @@ public class TccTccController {
     
     @Post("/tcctcc")
     public void cadastrar(TccTcc tccTcc, Boolean aproveitamento) {
+        Aluno aluno = alunoDAO.findByIdUsuario(sessionData.getUsuario().getId());
         List<TccAtividade> atividades = tccAtividadeDAO.findByAnexo(sessionData.getLetivoAtual().getId());
         
         if (tccTcc.getProfessor().getId() == null || tccTcc.getProfessor().getId() == null) {
@@ -186,12 +193,12 @@ public class TccTccController {
         
         if (aproveitamento == null) {aproveitamento = false;}
         tccTcc.setAproveitamento(aproveitamento);
-        
+        tccTcc.setAluno(aluno);
         this.tccTccDAO.create(tccTcc);
         
         TccSolicitacao tccSolicitacao = new TccSolicitacao();
         if (tccTcc.getAproveitamento()) {
-            tccSolicitacao.setAtividade(atividades.get(5));
+            tccSolicitacao.setAtividade(atividades.get(1));
         } else {
             tccSolicitacao.setAtividade(atividades.get(0));
         }
@@ -199,7 +206,9 @@ public class TccTccController {
         tccSolicitacao.setTccTcc(tccTcc);
         this.tccSolicitacaoDAO.create(tccSolicitacao);
         String email = sessionData.getUsuario().getEmail();
+        String emailProfessor = tccSolicitacao.getTccTcc().getProfessor().getUsuario().getEmail();
         this.notificador.enviarEmail(email, tccSolicitacao.getAtividade().getDescricao(), "[Sistema de Controle de TCC] Solicitação.");
+        this.notificador.enviarEmail(emailProfessor, tccSolicitacao.getAtividade().getDescricao(), "[Sistema de Controle de TCC] Solicitação.");
         
         this.result.include("success", "cadastrada");
         
@@ -208,9 +217,11 @@ public class TccTccController {
     
     @Put("/tcctcc")
     public void altera(TccTcc tccTcc, List<UploadedFile> anexos, String descricao, Boolean aproveitamento) {
+        Aluno aluno = alunoDAO.findByIdUsuario(sessionData.getUsuario().getId());
         TccTcc tcc1 = tccTccDAO.findById(tccTcc.getId());
         tccTcc.setSolicitacoes(tcc1.getSolicitacoes());
         tccTcc.setAproveitamento(aproveitamento);
+        tccTcc.setAluno(aluno);
         
         if (tccTcc.getProfessor().getId() == null) {
             validator.add(new ValidationMessage("Um professor deve ser selecionado", "tccTcc.professor.id"));
@@ -265,11 +276,12 @@ public class TccTccController {
                     tccAnexo.setNome(nomeAleatorio);
                     if (!(ultSolicitacao.getEstado().equals("Solicitado"))) {
                         TccSolicitacao tccSolicitacao = new TccSolicitacao();
-                        tccSolicitacao.setAtividade(atividades.get(tamanho));
+                        tccSolicitacao.setAtividade(atividades.get(1));
                         tccSolicitacao.setEstado("Solicitado");
                         tccSolicitacao.setTccTcc(tccTcc);
                         this.tccSolicitacaoDAO.create(tccSolicitacao);
                         this.notificador.enviarEmail(sessionData.getUsuario().getEmail(), tccSolicitacao.getAtividade().getDescricao(), "[Sistema de Controle de TCC] Solicitação.");
+                        this.notificador.enviarEmail(tccSolicitacao.getTccTcc().getProfessor().getUsuario().getEmail(), tccSolicitacao.getAtividade().getDescricao(), "[Sistema de Controle de TCC] Solicitação.");
                         tccAnexo.setTccSolicitacao(tccSolicitacao);
                     } else {
                         tccAnexo.setTccSolicitacao(ultSolicitacao);
@@ -281,7 +293,7 @@ public class TccTccController {
         }
                 
         this.tccTccDAO.update(tccTcc);
-
+        
         this.result.include("success", "alterada");
 
         this.result.redirectTo(TccController.class).main();
@@ -290,7 +302,7 @@ public class TccTccController {
     private Boolean podeSalvarTema() {
         List<TccAtividade> atividades = tccAtividadeDAO.findByAnexo(sessionData.getLetivoAtual().getId());
         TccAtividade actTema = atividades.get(0);
-        TccAtividade actAproveitamento = atividades.get(5);
+        TccAtividade actAproveitamento = atividades.get(1);
         Date data = new Date();
         Date limiteTema = actTema.getDatalimite();
         Date prorrogacaoTema = actTema.getDataprorrogacao();

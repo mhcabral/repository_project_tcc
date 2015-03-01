@@ -1,4 +1,8 @@
 /*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -20,16 +24,20 @@ import br.edu.ufam.icomp.projeto4.dao.CursoDAO;
 import br.edu.ufam.icomp.projeto4.dao.PeriodoLetivoDAO;
 import br.edu.ufam.icomp.projeto4.dao.ProfessorDAO;
 import br.edu.ufam.icomp.projeto4.dao.SecretariaDAO;
+import br.edu.ufam.icomp.projeto4.model.CoordenadorCurso;
 import br.edu.ufam.icomp.projeto4.model.PeriodoLetivo;
 import br.edu.ufam.icomp.projeto4.model.Professor;
 import br.edu.ufam.icomp.projeto4.model.Usuario;
+import br.edu.ufam.icomp.tcc.dao.TccAtividadeDAO;
 import br.edu.ufam.icomp.tcc.dao.TccNotasDAO;
 import br.edu.ufam.icomp.tcc.dao.TccTccDAO;
+import br.edu.ufam.icomp.tcc.model.TccAtividade;
 import br.edu.ufam.icomp.tcc.model.TccTcc;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,10 +56,10 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 /**
  *
- * @author Thiago Santos
+ * @author mhcabral
  */
 @Resource
-public class TccRelatorioNotasController {
+public class TccDeclaracaoController {
 
     private ServletContext context;
     private final SessionData sessionData;
@@ -66,10 +74,11 @@ public class TccRelatorioNotasController {
     private final PeriodoLetivoDAO periodoletivoDAO;
     private final TccTccDAO tcctccDAO;
     private final ProfessorDAO professorDAO;
+    private final TccAtividadeDAO tccatividadeDAO;
 
-    public TccRelatorioNotasController(ServletContext context, TccNotasDAO tccnotasDAO, SessionData sessionData, CursoDAO cursoDAO, AlunoDAO alunoDAO,
+    public TccDeclaracaoController(ServletContext context, TccNotasDAO tccnotasDAO, SessionData sessionData, CursoDAO cursoDAO, AlunoDAO alunoDAO,
             CoordenadorCursoDAO coordenadorCursoDAO, CoordenadorAcademicoDAO coordenadorAcademicoDAO, SecretariaDAO secretariaDAO, Result result, 
-            Validator validator, PeriodoLetivoDAO periodoletivoDAO, TccTccDAO tccTccDAO, ProfessorDAO professorDAO) {
+            Validator validator, PeriodoLetivoDAO periodoletivoDAO, TccTccDAO tccTccDAO, ProfessorDAO professorDAO, TccAtividadeDAO tccatividadeDAO) {
         this.context = context;
         this.tccnotasDAO = tccnotasDAO;
         this.sessionData = sessionData;
@@ -83,36 +92,45 @@ public class TccRelatorioNotasController {
         this.periodoletivoDAO = periodoletivoDAO;
         this.tcctccDAO = tccTccDAO;
         this.professorDAO = professorDAO;
+        this.tccatividadeDAO = tccatividadeDAO;
+    }
+    
+    @Get("/tccdeclaracao")
+    public void index() {
+        
+        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
+        
+        List<TccTcc> tcctccs = this.tcctccDAO.findByPeriodo(periodoAtual.getId());
+        
+        this.result.include("tcctccList", tcctccs);
     }
 
-    @Get("/tcc/relatorioNotas")
-    public Download tccRelatorioNotas() throws SQLException {
-       
-        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
-
+    @Get("/tccdeclaracao/{id}/declaracaoOrientador")
+    public Download tccDeclaracaoOrientador(Long id) throws SQLException {
+        CoordenadorCurso coordenadoCurso = this.coordenadorCursoDAO.findByCurso(1L);
+        TccTcc tcctcc = tcctccDAO.findById(id);
+        List<TccTcc> tcctccs = new ArrayList<TccTcc>();
+        tcctccs.add(tcctcc);
         
-        List<TccTcc> tccTccs = tcctccDAO.findByPeriodo(periodoAtual.getId());
-        //deixei tcctccDAO.findAll pq não tenho o tcctccDAO.findByPeriodo.
-        
-        if (tccTccs.isEmpty()) {
-            this.validator.add(new ValidationMessage("Desculpe! Não foi registrado nenhuma nota para o periodo " + periodoAtual.toString(), "."));
+        if (tcctccs.isEmpty()) {
+            this.validator.add(new ValidationMessage("Desculpe! Não foi registrado nenhum tcc para com o titulo"+ tcctcc.toString(),"."));
         }
 
         this.validator.onErrorRedirectTo(IndexController.class).index();
         
         try {
-            InputStream resourceAsStream = getClass().getResourceAsStream("/br/edu/ufam/icomp/tcc/jasper/reportnotas.jrxml");
+            InputStream resourceAsStream = getClass().getResourceAsStream("/br/edu/ufam/icomp/tcc/jasper/reportdeclaracao.jrxml");
 
             JasperReport report = JasperCompileManager.compileReport(resourceAsStream);
 
             Map parameters = new HashMap();
             parameters.put("imgUfam", context.getRealPath("/images/logo_ufam.png"));
             parameters.put("imgBrasao", context.getRealPath("/images/brasao.gif"));
+            parameters.put("pPeriodo", sessionData.getLetivoAtual().getCodigo());
+            parameters.put("pCoordenador", coordenadoCurso.getProfessor().getUsuario().getNome());
             
-            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(tccTccs));
-            //coloquei tcctcc mais tem que ser uma lista contendo o resultado das colunas a serem exibidas no relatorio
-            // exemplo: nome_do_aluno_de_usuario / tcctcc_titulo / tccnotas_nota1 / tccnotas_nota2 / tccnotas_nota3
-
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(tcctccs));
+           
             // exportacao do relatorio para outro formato, no caso PDF
 
             JRExporter exporter = new JRPdfExporter();
@@ -128,40 +146,86 @@ public class TccRelatorioNotasController {
             byte[] content = exported.toByteArray();
             InputStream inputStream = new ByteArrayInputStream(content);
 
-            return new InputStreamDownload(inputStream, "application/pdf", "RelatorioNotas.pdf");
+            return new InputStreamDownload(inputStream, "application/pdf", "DeclaracaoOrientador.pdf");
         } catch (JRException ex) {
-            Logger.getLogger(TccRelatorioNotasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TccRelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
     }
     
-    @Get("/tcc/formularioavaliacao")
-    public Download tccFormularioAvaliacao() throws SQLException {
+    @Get("/tccdeclaracao/{id}/declaracaoAvaliador1")
+    public Download tccDeclaracaoAvaliador1(Long id) throws SQLException {
+        CoordenadorCurso coordenadoCurso = this.coordenadorCursoDAO.findByCurso(1L);
+        TccTcc tcctcc = tcctccDAO.findById(id);
+        List<TccTcc> tcctccs = new ArrayList<TccTcc>();
+        tcctccs.add(tcctcc);
         
-        Usuario usuario = sessionData.getUsuario();
-        Professor professor = professorDAO.findByUsuario(usuario.getId());
-       
-        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
-        
-        List<TccTcc> tccTccs = tcctccDAO.findTccByProfessor(professor.getId(), periodoAtual.getId());
-        
-        if (tccTccs.isEmpty()) {
-            this.validator.add(new ValidationMessage("Desculpe! Não foi registrado nenhum workshop para o periodo " + periodoAtual.toString(), "."));
+        if (tcctccs.isEmpty()) {
+            this.validator.add(new ValidationMessage("Desculpe! Não foi registrado nenhum tcc para com o titulo"+ tcctcc.toString(),"."));
         }
 
         this.validator.onErrorRedirectTo(IndexController.class).index();
         
         try {
-            InputStream resourceAsStream = getClass().getResourceAsStream("/br/edu/ufam/icomp/tcc/jasper/tccAvaliacao.jrxml");
+            InputStream resourceAsStream = getClass().getResourceAsStream("/br/edu/ufam/icomp/tcc/jasper/reportdeclaracao1.jrxml");
 
             JasperReport report = JasperCompileManager.compileReport(resourceAsStream);
 
             Map parameters = new HashMap();
             parameters.put("imgUfam", context.getRealPath("/images/logo_ufam.png"));
             parameters.put("imgBrasao", context.getRealPath("/images/brasao.gif"));
+            parameters.put("pCoordenador", coordenadoCurso.getProfessor().getUsuario().getNome());
             
-            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(tccTccs));
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(tcctccs));
+
+            // exportacao do relatorio para outro formato, no caso PDF
+
+            JRExporter exporter = new JRPdfExporter();
+
+            ByteArrayOutputStream exported = new ByteArrayOutputStream();
+
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, exported);
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+
+            // Export the PDF file
+            exporter.exportReport();
+
+            byte[] content = exported.toByteArray();
+            InputStream inputStream = new ByteArrayInputStream(content);
+
+            return new InputStreamDownload(inputStream, "application/pdf", "DeclaracaoAvaliador1.pdf");
+        } catch (JRException ex) {
+            Logger.getLogger(TccRelatorioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+    
+    @Get("/tccdeclaracao/{id}/declaracaoAvaliador2")
+    public Download tccDeclaracaoAvaliador2(Long id) throws SQLException {
+        CoordenadorCurso coordenadoCurso = this.coordenadorCursoDAO.findByCurso(1L);
+        TccTcc tcctcc = tcctccDAO.findById(id);
+        List<TccTcc> tcctccs = new ArrayList<TccTcc>();
+        tcctccs.add(tcctcc);
+        
+        if (tcctccs.isEmpty()) {
+            this.validator.add(new ValidationMessage("Desculpe! Não foi registrado nenhum tcc para com o titulo"+ tcctcc.toString(),"."));
+        }
+
+        this.validator.onErrorRedirectTo(IndexController.class).index();
+        
+        try {
+            InputStream resourceAsStream = getClass().getResourceAsStream("/br/edu/ufam/icomp/tcc/jasper/reportdeclaracao2.jrxml");
+
+            JasperReport report = JasperCompileManager.compileReport(resourceAsStream);
+
+            Map parameters = new HashMap();
+            parameters.put("imgUfam", context.getRealPath("/images/logo_ufam.png"));
+            parameters.put("imgBrasao", context.getRealPath("/images/brasao.gif"));
+            parameters.put("pCoordenador", coordenadoCurso.getProfessor().getUsuario().getNome());
+            
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(tcctccs));
             //coloquei tcctcc mais tem que ser uma lista contendo o resultado das colunas a serem exibidas no relatorio
             // exemplo: nome_do_aluno_de_usuario / tcctcc_titulo / tccnotas_nota1 / tccnotas_nota2 / tccnotas_nota3
 
@@ -180,9 +244,9 @@ public class TccRelatorioNotasController {
             byte[] content = exported.toByteArray();
             InputStream inputStream = new ByteArrayInputStream(content);
 
-            return new InputStreamDownload(inputStream, "application/pdf", "RelatorioNotas.pdf");
+            return new InputStreamDownload(inputStream, "application/pdf", "DeclaracaoAvaliador2.pdf");
         } catch (JRException ex) {
-            Logger.getLogger(TccRelatorioNotasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TccRelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

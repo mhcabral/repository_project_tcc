@@ -31,11 +31,6 @@
                                         <span width="32" height="32" border="0" class="icon-32-edit"></span>Editar
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="javascript:remove()">
-                                        <span width="32" height="32" border="0" class="icon-32-delete"></span>Remover
-                                    </a>
-                                </li>
                                 <li class="button" id="toolbar-cancel">
                                     <a href="${pageContext.request.contextPath}/tccAtividade/0/index" id="back">
                                         <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
