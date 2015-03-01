@@ -69,29 +69,17 @@ public class TccAtividadeController {
     
     @Get("/tccAtividade/create")
     public void create() {
-        Calendar limite = Calendar.getInstance(Locale.US);
         PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
-        limite.setTime(periodoAtual.getDtInicio());
-        System.out.println("Data1: "+limite.getTime());
+        List<TccAtividade> tccAtividades = tccAtividadeDAO.findByPeriodo(periodoAtual.getId());
+        
+        if (tccAtividades.size() > 0) {
+            this.validator.add(new ValidationMessage("Desculpe! Já Existem Atividades Cadastradas.", ""));
+        }
+        this.validator.onErrorRedirectTo(TccAtividadeController.class).index(periodoAtual.getId());
+        
         tccAtividadeDAO.insertInPeriodo(periodoAtual);
         
-        
-        
         this.result.redirectTo(TccAtividadeController.class).index(periodoAtual.getId());
-        
-        /*
-        List<String> listResponsavel = new ArrayList();        
-        
-        listResponsavel.add("Aluno");
-        listResponsavel.add("Orientador");
-        listResponsavel.add("Coordenado");
-        listResponsavel.add("Aluno e Orientador");
-        listResponsavel.add("Todos");
-            
-        this.result.include("responsavelList", listResponsavel);
-        
-        this.result.include("operacao", "Cadastro");
-        */
     }
     
     @Get("/tccAtividade/{id}/edit")

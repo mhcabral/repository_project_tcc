@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-02-23T09:35:38 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportdeclaracao" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a104a953-6ac6-4d85-ae3d-d3f74acd0e27">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="imgUfam" class="java.lang.String"/>
+	<parameter name="imgBrasao" class="java.lang.String"/>
+	<field name="professor.usuario.nome" class="java.lang.String"/>
+	<field name="aluno.usuario.nome" class="java.lang.String"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="tccworkshop.data" class="java.lang.String"/>
+	<field name="tccworkshop.tcclocais.nome" class="java.lang.String"/>
+	<field name="tccworkshop.avaliador1" class="java.lang.String"/>
+	<field name="tccworkshop.avaliador2" class="java.lang.String"/>
+	<field name="aluno.curso.curso" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="482" y="0" width="73" height="79" uuid="6c3e1f0c-f798-45de-9a87-90203402170a"/>
+				<imageExpression><![CDATA[$P{imgUfam}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="164" y="20" width="212" height="20" uuid="5942a468-7bde-44ff-8a33-ba2a7945cc1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO DA EDUCAÇÃO]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="0" width="71" height="79" uuid="f32ca424-110d-4c31-b5de-7193b5f062aa"/>
+				<imageExpression><![CDATA[$P{imgBrasao}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="164" y="0" width="212" height="20" uuid="05d70158-b18e-466d-83ef-d29cdd6a4db6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Poder Executivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="40" width="286" height="20" uuid="76080065-d087-45ad-ae94-f8734d6bc988"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO AMAZONAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="127" y="0" width="286" height="35" uuid="028d3977-a515-4c56-99c6-2156235c99f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DECLARAÇÃO"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="323" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="108" width="423" height="20" uuid="37008bd0-2e34-4131-98d1-e71a3c57003d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Juntamente com os seguintes membros:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="128" width="229" height="20" uuid="bcb3e87d-c3af-4070-a6b4-e77ebf7f7e3c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{professor.usuario.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="148" width="227" height="20" uuid="ded104cf-36f3-44d4-96ab-377aba41c52d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tccworkshop.avaliador2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="202" width="75" height="20" uuid="f2ebf7e7-fb6d-4327-965c-4514a65ebbb6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MANAUS,"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="376" y="222" width="179" height="1" uuid="648ccb0c-d594-4ac9-8bed-f54b342ada37"/>
+			</line>
+			<line>
+				<reportElement x="127" y="302" width="286" height="1" uuid="74b2db40-cd1b-4383-a9c4-00cd71a52ce2"/>
+			</line>
+			<textField>
+				<reportElement x="127" y="303" width="121" height="20" uuid="956baede-3572-464a-95d5-33ae96379dd0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Coordenador de"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="303" width="165" height="20" uuid="ef8a02f9-1f37-4828-aa12-fcbb57a02be6"/>
+				<textFieldExpression><![CDATA[$F{aluno.curso.curso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="553" height="100" uuid="79b4bd58-c72c-4e58-8278-e8e3904effc5">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["          Declaramos para os devidos fins, que o (a) " + $F{tccworkshop.avaliador1} + ", atuou como Membro da Banca Examinadora do Projeto final de curso do aluno " + $F{aluno.usuario.nome} + ", sobre o tema: " + $F{titulo} + " na data " + $F{tccworkshop.data} + ", na sala " + $F{tccworkshop.tcclocais.nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

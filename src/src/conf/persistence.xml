@@ -32,14 +32,17 @@
     <class>br.edu.ufam.icomp.projeto4.model.HorarioTurma</class>
     <class>br.edu.ufam.icomp.tcc.model.TccTema</class>
     <class>br.edu.ufam.icomp.tcc.model.TccLocais</class>
-    <class>br.edu.ufam.icomp.tcc.model.TccTcc</class>
     <class>br.edu.ufam.icomp.tcc.model.TccAtividade</class>
-    <class>br.edu.ufam.icomp.tcc.model.TccSolicitacao</class>
     <class>br.edu.ufam.icomp.tcc.model.TccAvaliador</class>
+    <class>br.edu.ufam.icomp.tcc.model.TccNotas</class>
+    <class>br.edu.ufam.icomp.tcc.model.TccWorkshop</class>
+    <class>br.edu.ufam.icomp.tcc.model.TccSolicitacao</class>
+    <class>br.edu.ufam.icomp.tcc.model.TccTcc</class>
+    <class>br.edu.ufam.icomp.tcc.model.TccAnexo</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/extra_curricular"/>
-      <property name="javax.persistence.jdbc.password" value="postgres"/>
+      <property name="javax.persistence.jdbc.password" value="sys!c0mp"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>

@@ -307,8 +307,6 @@
                             <th>Professor</th>
                             <th>Área</th>
                             <th>Título</th>
-                            <th>Sigla</th>
-                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -318,8 +316,6 @@
                                 <td class="center">${tccTema.professor.usuario.nome}</td>
                                 <td class="center">${tccTema.area}</td>
                                 <td class="center" style="width: 30%">${tccTema.titulo}</td>
-                                <td class="center">${tccTema.sigla}</td>
-                                <td class="center">${tccTema.estado}</td>
                             </tr>
                         </c:forEach>                    
                     </tbody>
@@ -329,8 +325,6 @@
                             <th>Professor</th>
                             <th>Área</th>
                             <th>Título</th>
-                            <th>Sigla</th>
-                            <th>Estado</th>
                         </tr>
                     </tfoot>
                 </table>                        

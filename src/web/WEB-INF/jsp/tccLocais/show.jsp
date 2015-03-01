@@ -9,7 +9,7 @@
         function remove(){
             decisao = confirm("Deseja realmente remover esse local?");
             if (decisao){
-                document.location.href="${pageContext.request.contextPath}/tcclocal${tccTema.id}/remove";                                                              
+                document.location.href="${pageContext.request.contextPath}/tcclocais/${tccLocais.id}/remove";                                                              
             } else {
                 alert ("Nenhum local foi removido.");
             }                            

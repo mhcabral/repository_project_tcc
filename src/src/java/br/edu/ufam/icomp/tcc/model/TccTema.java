@@ -41,18 +41,8 @@ public class TccTema implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "estado")
-    private String estado;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "perfil")
     private String perfil;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = "sigla")
-    private String sigla;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -114,28 +104,12 @@ public class TccTema implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public String getPerfil() {
         return perfil;
     }
 
     public void setPerfil(String perfil) {
         this.perfil = perfil;
-    }
-
-    public String getSigla() {
-        return sigla;
-    }
-
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
     }
 
     public String getTitulo() {

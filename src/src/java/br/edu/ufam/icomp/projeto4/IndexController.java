@@ -35,14 +35,12 @@ public class IndexController {
         this.session = session;
         this.notificador = notificador;
     }
-        
-        
+    
     @Get("/")
     @Permission({ Perfil.ALUNO, Perfil.COORDENADOR, Perfil.PROFESSOR, Perfil.SECRETARIA, Perfil.ROOT, Perfil.COORDENADORACAD})
     public void index() {
         result.include("notificacaoList", notificador.getNotificacaoList());
     }		
-    
     
     /**
      *

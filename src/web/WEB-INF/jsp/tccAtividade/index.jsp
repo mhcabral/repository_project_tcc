@@ -270,7 +270,7 @@
                                     <ul>                                    
                                         <li class="button" id="toolbar-apply">
                                             <a href="${pageContext.request.contextPath}/tccAtividade/create" id="new">
-                                                <span width="32" height="32" border="0" class="icon-32-new"></span>Novo
+                                                <span width="32" height="32" border="0" class="icon-32-new"></span>Gerar
                                             </a>
                                         </li>
                                         <li class="button" id="toolbar-apply">
@@ -282,12 +282,7 @@
                                             <a href="javascript:radioHab('edit')">
                                                 <span width="32" height="32" border="0" class="icon-32-edit"></span>Editar
                                             </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:radioHab('remove')">
-                                                <span width="32" height="32" border="0" class="icon-32-delete"></span>Remover
-                                            </a>
-                                        </li>                                    
+                                        </li>                                   
                                         <li class="button" id="toolbar-cancel">
                                             <a href="${pageContext.request.contextPath}/tcc/index" id="back">
                                                 <span width="32" height="32" border="0" class="icon-32-back"></span>Voltar
@@ -301,11 +296,28 @@
                     </div>
                     <div class="pagetitle icon-48-article"><h2>Atividades de TCC</h2></div>
                 </div>
+                <div>
+                    <c:if test="${not empty errors}">
+                        <div class="ui-widget">
+                            <div class="ui-state-error ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                                <ul>
+                                    <c:forEach items="${errors}" var="error">
+                                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                                        <li style="color: #cd0a0a">${error.message}</li>
+                                        </c:forEach>        
+                                </ul>
+                            </div>
+                        </div>
+                    </c:if>
+                </div>
+            </div> <br>
+            
+           
             </div> <br>
             <p>
-                <h4>Filtrar por:</h4> <br>
+            <h4>Filtrar por:</h4> <br>
                 <div class="ui-widget">
-                    <label style="padding-left:80px" for="campo-periodo">Periodo:</label>
+                    <label for="campo-periodo">Periodo:</label>
                     <select id="campo-periodo" name="campo-periodo">
                         <c:forEach var="periodo" items="${periodoLetivoList}">
                             <option value="${periodo.id}" <c:if test = "${periodo.id == idPeriodo}"> selected="true" </c:if>>${periodo}</option>
@@ -313,6 +325,7 @@
                     </select>
                 </div>
             </p>
+            
 
             <div id="demo">
                 <form id="formTccAtividade">

@@ -45,7 +45,7 @@ public class TccLocaisController {
         TccLocais tccLocais = tccLocaisDAO.findById(id);
         
         if (tccLocais == null) {
-            this.validator.add(new ValidationMessage("Desculpe!O Local não foi encontrado.", "tccTema.id"));
+            this.validator.add(new ValidationMessage("Desculpe!O Local não foi encontrado.", "tccLocais.id"));
         }
         
         this.validator.onErrorRedirectTo(TccLocaisController.class).index();
@@ -64,7 +64,7 @@ public class TccLocaisController {
         TccLocais tccLocais = this.tccLocaisDAO.findById(id);
 
         if (tccLocais == null) {
-            this.validator.add(new ValidationMessage("Desculpe! O Tema não foi encontrado.", "tccTema.id"));
+            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccLocais.id"));
         }
 
         this.validator.onErrorRedirectTo(TccLocaisController.class).index();
@@ -77,7 +77,7 @@ public class TccLocaisController {
         TccLocais tccLocais = this.tccLocaisDAO.findById(id);
 
         if (tccLocais == null) {
-            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccTema.id"));
+            this.validator.add(new ValidationMessage("Desculpe! O Local não foi encontrado.", "tccLocais.id"));
         }
 
         this.validator.onErrorRedirectTo(TccLocaisController.class).index();

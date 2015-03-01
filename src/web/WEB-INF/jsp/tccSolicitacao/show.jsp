@@ -83,7 +83,7 @@
     <br/>
     <c:if test="${not empty tccSolicitacao.id}">
         <h4><p>Estado: ${tccSolicitacao.estado}</p></h4>
-        <h4><p>Tipo: ${tccSolicitacao.tipo}</p></h4>
+        <h4><p>Tipo: ${tccSolicitacao.atividade.descricao}</p></h4>
         <br/>
         <h4><p>Informações do Aluno</p></h4>
         <p>
@@ -112,11 +112,31 @@
         <p>
             <b>Anexos:</b>
         </p>
-        <ul>
-            <c:forEach items="${solicitacao.anexos}" var="anexo">
-                <li><a href="${pageContext.request.contextPath}/analise/download/${anexo}" target="_blank">${anexo}</a></li>                    
+        <table>
+            <thead>
+                <tr>
+                   <th>Data</th>
+                   <th>Nome</th>
+                   <th>Descrição</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                   <th>Data</th>
+                   <th>Nome</th>
+                   <th>Descrição</th>
+                </tr>
+            </tfoot>
+            <tbody>
+            <c:forEach items="${tccSolicitacao.anexos}" var="anexoList" >
+                <tr>
+                    <td>${anexoList.data}</td>
+                    <td><a href="${pageContext.request.contextPath}/tcctcc/download/${anexoList.nome}">${anexoList.nome}</a></td>
+                    <td>${anexoList.descricao}</td>
+                </tr>
             </c:forEach>
-        </ul>
+            </tbody>
+        </table>
         <form id="formSolicitacao" method="POST" action="${pageContext.request.contextPath}/tccsolicitacoes">
             <p>
                 <label for="campo-observacao">Observação:</label><img src="${pageContext.request.contextPath}/img/edit_lapis.png" width="16" height="16"><br/>
@@ -124,7 +144,7 @@
                 <input type="hidden" id="campo-id" name="tccSolicitacao.id" value="${tccSolicitacao.id}">
                 <input type="hidden" id="campo-estado" name="tccSolicitacao.estado" value="${tccSolicitacao.estado}">
                 <input type="hidden" id="campo-tcc" name="tccSolicitacao.tccTcc.id" value="${tccSolicitacao.tccTcc.id}">
-                <input type="hidden" id="campo-tipo" name="tccSolicitacao.tipo" value="${tccSolicitacao.tipo}">
+                <input type="hidden" id="campo-tipo" name="tccSolicitacao.atividade.id" value="${tccSolicitacao.atividade.id}">
             </p> 
         </form>
         
