@@ -154,6 +154,8 @@ public class TccTccController {
         List<TccTema> listTema = tccTemaDAO.findAll();
         Long idPeriodo = sessionData.getLetivoAtual().getId();
         
+        Boolean podeSalvarTema = !(dataTema == null);
+        
         this.result.include("operacao", "Cadastro");
         this.result.include("professorList", listProfessor);
         this.result.include("temaList", listTema);

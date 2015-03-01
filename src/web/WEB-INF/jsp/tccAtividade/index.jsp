@@ -313,6 +313,7 @@
             </div> <br>
             
            
+            </div> <br>
             <p>
             <h4>Filtrar por:</h4> <br>
                 <div class="ui-widget">

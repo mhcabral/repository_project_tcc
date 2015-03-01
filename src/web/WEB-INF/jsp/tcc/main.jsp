@@ -117,6 +117,14 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div class="icon-wrapper">
+                                    <div class="icon">
+                                        <a href="${pageContext.request.contextPath}/tccsolicitacoes">
+                                            <img src="${pageContext.request.contextPath}/css/images/header/icon-48-info.png" alt>
+                                            <span>Controla<br/>Solicitações</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </c:if>
                             <c:if test="${sessionData.usuario.perfil == 0}">
                                 <div class="icon-wrapper">

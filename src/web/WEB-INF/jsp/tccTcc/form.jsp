@@ -180,7 +180,6 @@
             </p>
             <p>
                 <label for="temas">Temas:</label><br/>
-                <select id="temas" <c:if test = "${not podeSalvarTema || tccTcc.aproveitamento == true}"> disabled="true" </c:if>>
                     <option value="" >Outro não listado</option>
                     <c:forEach var="temasl" items="${temaList}">
                         <option  value="${temasl.id}" >${temasl}</option>
@@ -207,6 +206,26 @@
                 </select><br/>
             </p>
             <p>
+                <select id="temas" <c:if test = "${not podeSalvarTema || tccTcc.aproveitamento == true}"> disabled="true" </c:if>>
+            <table id="temat" hidden>
+                <tr>
+                    <td> 0 </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                </tr>
+                <c:forEach items="${temaList}" var="temaTab">
+                    <tr>
+                        <td>${temaTab.id}</td>
+                        <td>${temaTab.descricao}</td>
+                        <td>${temaTab.titulo}</td>
+                        <td>${temaTab.professor.usuario.nome}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </form>
+    </body>
+</html>
             <c:if test="${operacao == 'Edição'}">
                 <label for="campo-arquivo">Anexos (PDF, PNG, JPG)*:</label>
                 
@@ -262,22 +281,3 @@
                     </c:if>
                 </c:forEach>
             </table>
-            <table id="temat" hidden>
-                <tr>
-                    <td> 0 </td>
-                    <td>  </td>
-                    <td>  </td>
-                    <td>  </td>
-                </tr>
-                <c:forEach items="${temaList}" var="temaTab">
-                    <tr>
-                        <td>${temaTab.id}</td>
-                        <td>${temaTab.descricao}</td>
-                        <td>${temaTab.titulo}</td>
-                        <td>${temaTab.professor.usuario.nome}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </form>
-    </body>
-</html>
