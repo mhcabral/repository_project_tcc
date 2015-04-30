@@ -63,7 +63,7 @@ public class TccTemaController {
         listArea.add("Engenharia de Software");
         listArea.add("Informática na Educação");
         listArea.add("Inteligência Artificial");
-        listArea.add("Otimização, Algorítmos e Complexidade Computacional");
+        listArea.add("Otimização, Algoritmos e Complexidade Computacional");
         listArea.add("Redes de Computadores e Sistemas Duistribuídos");
         listArea.add("Sistemas Embarcados");
         listArea.add("Visão Computacional e Robótica");
@@ -82,11 +82,12 @@ public class TccTemaController {
 
         return tccTema;
     }
-    
+        
     @Get("/tcctemas/create")
     public void create() {
         List<Perfil> perfisEncontrar = new ArrayList<Perfil>();
         perfisEncontrar.add(Perfil.PROFESSOR);
+        perfisEncontrar.add(Perfil.COORDENADOR);
         List<Curso> cursos = cursoDAO.listAll();
         List<Professor> listProfessor = professorDAO.findByPerfisAndAtivo(perfisEncontrar, true);
         List<String> listArea = new ArrayList();
@@ -95,7 +96,8 @@ public class TccTemaController {
         listArea.add("Engenharia de Software");
         listArea.add("Informática na Educação");
         listArea.add("Inteligência Artificial");
-        listArea.add("Otimização, Algorítmos e Complexidade Computacional");
+        listArea.add("Otimização, Algoritmos e Complexidade Computacional");
+        listArea.add("Redes de Computadores e Sistemas distribuídos");
         listArea.add("Sistemas Embarcados");
         listArea.add("Visão Computacional e Robótica");
         listArea.add("Outra");

@@ -27,7 +27,7 @@ import javax.persistence.criteria.Root;
 public class Criteria {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("org.hibernate.padrao");
 
         EntityManager em = emf.createEntityManager();
 

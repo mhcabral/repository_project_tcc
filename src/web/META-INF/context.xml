@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" docBase="Projeto" path="/src">
-  <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="postgres" password="sys!c0mp" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/extra_curricular" username="postgres"/>
+<Context antiJARLocking="true" path="/src">
+  <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="postgres" password="Gama2k12" type="javax.sql.DataSource" url="jdbc:postgresql://192.168.16.3:5432/extra_curricular" username="postgres"/>
 </Context>

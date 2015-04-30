@@ -195,6 +195,8 @@ public class TccTccController {
         tccTcc.setAproveitamento(aproveitamento);
         tccTcc.setAluno(aluno);
         this.tccTccDAO.create(tccTcc);
+        tccTcc = this.tccTccDAO.findById(tccTcc.getId());
+        Professor professor = this.professorDAO.findById(tccTcc.getProfessor().getId());
         
         TccSolicitacao tccSolicitacao = new TccSolicitacao();
         if (tccTcc.getAproveitamento()) {
@@ -206,7 +208,7 @@ public class TccTccController {
         tccSolicitacao.setTccTcc(tccTcc);
         this.tccSolicitacaoDAO.create(tccSolicitacao);
         String email = sessionData.getUsuario().getEmail();
-        String emailProfessor = tccSolicitacao.getTccTcc().getProfessor().getUsuario().getEmail();
+        String emailProfessor = professor.getUsuario().getEmail();
         this.notificador.enviarEmail(email, tccSolicitacao.getAtividade().getDescricao(), "[Sistema de Controle de TCC] Solicitação.");
         this.notificador.enviarEmail(emailProfessor, tccSolicitacao.getAtividade().getDescricao(), "[Sistema de Controle de TCC] Solicitação.");
         

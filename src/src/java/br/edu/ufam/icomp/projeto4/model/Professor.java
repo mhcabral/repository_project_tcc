@@ -25,7 +25,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Professor.findByUsuario", query = "SELECT p FROM Professor p WHERE p.usuario.id = :pId"),
     @NamedQuery(name = "Professor.findById", query = "SELECT p FROM Professor p WHERE p.id = :pId"),
     @NamedQuery(name = "Professor.listProfessorNotIn", query = "SELECT p FROM Professor p WHERE p NOT IN (:professorList) AND p.usuario.ativo = :ativo AND p.usuario.role = :role"),
-    @NamedQuery(name = "Professor.findByPerfisAndAtivo", query = "SELECT p FROM Professor p WHERE p.usuario.role IN (:roles) AND p.usuario.ativo = :ativo"),
+    @NamedQuery(name = "Professor.findByPerfisAndAtivo", query = "SELECT p FROM Professor p WHERE p.usuario.role IN (:roles) AND p.usuario.ativo = :ativo ORDER BY p.usuario.nome"),
 })
 public class Professor implements Serializable {
 

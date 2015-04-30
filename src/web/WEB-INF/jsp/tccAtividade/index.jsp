@@ -101,6 +101,12 @@
                             alert('Você precisa selecionar uma atividade');
                         }
                     }
+                    
+                    function criarAtividades() {
+                        var periodo = document.getElementById('campo-periodo');
+                        
+                        document.location.href="${pageContext.request.contextPath}/tccAtividade/"+periodo.value + "/create";
+                    }
                 
                     function adjustVagas() {
                         var idPeriodo =$('#campo-periodo').val();
@@ -269,7 +275,7 @@
                                 <div class="icon">
                                     <ul>                                    
                                         <li class="button" id="toolbar-apply">
-                                            <a href="${pageContext.request.contextPath}/tccAtividade/create" id="new">
+                                            <a href="javascript:criarAtividades()">
                                                 <span width="32" height="32" border="0" class="icon-32-new"></span>Gerar
                                             </a>
                                         </li>
@@ -313,7 +319,6 @@
             </div> <br>
             
            
-            </div> <br>
             <p>
             <h4>Filtrar por:</h4> <br>
                 <div class="ui-widget">

@@ -7,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class TccSolicitacao implements Serializable{
     @ManyToOne
     @JoinColumn(name = "id_atividade")
     private TccAtividade atividade;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private TccTcc tccTcc;
     @Size(min = 1, max = 1024)
     @Column(name = "observacao")

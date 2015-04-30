@@ -53,33 +53,40 @@ public class TccAtividadeController {
 
     @Get("/tccAtividade/{idperiodo}/index")
     public void index(Long idperiodo) {
-        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
-        System.out.println("Periodo: "+idperiodo);
-        if (idperiodo > 0)
-            periodoAtual = periodoLetivoDAO.findById(idperiodo);
+        List<PeriodoLetivo> periodos = periodoLetivoDAO.findAll();
+        Long maiorPeriodo = 0L;
+        for(int i=0;i<periodos.size();i++) {
+            if (maiorPeriodo < periodos.get(i).getId()) {
+                maiorPeriodo = periodos.get(i).getId();
+            }
+        }
         
-        List<TccAtividade> tccAtividade = this.tccAtividadeDAO.findByPeriodo(periodoAtual.getId());
-        List<PeriodoLetivo> periodosLetivos = periodoLetivoDAO.listLetivoAnterior();
-        periodosLetivos.add(0, sessionData.getLetivoAtual());
+        if (idperiodo > 0) {
+            maiorPeriodo = idperiodo;
+        } else {
+            idperiodo = maiorPeriodo;
+        }
+        
+        List<TccAtividade> tccAtividade = this.tccAtividadeDAO.findByPeriodo(maiorPeriodo);
         
         this.result.include("tccAtividadeList", tccAtividade);
-        this.result.include("periodoLetivoList", periodosLetivos);
+        this.result.include("periodoLetivoList", periodos);
         this.result.include("idPeriodo", idperiodo);
     }
     
-    @Get("/tccAtividade/create")
-    public void create() {
-        PeriodoLetivo periodoAtual = sessionData.getLetivoAtual();
-        List<TccAtividade> tccAtividades = tccAtividadeDAO.findByPeriodo(periodoAtual.getId());
+    @Get("/tccAtividade/{id}/create")
+    public void create(Long id) {
+        List<TccAtividade> tccAtividades = tccAtividadeDAO.findByPeriodo(id);
         
         if (tccAtividades.size() > 0) {
             this.validator.add(new ValidationMessage("Desculpe! Já Existem Atividades Cadastradas.", ""));
         }
-        this.validator.onErrorRedirectTo(TccAtividadeController.class).index(periodoAtual.getId());
+        this.validator.onErrorRedirectTo(TccAtividadeController.class).index(id);
         
-        tccAtividadeDAO.insertInPeriodo(periodoAtual);
+        PeriodoLetivo periodo = this.periodoLetivoDAO.findById(id);
+        tccAtividadeDAO.insertInPeriodo(periodo);
         
-        this.result.redirectTo(TccAtividadeController.class).index(periodoAtual.getId());
+        this.result.redirectTo(TccAtividadeController.class).index(id);
     }
     
     @Get("/tccAtividade/{id}/edit")

@@ -23,7 +23,7 @@ public class CriadorDeEntityManagerFactory implements ComponentFactory<EntityMan
     
     @PostConstruct
     public void abre(){
-        //System.out.println("Abre EMF");
+        System.out.println("Abre EMF");
         this.emf = Persistence.createEntityManagerFactory("default");
     }
     
