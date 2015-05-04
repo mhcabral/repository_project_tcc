@@ -190,12 +190,12 @@
                 <br/>
             </p>
             <p>
-                <label for="titulo" >Título*:</label>
+                <label for="titulo" >Título*:</label> <br/>
                 <input type="text" id="titulo" name="tccTcc.titulo" value="${tccTcc.titulo}" size="100" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>/>
             </p>
             <p>
-                <label for="descricao">Descrição*:</label>
-                <input type="text" id="descricao" name="tccTcc.descricao" value="${tccTcc.descricao}" size="100" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>/>
+                <label for="descricao">Descrição*:</label> <br/>
+                <textarea cols="75" rows="5" id="descricao" name="tccTcc.descricao" value="${tccTcc.descricao}" size="100" <c:if test = "${not podeSalvarTema}"> disabled="true" </c:if>>${tccTcc.descricao}</textarea>
             </p>
             <p>
                 <label for="orientador">Orientador*:</label>
